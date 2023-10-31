@@ -1,0 +1,19 @@
+[package]
+name = "azure-storage-blob-client"
+version = "0.1.0"
+description = "Azure Blob Storage Client"
+edition = "2021"
+license = "MIT"
+authors = ["bcaswell@gmail.com"]
+keywords = ["azure", "blobs"]
+
+[dependencies]
+azure_core = {version="0.16", features=["tokio-fs"]}
+azure_storage = "0.16"
+azure_storage_blobs = "0.16"
+clap = {version="4.0", features=["derive", "env"]}
+env_logger = "0.10"
+futures = "0.3"
+log = "0.4"
+tokio = {version="1.0", features=["macros", "rt-multi-thread", "io-util", "io-std"]}
+uuid = { version = "1.0", features = ["v4", "serde"] }
