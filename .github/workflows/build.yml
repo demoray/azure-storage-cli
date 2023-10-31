@@ -11,6 +11,8 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  STORAGE_ACCOUNT: STORAGE_ACCOUNT_NAME
+  STORAGE_ACCESS_KEY: STORAGE_ACCESS_KEY
 
 jobs:
   build:
@@ -22,3 +24,4 @@ jobs:
     - run: cargo clippy --release --tests --locked --all-targets --all-features -- -D warnings
     - run: cargo build --release --locked
     - run: cargo test --release --locked
+    - run: cargo run --release --locked -- readme --check
