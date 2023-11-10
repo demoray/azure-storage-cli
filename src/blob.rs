@@ -219,7 +219,7 @@ pub(crate) async fn blob_commands(
             path,
             condition_max_size,
             condition_append_position,
-            if_tags: _,
+            if_tags,
             lease_id,
         } => {
             let bytes = read(path).await?;
@@ -228,8 +228,7 @@ pub(crate) async fn blob_commands(
                 builder,
                 condition_max_size,
                 condition_append_position,
-                // re-add once https://github.com/Azure/azure-sdk-for-rust/pull/1453 is released
-                // if_tags,
+                if_tags,
                 lease_id
             );
             let response = builder.await?;
