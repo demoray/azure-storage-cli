@@ -9,9 +9,9 @@ keywords = ["azure", "blobs"]
 
 [dependencies]
 anyhow = "1.0.75"
-azure_core = {version="0.16", features=["tokio-fs"]}
-azure_storage = "0.16"
-azure_storage_blobs = "0.16"
+azure_core = {version="0.17", features=["tokio-fs"]}
+azure_storage = "0.17"
+azure_storage_blobs = "0.17"
 clap = {version="4.0", default-features=false, features=["std", "help", "usage", "error-context", "suggestions", "derive", "env"]}
 env_logger = "0.10"
 futures = "0.3"
