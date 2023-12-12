@@ -11,6 +11,7 @@ use crate::{
     container::{container_commands, ContainerSubCommands},
 };
 use anyhow::{ensure, Result};
+use azure_core::auth::Secret;
 use azure_storage::prelude::*;
 use azure_storage_blobs::prelude::*;
 use clap::{Command, CommandFactory, Parser, Subcommand};
@@ -33,7 +34,7 @@ struct Args {
     account: String,
     /// storage account access key
     #[clap(env = "STORAGE_ACCESS_KEY")]
-    access_key: String,
+    access_key: Secret,
 }
 
 #[allow(clippy::large_enum_variant)]
