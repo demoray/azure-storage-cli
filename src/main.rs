@@ -98,7 +98,7 @@ async fn main() -> Result<()> {
     env_logger::init();
     let args = Args::parse();
 
-    let storage_credentials = StorageCredentials::access_key(&args.account, &args.access_key);
+    let storage_credentials = StorageCredentials::access_key(&args.account, args.access_key);
     let service_client = BlobServiceClient::new(&args.account, storage_credentials);
 
     match args.subcommand {
