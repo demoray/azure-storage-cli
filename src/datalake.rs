@@ -1,5 +1,7 @@
-use crate::args;
-use crate::utils::{parse_key_val, to_properties};
+use crate::{
+    args,
+    utils::{parse_key_val, to_properties},
+};
 use azure_storage_datalake::clients::DataLakeClient;
 use clap::Subcommand;
 use futures::StreamExt;
