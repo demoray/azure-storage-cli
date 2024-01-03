@@ -18,6 +18,5 @@ cargo clippy ${BUILD_COMMON} --tests --all-targets --all-features -- -D warnings
 cargo fmt --check
 cargo build ${BUILD_COMMON}
 cargo test ${BUILD_COMMON}
-cargo run ${BUILD_COMMON} -- --account EMPTY readme --check
 cargo run ${BUILD_COMMON} -- --account EMPTY readme > README.md
 git diff --exit-code README.md
