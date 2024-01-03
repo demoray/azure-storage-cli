@@ -1,7 +1,7 @@
-# azure-storage-blob-client
+# azure-blob-storage-cli
 
 ```
-Usage: azure-storage-blob-client <ACCOUNT> <ACCESS_KEY> <COMMAND>
+Usage: azure-blob-storage-cli <ACCOUNT> <ACCESS_KEY> <COMMAND>
 
 Commands:
   account    Interact with the storage account
@@ -27,7 +27,7 @@ Options:
           Print version
 
 ```
-## azure-storage-blob-client account
+## azure-blob-storage-cli account
 
 ```
 Interact with the storage account
@@ -46,7 +46,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client account info
+### azure-blob-storage-cli account info
 
 ```
 Usage: info
@@ -59,7 +59,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client account list-containers
+### azure-blob-storage-cli account list-containers
 
 ```
 Usage: list-containers [OPTIONS]
@@ -84,7 +84,7 @@ Options:
           Print version
 
 ```
-## azure-storage-blob-client container
+## azure-blob-storage-cli container
 
 ```
 Interact with storage containers
@@ -108,7 +108,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client container create
+### azure-blob-storage-cli container create
 
 ```
 Usage: create [OPTIONS]
@@ -127,7 +127,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client container delete
+### azure-blob-storage-cli container delete
 
 ```
 Usage: delete [OPTIONS]
@@ -143,7 +143,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client container list
+### azure-blob-storage-cli container list
 
 ```
 Usage: list [OPTIONS]
@@ -186,7 +186,7 @@ Options:
           Print version
 
 ```
-## azure-storage-blob-client blob
+## azure-blob-storage-cli blob
 
 ```
 Interact with a blob within a storage container
@@ -217,7 +217,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client blob get
+### azure-blob-storage-cli blob get
 
 ```
 Get the contents of a blob
@@ -245,7 +245,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client blob get-properties
+### azure-blob-storage-cli blob get-properties
 
 ```
 Usage: get-properties [OPTIONS]
@@ -264,7 +264,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client blob delete
+### azure-blob-storage-cli blob delete
 
 ```
 Usage: delete [OPTIONS]
@@ -286,7 +286,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client blob put-append-blob
+### azure-blob-storage-cli blob put-append-blob
 
 ```
 Create a new "append blob" with the contents of the specified file
@@ -319,7 +319,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client blob append-block
+### azure-blob-storage-cli blob append-block
 
 ```
 Append the contents of the specified file to an existing "append blob" blob
@@ -350,7 +350,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client blob create-block-blob
+### azure-blob-storage-cli blob create-block-blob
 
 ```
 Create a "block blob" with the contents of the specified file
@@ -402,7 +402,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client blob create-page-blob
+### azure-blob-storage-cli blob create-page-blob
 
 ```
 Create a "page blob" with the contents of the specified file
