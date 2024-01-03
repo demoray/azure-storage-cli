@@ -204,7 +204,7 @@ Options:
           Print version
 
 ```
-####### azs container <CONTAINER_NAME> blob <BLOB_NAME> get <DESTINATION>
+###### azs container <CONTAINER_NAME> blob <BLOB_NAME> get <DESTINATION>
 
 ```
 Get the contents of a blob
@@ -282,7 +282,7 @@ Options:
           Print version
 
 ```
-####### azs container <CONTAINER_NAME> blob <BLOB_NAME> append-block <PATH>
+###### azs container <CONTAINER_NAME> blob <BLOB_NAME> append-block <PATH>
 
 ```
 Append the contents of the specified file to an existing "append blob" blob
@@ -303,7 +303,7 @@ Options:
           Print version
 
 ```
-####### azs container <CONTAINER_NAME> blob <BLOB_NAME> create-block-blob <PATH>
+###### azs container <CONTAINER_NAME> blob <BLOB_NAME> create-block-blob <PATH>
 
 ```
 Create a "block blob" with the contents of the specified file
@@ -335,7 +335,7 @@ Options:
           Print version
 
 ```
-####### azs container <CONTAINER_NAME> blob <BLOB_NAME> create-page-blob <PATH>
+###### azs container <CONTAINER_NAME> blob <BLOB_NAME> create-page-blob <PATH>
 
 ```
 Create a "page blob" with the contents of the specified file
@@ -532,7 +532,7 @@ Options:
           Print version
 
 ```
-####### azs queues queue <QUEUE_NAME> pop-message <MESSAGE_ID> <POP_RECEIPT>
+###### azs queues queue <QUEUE_NAME> pop-message <MESSAGE_ID> <POP_RECEIPT>
 
 ```
 Pop a message from a storage queue
@@ -685,7 +685,7 @@ Options:
           Print version
 
 ```
-####### azs datalake file-system <NAME> directory <DIRECTORY_NAME> create
+###### azs datalake file-system <NAME> directory <DIRECTORY_NAME> create
 
 ```
 Usage: create [OPTIONS]
@@ -699,7 +699,7 @@ Options:
           Print version
 
 ```
-####### azs datalake file-system <NAME> directory <DIRECTORY_NAME> delete
+###### azs datalake file-system <NAME> directory <DIRECTORY_NAME> delete
 
 ```
 Usage: delete [OPTIONS]
@@ -713,7 +713,7 @@ Options:
           Print version
 
 ```
-####### azs datalake file-system <NAME> directory <DIRECTORY_NAME> list-paths
+###### azs datalake file-system <NAME> directory <DIRECTORY_NAME> list-paths
 
 ```
 Usage: list-paths [OPTIONS]
@@ -864,7 +864,7 @@ Options:
           Print version
 
 ```
-####### azs tables insert-or-merge <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
+###### azs tables insert-or-merge <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
 
 ```
 Usage: insert-or-merge <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
@@ -890,7 +890,7 @@ Options:
           Print version
 
 ```
-####### azs tables insert-or-replace <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
+###### azs tables insert-or-replace <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
 
 ```
 Usage: insert-or-replace <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
@@ -939,7 +939,7 @@ Options:
           Print version
 
 ```
-####### azs tables update-entity <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
+###### azs tables update-entity <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
 
 ```
 Usage: update-entity [OPTIONS] <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
@@ -968,7 +968,7 @@ Options:
           Print version
 
 ```
-####### azs tables merge-entity <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
+###### azs tables merge-entity <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
 
 ```
 Usage: merge-entity [OPTIONS] <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>

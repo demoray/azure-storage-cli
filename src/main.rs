@@ -31,7 +31,7 @@ use azure_storage_blobs::prelude::BlobServiceClient;
 use azure_storage_datalake::prelude::DataLakeClient;
 use azure_storage_queues::prelude::QueueServiceClient;
 use clap::{Command, CommandFactory, Parser, Subcommand};
-use std::sync::Arc;
+use std::{cmp::min, sync::Arc};
 use tokio::fs::read;
 
 #[derive(Parser)]
@@ -107,7 +107,9 @@ fn build_readme(cmd: &mut Command, mut names: Vec<String>) -> String {
 
     let name = names.join(" ");
 
-    for _ in 0..names.len() {
+    // once we're at 6 levels of nesting, don't nest anymore.  This is the max
+    // that shows up on crates.io and GitHub.
+    for _ in 0..(min(names.len(), 6)) {
         readme.push('#');
     }
 
