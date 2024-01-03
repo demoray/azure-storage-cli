@@ -12,6 +12,7 @@ mod macros;
 mod container;
 mod datalake;
 mod queue;
+mod tables;
 mod utils;
 
 use self::{
@@ -19,9 +20,11 @@ use self::{
     container::{container_commands, ContainerSubCommands},
     datalake::{datalake_commands, DatalakeSubCommands},
     queue::{queues_commands, QueuesSubCommands},
+    tables::{table_commands, TableSubCommands},
 };
 use anyhow::{ensure, Result};
 use azure_core::auth::Secret;
+use azure_data_tables::clients::TableServiceClient;
 use azure_identity::DefaultAzureCredential;
 use azure_storage::prelude::StorageCredentials;
 use azure_storage_blobs::prelude::BlobServiceClient;
@@ -77,12 +80,17 @@ enum SubCommands {
     /// Interact with storage datalakes
     Datalake {
         #[clap(subcommand)]
-        datalake: DatalakeSubCommands,
+        subcommand: DatalakeSubCommands,
     },
     #[command(hide = true)]
     Readme {
         #[clap(long)]
         check: bool,
+    },
+    /// Interact with data tables
+    Tables {
+        #[clap(subcommand)]
+        subcommand: TableSubCommands,
     },
 }
 
@@ -166,9 +174,13 @@ async fn main() -> Result<()> {
             let service_client = QueueServiceClient::new(&account, storage_credentials);
             queues_commands(&service_client, subcommand).await?;
         }
-        SubCommands::Datalake { datalake } => {
+        SubCommands::Datalake { subcommand } => {
             let service_client = DataLakeClient::new(&account, storage_credentials);
-            datalake_commands(&service_client, datalake).await?;
+            datalake_commands(&service_client, subcommand).await?;
+        }
+        SubCommands::Tables { subcommand } => {
+            let table_client = TableServiceClient::new(&account, storage_credentials);
+            table_commands(&table_client, subcommand).await?;
         }
     }
 
