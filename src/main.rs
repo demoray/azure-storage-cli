@@ -10,18 +10,21 @@ mod blob;
 #[macro_use]
 mod macros;
 mod container;
+mod queue;
 mod utils;
 
 use self::{
     account::{account_commands, AccountSubCommands},
     blob::{blob_commands, BlobSubCommands},
     container::{container_commands, ContainerSubCommands},
+    queue::{queue_commands, QueueSubCommands},
 };
 use anyhow::{ensure, Result};
 use azure_core::auth::Secret;
 use azure_identity::DefaultAzureCredential;
 use azure_storage::prelude::StorageCredentials;
 use azure_storage_blobs::prelude::BlobServiceClient;
+use azure_storage_queues::prelude::QueueServiceClient;
 use clap::{Command, CommandFactory, Parser, Subcommand};
 use std::sync::Arc;
 use tokio::fs::read;
@@ -76,6 +79,10 @@ enum SubCommands {
         /// blob name
         blob_name: String,
     },
+    Queue {
+        #[clap(subcommand)]
+        subcommand: QueueSubCommands,
+    },
     #[command(hide = true)]
     Readme {
         #[clap(long)]
@@ -97,7 +104,7 @@ fn build_readme(cmd: &mut Command, mut names: Vec<String>) -> String {
 
     readme.push_str(&format!(
         " {name}\n\n```\n{}\n```\n",
-        cmd.render_long_help()
+        cmd.render_long_help().to_string().replace("\n          \n\n", "\n")
     ));
 
     for cmd in cmd.get_subcommands_mut() {
@@ -119,8 +126,6 @@ async fn main() -> Result<()> {
         None => StorageCredentials::token_credential(Arc::new(DefaultAzureCredential::default())),
     };
 
-    let service_client = BlobServiceClient::new(&args.account, storage_credentials);
-
     match args.subcommand {
         SubCommands::Readme { check } => {
             let mut cmd = Args::command();
@@ -139,12 +144,14 @@ async fn main() -> Result<()> {
             }
         }
         SubCommands::Account { subcommand } => {
+            let service_client = BlobServiceClient::new(&args.account, storage_credentials);
             account_commands(&service_client, subcommand).await?;
         }
         SubCommands::Container {
             subcommand,
             container_name,
         } => {
+            let service_client = BlobServiceClient::new(&args.account, storage_credentials);
             let container_client = service_client.container_client(container_name);
             container_commands(&container_client, subcommand).await?;
         }
@@ -153,10 +160,15 @@ async fn main() -> Result<()> {
             container_name,
             blob_name,
         } => {
+            let service_client = BlobServiceClient::new(&args.account, storage_credentials);
             let blob_client = service_client
                 .container_client(container_name)
                 .blob_client(blob_name);
             blob_commands(&blob_client, subcommand).await?;
+        }
+        SubCommands::Queue { subcommand } => {
+            let service_client = QueueServiceClient::new(&args.account, storage_credentials);
+            queue_commands(&service_client, subcommand).await?;
         }
     }
 
