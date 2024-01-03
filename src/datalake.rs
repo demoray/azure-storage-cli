@@ -25,11 +25,14 @@ pub enum DatalakeSubCommands {
 
 #[derive(Subcommand)]
 pub enum FileSystemSubCommands {
+    /// Create the specified filesystem
     Create {
         #[clap(long, value_name = "KEY=VALUE", value_parser = parse_key_val::<String, String>, action = clap::ArgAction::Append)]
         properties: Option<Vec<(String, String)>>,
     },
+    /// Create the specified filesystem
     Delete,
+    /// List paths in the specified file system
     ListPaths {
         #[clap(long)]
         recursive: Option<bool>,
@@ -40,6 +43,7 @@ pub enum FileSystemSubCommands {
         #[clap(long)]
         directory: Option<String>,
     },
+    /// Perform operations on the specified directory
     Directory {
         directory_name: String,
         #[clap(subcommand)]

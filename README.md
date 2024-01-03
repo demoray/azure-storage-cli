@@ -7,9 +7,9 @@ Usage: azs [OPTIONS] --account <ACCOUNT> <COMMAND>
 
 Commands:
   account    Interact with the storage account
-  container  Interact with storage containers
-  queues     
-  datalake   
+  container  Interact with storage containers (and blobs)
+  queues     Interact with storage queues
+  datalake   Interact with storage datalakes
 
 Options:
       --account <ACCOUNT>
@@ -37,8 +37,8 @@ Interact with the storage account
 Usage: account <COMMAND>
 
 Commands:
-  info             
-  list-containers  
+  info             Get information about the storage account
+  list-containers  List the storage containers in the account
 
 Options:
   -h, --help
@@ -51,6 +51,8 @@ Options:
 ### azs account info
 
 ```
+Get information about the storage account
+
 Usage: info
 
 Options:
@@ -64,6 +66,8 @@ Options:
 ### azs account list-containers
 
 ```
+List the storage containers in the account
+
 Usage: list-containers [OPTIONS]
 
 Options:
@@ -81,14 +85,14 @@ Options:
 ### azs container <CONTAINER_NAME>
 
 ```
-Interact with storage containers
+Interact with storage containers (and blobs)
 
 Usage: container <CONTAINER_NAME> <COMMAND>
 
 Commands:
-  create  
-  delete  
-  list    
+  create  Create a storage container
+  delete  Create a storage container
+  list    List blobs in a storage container
   blob    Interact with a blob within a storage container
 
 Arguments:
@@ -106,6 +110,8 @@ Options:
 #### azs container <CONTAINER_NAME> create
 
 ```
+Create a storage container
+
 Usage: create [OPTIONS]
 
 Options:
@@ -123,6 +129,8 @@ Options:
 #### azs container <CONTAINER_NAME> delete
 
 ```
+Create a storage container
+
 Usage: delete [OPTIONS]
 
 Options:
@@ -139,6 +147,8 @@ Options:
 #### azs container <CONTAINER_NAME> list
 
 ```
+List blobs in a storage container
+
 Usage: list [OPTIONS]
 
 Options:
@@ -174,8 +184,8 @@ Usage: blob <BLOB_NAME> <COMMAND>
 
 Commands:
   get                Get the contents of a blob
-  get-properties     
-  delete             
+  get-properties     Get properties of a blob
+  delete             Delete a blob
   put-append-blob    Create a new "append blob" with the contents of the specified file
   append-block       Append the contents of the specified file to an existing "append blob" blob
   create-block-blob  Create a "block blob" with the contents of the specified file
@@ -218,6 +228,8 @@ Options:
 ###### azs container <CONTAINER_NAME> blob <BLOB_NAME> get-properties
 
 ```
+Get properties of a blob
+
 Usage: get-properties [OPTIONS]
 
 Options:
@@ -233,6 +245,8 @@ Options:
 ###### azs container <CONTAINER_NAME> blob <BLOB_NAME> delete
 
 ```
+Delete a blob
+
 Usage: delete [OPTIONS]
 
 Options:
@@ -349,6 +363,8 @@ Options:
 ## azs queues
 
 ```
+Interact with storage queues
+
 Usage: queues <COMMAND>
 
 Commands:
@@ -540,6 +556,8 @@ Options:
 ## azs datalake
 
 ```
+Interact with storage datalakes
+
 Usage: datalake <COMMAND>
 
 Commands:
@@ -575,10 +593,10 @@ Options:
 Usage: file-system <NAME> <COMMAND>
 
 Commands:
-  create      
-  delete      
-  list-paths  
-  directory   
+  create      Create the specified filesystem
+  delete      Create the specified filesystem
+  list-paths  List paths in the specified file system
+  directory   Perform operations on the specified directory
 
 Arguments:
   <NAME>
@@ -593,6 +611,8 @@ Options:
 ##### azs datalake file-system <NAME> create
 
 ```
+Create the specified filesystem
+
 Usage: create [OPTIONS]
 
 Options:
@@ -607,6 +627,8 @@ Options:
 ##### azs datalake file-system <NAME> delete
 
 ```
+Create the specified filesystem
+
 Usage: delete
 
 Options:
@@ -620,6 +642,8 @@ Options:
 ##### azs datalake file-system <NAME> list-paths
 
 ```
+List paths in the specified file system
+
 Usage: list-paths [OPTIONS]
 
 Options:
@@ -641,6 +665,8 @@ Options:
 ###### azs datalake file-system <NAME> directory <DIRECTORY_NAME>
 
 ```
+Perform operations on the specified directory
+
 Usage: directory <DIRECTORY_NAME> <COMMAND>
 
 Commands:
