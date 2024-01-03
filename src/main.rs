@@ -114,7 +114,7 @@ async fn main() -> Result<()> {
                 .replace("azure-storage-cli", "azs")
                 .replacen(
                     "# azs",
-                    &format!("# azure storage cli\n\n{}", env!("CARGO_PKG_DESCRIPTION")),
+                    &format!("# Azure Storage CLI\n\n{}", env!("CARGO_PKG_DESCRIPTION")),
                     1,
                 );
             if check {

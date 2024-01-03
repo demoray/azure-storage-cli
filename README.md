@@ -1,6 +1,6 @@
-# azure storage cli
+# Azure Storage CLI
 
-Azure Storage Client is a CLI that enables interacting with Azure Storage services
+A CLI to interact with Azure Storage services
 
 ```
 Usage: azs <ACCOUNT> <ACCESS_KEY> <COMMAND>
