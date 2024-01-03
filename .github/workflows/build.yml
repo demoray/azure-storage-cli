@@ -14,9 +14,33 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - build: linux
+          os: ubuntu-latest
+          target: x86_64-unknown-linux-musl
+        - os: macos-latest
+          target: x86_64-apple-darwin
+        - build: win-msvc
+          os: windows-latest
+          target: x86_64-pc-windows-msvc
+    runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v4
     - uses: dtolnay/rust-toolchain@stable
+      with:
+        target: ${{ matrix.target }}
     - uses: Swatinem/rust-cache@v2
     - run: eng/build.sh
+    - uses: actions/upload-artifact@v2
+      if: matrix.os == 'windows-latest'
+      with:
+        name: ${{ matrix.build }}
+        path: target/${{ matrix.target }}/release/azs.exe
+    - uses: actions/upload-artifact@v2
+      if: matrix.os != 'windows-latest'
+      with:
+        name: ${{ matrix.build }}
+        path: target/${{ matrix.target }}/release/azs
