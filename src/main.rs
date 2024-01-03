@@ -28,7 +28,7 @@ use tokio::fs::read;
 )]
 struct Args {
     /// storage account name.  Set the environment variable STORAGE_ACCOUNT to set a default
-    #[clap(long, env = "STORAGE_ACCOUNT")]
+    #[clap(long, env = "STORAGE_ACCOUNT", hide_env_values = true)]
     account: String,
 
     #[command(subcommand)]

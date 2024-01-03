@@ -14,7 +14,7 @@ Options:
       --account <ACCOUNT>
           storage account name.  Set the environment variable STORAGE_ACCOUNT to set a default
           
-          [env: STORAGE_ACCOUNT=1]
+          [env: STORAGE_ACCOUNT]
 
       --use-default-credentials
           
