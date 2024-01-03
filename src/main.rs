@@ -112,7 +112,11 @@ async fn main() -> Result<()> {
             let mut cmd = Args::command();
             let readme = build_readme(&mut cmd, Vec::new())
                 .replace("azure-storage-cli", "azs")
-                .replacen("# azs", "# azure storage cli", 1);
+                .replacen(
+                    "# azs",
+                    &format!("# azure storage cli\n\n{}", env!("CARGO_PKG_DESCRIPTION")),
+                    1,
+                );
             if check {
                 let expected = read("README.md").await?;
                 ensure!(readme.as_bytes() == expected, "README.md is out of date");
