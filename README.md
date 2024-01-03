@@ -10,6 +10,7 @@ Commands:
   container  Interact with storage containers (and blobs)
   queues     Interact with storage queues
   datalake   Interact with storage datalakes
+  tables     Interact with data tables
 
 Options:
       --account <ACCOUNT>
@@ -726,6 +727,269 @@ Options:
           [possible values: true, false]
 
       --directory <DIRECTORY>
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+## azs tables
+
+```
+Interact with data tables
+
+Usage: tables <COMMAND>
+
+Commands:
+  list               List available tables
+  create             Create a new table
+  delete             Delete a table
+  query              Query a table
+  get                Get a specific row in the table
+  insert-or-merge    
+  insert-or-replace  
+  delete-entity      
+  update-entity      
+  merge-entity       
+
+Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+### azs tables list
+
+```
+List available tables
+
+Usage: list [OPTIONS]
+
+Options:
+      --filter <FILTER>
+      --select <SELECT>
+      --top <TOP>
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+#### azs tables create <TABLE_NAME>
+
+```
+Create a new table
+
+Usage: create <TABLE_NAME>
+
+Arguments:
+  <TABLE_NAME>
+          table name
+
+Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+#### azs tables delete <TABLE_NAME>
+
+```
+Delete a table
+
+Usage: delete <TABLE_NAME>
+
+Arguments:
+  <TABLE_NAME>
+          table name
+
+Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+#### azs tables query <TABLE_NAME>
+
+```
+Query a table
+
+Usage: query [OPTIONS] <TABLE_NAME>
+
+Arguments:
+  <TABLE_NAME>
+          table name
+
+Options:
+      --filter <FILTER>
+      --select <SELECT>
+      --top <TOP>
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+###### azs tables get <TABLE_NAME> <PARTITION_KEY> <ROW_KEY>
+
+```
+Get a specific row in the table
+
+Usage: get <TABLE_NAME> <PARTITION_KEY> <ROW_KEY>
+
+Arguments:
+  <TABLE_NAME>
+          table name
+
+  <PARTITION_KEY>
+          Partition Key
+
+  <ROW_KEY>
+          Row Key
+
+Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+####### azs tables insert-or-merge <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
+
+```
+Usage: insert-or-merge <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
+
+Arguments:
+  <TABLE_NAME>
+          table name
+
+  <PARTITION_KEY>
+          Partition Key
+
+  <ROW_KEY>
+          Row Key
+
+  <JSON_FILE>
+          JSON file containing the entity
+
+Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+####### azs tables insert-or-replace <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
+
+```
+Usage: insert-or-replace <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
+
+Arguments:
+  <TABLE_NAME>
+          table name
+
+  <PARTITION_KEY>
+          Partition Key
+
+  <ROW_KEY>
+          Row Key
+
+  <JSON_FILE>
+          JSON file containing the entity
+
+Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+###### azs tables delete-entity <TABLE_NAME> <PARTITION_KEY> <ROW_KEY>
+
+```
+Usage: delete-entity <TABLE_NAME> <PARTITION_KEY> <ROW_KEY>
+
+Arguments:
+  <TABLE_NAME>
+          table name
+
+  <PARTITION_KEY>
+          Partition Key
+
+  <ROW_KEY>
+          Row Key
+
+Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+####### azs tables update-entity <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
+
+```
+Usage: update-entity [OPTIONS] <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
+
+Arguments:
+  <TABLE_NAME>
+          table name
+
+  <PARTITION_KEY>
+          Partition Key
+
+  <ROW_KEY>
+          Row Key
+
+  <JSON_FILE>
+          JSON file containing the entity
+
+Options:
+      --if-match-condition <IF_MATCH_CONDITION>
+          ETag value
+
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+####### azs tables merge-entity <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
+
+```
+Usage: merge-entity [OPTIONS] <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
+
+Arguments:
+  <TABLE_NAME>
+          table name
+
+  <PARTITION_KEY>
+          Partition Key
+
+  <ROW_KEY>
+          Row Key
+
+  <JSON_FILE>
+          JSON file containing the entity
+
+Options:
+      --if-match-condition <IF_MATCH_CONDITION>
+          ETag value
+
   -h, --help
           Print help
 

@@ -100,10 +100,11 @@ checksum = "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa"
 
 [[package]]
 name = "azure-storage-cli"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "anyhow",
  "azure_core",
+ "azure_data_tables",
  "azure_identity",
  "azure_storage",
  "azure_storage_blobs",
@@ -113,6 +114,8 @@ dependencies = [
  "env_logger",
  "futures",
  "log",
+ "serde",
+ "serde_json",
  "tokio",
  "uuid",
 ]
@@ -145,6 +148,22 @@ dependencies = [
  "time",
  "tokio",
  "url",
+ "uuid",
+]
+
+[[package]]
+name = "azure_data_tables"
+version = "0.18.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "162044dc8cc8c8b51c23e763678965b3b53cf260482f06a4c8edf48c4893f91d"
+dependencies = [
+ "azure_core",
+ "azure_storage",
+ "bytes",
+ "futures",
+ "log",
+ "serde",
+ "time",
  "uuid",
 ]
 
