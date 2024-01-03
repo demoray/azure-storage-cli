@@ -1,5 +1,5 @@
 use crate::args;
-use azure_storage_blobs::prelude::*;
+use azure_storage_blobs::prelude::BlobServiceClient;
 use clap::Subcommand;
 use futures::StreamExt;
 use std::num::NonZeroU32;

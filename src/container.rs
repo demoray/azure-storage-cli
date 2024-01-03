@@ -2,7 +2,7 @@ use crate::{
     args,
     utils::{parse_key_val, to_metadata},
 };
-use azure_storage_blobs::prelude::*;
+use azure_storage_blobs::prelude::{ContainerClient, PublicAccess};
 use clap::Subcommand;
 use futures::StreamExt;
 use std::num::NonZeroU32;

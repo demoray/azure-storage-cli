@@ -1,5 +1,5 @@
 use azure_core::request_options::Metadata;
-use azure_storage_blobs::prelude::*;
+use azure_storage_blobs::prelude::Tags;
 use std::{error::Error, result::Result, str::FromStr};
 
 /// Parse a single key-value pair of `X=Y` into a typed tuple of `(X, Y)`.
