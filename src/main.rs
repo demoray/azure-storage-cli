@@ -92,7 +92,7 @@ fn build_readme(cmd: &mut Command, mut names: Vec<String>) -> String {
         }
         readme.push_str(&build_readme(cmd, names.clone()));
     }
-    readme.replace("azure-storage-cli", "azs")
+    readme
 }
 
 #[tokio::main]
@@ -110,7 +110,9 @@ async fn main() -> Result<()> {
                 remove_var(key);
             }
             let mut cmd = Args::command();
-            let readme = build_readme(&mut cmd, Vec::new());
+            let readme = build_readme(&mut cmd, Vec::new())
+                .replace("azure-storage-cli", "azs")
+                .replacen("# azs", "# azure storage cli", 1);
             if check {
                 let expected = read("README.md").await?;
                 ensure!(readme.as_bytes() == expected, "README.md is out of date");

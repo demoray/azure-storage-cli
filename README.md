@@ -1,4 +1,4 @@
-# azs
+# azure storage cli
 
 ```
 Usage: azs <ACCOUNT> <ACCESS_KEY> <COMMAND>
