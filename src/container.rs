@@ -1,6 +1,6 @@
 use crate::{
     args,
-    utils::{parse_key_val, to_metadata},
+    utils::{parse_key_val, to_metadata}, blob::{BlobSubCommands, blob_commands},
 };
 use azure_storage_blobs::prelude::{ContainerClient, PublicAccess};
 use clap::Subcommand;
@@ -47,6 +47,13 @@ pub enum ContainerSubCommands {
         include_tags: bool,
         #[clap(long)]
         include_versions: bool,
+    },
+    /// Interact with a blob within a storage container
+    Blob {
+        #[clap(subcommand)]
+        subcommand: BlobSubCommands,
+        /// blob name
+        blob_name: String,
     },
 }
 
@@ -100,6 +107,9 @@ pub async fn container_commands(
                     println!("{blob:#?}");
                 }
             }
+        }
+        ContainerSubCommands::Blob { subcommand, blob_name } => {
+            blob_commands(&container_client.blob_client(blob_name), subcommand).await?;
         }
     }
     Ok(())
