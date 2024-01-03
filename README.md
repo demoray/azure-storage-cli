@@ -15,12 +15,12 @@ Commands:
 Options:
       --account <ACCOUNT>
           storage account name.  Set the environment variable STORAGE_ACCOUNT to set a default
-          
+
           [env: STORAGE_ACCOUNT]
 
       --access-key <ACCESS_KEY>
           storage account access key.  If not set, authentication will be done via Azure Entra Id using the `DefaultAzureCredential` (see https://docs.rs/azure_identity/latest/azure_identity/struct.DefaultAzureCredential.html)
-          
+
           [env: STORAGE_ACCESS_KEY]
 
   -h, --help
@@ -380,7 +380,7 @@ Options:
 
       --time-format <TIME_FORMAT>
           Format used for the start and expiry times
-          
+
           [default: offset]
 
           Possible values:
@@ -429,7 +429,7 @@ Options:
 
       --time-format <TIME_FORMAT>
           Format used for the start and expiry times
-          
+
           [default: TimeFormat::Offset]
 
           Possible values:
@@ -469,9 +469,9 @@ Interact with storage queues
 Usage: queues <COMMAND>
 
 Commands:
-  get-properties  
-  list-queues     
-  queue           
+  get-properties
+  list-queues
+  queue
 
 Options:
   -h, --help
@@ -516,7 +516,7 @@ Options:
 Usage: queue <QUEUE_NAME> <COMMAND>
 
 Commands:
-  create         
+  create
   delete         Delete a Storage Queue
   put-message    Put a message onto the Storage Queue
   clear          Clear all messages on a storage queue
@@ -662,8 +662,8 @@ Interact with storage datalakes
 Usage: datalake <COMMAND>
 
 Commands:
-  list-file-systems  
-  file-system        
+  list-file-systems
+  file-system
 
 Options:
   -h, --help
@@ -771,9 +771,9 @@ Perform operations on the specified directory
 Usage: directory <DIRECTORY_NAME> <COMMAND>
 
 Commands:
-  create      
-  delete      
-  list-paths  
+  create
+  delete
+  list-paths
 
 Arguments:
   <DIRECTORY_NAME>
@@ -847,11 +847,11 @@ Commands:
   delete             Delete a table
   query              Query a table
   get                Get a specific row in the table
-  insert-or-merge    
-  insert-or-replace  
-  delete-entity      
-  update-entity      
-  merge-entity       
+  insert-or-merge
+  insert-or-replace
+  delete-entity
+  update-entity
+  merge-entity
 
 Options:
   -h, --help
