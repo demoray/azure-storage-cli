@@ -6,7 +6,9 @@ use std::num::NonZeroU32;
 
 #[derive(Subcommand)]
 pub enum AccountSubCommands {
+    /// Get information about the storage account
     Info,
+    /// List the storage containers in the account
     ListContainers {
         #[clap(long)]
         prefix: Option<String>,
