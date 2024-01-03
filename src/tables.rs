@@ -7,7 +7,7 @@ use serde_json::{ser::PrettyFormatter, Value};
 use std::{collections::HashMap, io::stdout, path::PathBuf};
 
 #[derive(Subcommand)]
-pub enum TablesSubCommands {
+pub enum TableSubCommands {
     /// List available tables
     List {
         #[clap(long)]
@@ -104,12 +104,12 @@ pub enum TablesSubCommands {
 }
 
 #[allow(clippy::too_many_lines)]
-pub async fn tables_commands(
+pub async fn table_commands(
     service_client: &TableServiceClient,
-    subcommand: TablesSubCommands,
+    subcommand: TableSubCommands,
 ) -> azure_core::Result<()> {
     match subcommand {
-        TablesSubCommands::List {
+        TableSubCommands::List {
             filter,
             select,
             top,
@@ -130,13 +130,13 @@ pub async fn tables_commands(
             }
             serializer.end()?;
         }
-        TablesSubCommands::Create { table_name } => {
+        TableSubCommands::Create { table_name } => {
             service_client.table_client(&table_name).create().await?;
         }
-        TablesSubCommands::Delete { table_name } => {
+        TableSubCommands::Delete { table_name } => {
             service_client.table_client(&table_name).create().await?;
         }
-        TablesSubCommands::Query {
+        TableSubCommands::Query {
             table_name,
             filter,
             select,
@@ -158,7 +158,7 @@ pub async fn tables_commands(
             }
             serializer.end()?;
         }
-        TablesSubCommands::Get {
+        TableSubCommands::Get {
             table_name,
             partition_key,
             row_key,
@@ -171,7 +171,7 @@ pub async fn tables_commands(
                 .await?;
             serde_json::to_writer_pretty(stdout(), &result.entity)?;
         }
-        TablesSubCommands::InsertOrMerge {
+        TableSubCommands::InsertOrMerge {
             table_name,
             partition_key,
             row_key,
@@ -186,7 +186,7 @@ pub async fn tables_commands(
                 .insert_or_merge(&entity)?
                 .await?;
         }
-        TablesSubCommands::InsertOrReplace {
+        TableSubCommands::InsertOrReplace {
             table_name,
             partition_key,
             row_key,
@@ -201,7 +201,7 @@ pub async fn tables_commands(
                 .insert_or_replace(&entity)?
                 .await?;
         }
-        TablesSubCommands::DeleteEntity {
+        TableSubCommands::DeleteEntity {
             table_name,
             partition_key,
             row_key,
@@ -213,7 +213,7 @@ pub async fn tables_commands(
                 .delete()
                 .await?;
         }
-        TablesSubCommands::UpdateEntity {
+        TableSubCommands::UpdateEntity {
             table_name,
             partition_key,
             row_key,
@@ -233,7 +233,7 @@ pub async fn tables_commands(
                 .update(entity, if_match_condition)?
                 .await?;
         }
-        TablesSubCommands::MergeEntity {
+        TableSubCommands::MergeEntity {
             table_name,
             partition_key,
             row_key,

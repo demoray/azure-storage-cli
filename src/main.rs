@@ -20,7 +20,7 @@ use self::{
     container::{container_commands, ContainerSubCommands},
     datalake::{datalake_commands, DatalakeSubCommands},
     queue::{queues_commands, QueuesSubCommands},
-    tables::{tables_commands, TablesSubCommands},
+    tables::{table_commands, TableSubCommands},
 };
 use anyhow::{ensure, Result};
 use azure_core::auth::Secret;
@@ -90,7 +90,7 @@ enum SubCommands {
     /// Interact with data tables
     Tables {
         #[clap(subcommand)]
-        subcommand: TablesSubCommands,
+        subcommand: TableSubCommands,
     },
 }
 
@@ -180,7 +180,7 @@ async fn main() -> Result<()> {
         }
         SubCommands::Tables { subcommand } => {
             let table_client = TableServiceClient::new(&account, storage_credentials);
-            tables_commands(&table_client, subcommand).await?;
+            table_commands(&table_client, subcommand).await?;
         }
     }
 
