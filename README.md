@@ -79,7 +79,7 @@ Options:
           Print version
 
 ```
-## azs container
+### azs container <CONTAINER_NAME>
 
 ```
 Interact with storage containers
@@ -104,7 +104,7 @@ Options:
           Print version
 
 ```
-### azs container create
+#### azs container <CONTAINER_NAME> create
 
 ```
 Usage: create [OPTIONS]
@@ -121,7 +121,7 @@ Options:
           Print version
 
 ```
-### azs container delete
+#### azs container <CONTAINER_NAME> delete
 
 ```
 Usage: delete [OPTIONS]
@@ -137,7 +137,7 @@ Options:
           Print version
 
 ```
-### azs container list
+#### azs container <CONTAINER_NAME> list
 
 ```
 Usage: list [OPTIONS]
@@ -166,7 +166,7 @@ Options:
           Print version
 
 ```
-### azs container blob
+##### azs container <CONTAINER_NAME> blob <BLOB_NAME>
 
 ```
 Interact with a blob within a storage container
@@ -194,7 +194,7 @@ Options:
           Print version
 
 ```
-#### azs container blob get
+####### azs container <CONTAINER_NAME> blob <BLOB_NAME> get <DESTINATION>
 
 ```
 Get the contents of a blob
@@ -216,7 +216,7 @@ Options:
           Print version
 
 ```
-#### azs container blob get-properties
+###### azs container <CONTAINER_NAME> blob <BLOB_NAME> get-properties
 
 ```
 Usage: get-properties [OPTIONS]
@@ -231,7 +231,7 @@ Options:
           Print version
 
 ```
-#### azs container blob delete
+###### azs container <CONTAINER_NAME> blob <BLOB_NAME> delete
 
 ```
 Usage: delete [OPTIONS]
@@ -247,7 +247,7 @@ Options:
           Print version
 
 ```
-#### azs container blob put-append-blob
+###### azs container <CONTAINER_NAME> blob <BLOB_NAME> put-append-blob
 
 ```
 Create a new "append blob" with the contents of the specified file
@@ -268,7 +268,7 @@ Options:
           Print version
 
 ```
-#### azs container blob append-block
+####### azs container <CONTAINER_NAME> blob <BLOB_NAME> append-block <PATH>
 
 ```
 Append the contents of the specified file to an existing "append blob" blob
@@ -289,7 +289,7 @@ Options:
           Print version
 
 ```
-#### azs container blob create-block-blob
+####### azs container <CONTAINER_NAME> blob <BLOB_NAME> create-block-blob <PATH>
 
 ```
 Create a "block blob" with the contents of the specified file
@@ -321,7 +321,7 @@ Options:
           Print version
 
 ```
-#### azs container blob create-page-blob
+####### azs container <CONTAINER_NAME> blob <BLOB_NAME> create-page-blob <PATH>
 
 ```
 Create a "page blob" with the contents of the specified file
@@ -394,7 +394,7 @@ Options:
           Print version
 
 ```
-### azs queues queue
+#### azs queues queue <QUEUE_NAME>
 
 ```
 Usage: queue <QUEUE_NAME> <COMMAND>
@@ -420,7 +420,7 @@ Options:
           Print version
 
 ```
-#### azs queues queue create
+##### azs queues queue <QUEUE_NAME> create
 
 ```
 Usage: create [OPTIONS]
@@ -434,7 +434,7 @@ Options:
           Print version
 
 ```
-#### azs queues queue delete
+##### azs queues queue <QUEUE_NAME> delete
 
 ```
 Delete a Storage Queue
@@ -449,7 +449,7 @@ Options:
           Print version
 
 ```
-#### azs queues queue put-message
+###### azs queues queue <QUEUE_NAME> put-message <MESSAGE>
 
 ```
 Put a message onto the Storage Queue
@@ -468,7 +468,7 @@ Options:
           Print version
 
 ```
-#### azs queues queue clear
+##### azs queues queue <QUEUE_NAME> clear
 
 ```
 Clear all messages on a storage queue
@@ -483,7 +483,7 @@ Options:
           Print version
 
 ```
-#### azs queues queue get-messages
+##### azs queues queue <QUEUE_NAME> get-messages
 
 ```
 Get messages from a storage queue
@@ -500,7 +500,7 @@ Options:
           Print version
 
 ```
-#### azs queues queue peek-messages
+##### azs queues queue <QUEUE_NAME> peek-messages
 
 ```
 Peek at available messages from a storage queue
@@ -516,7 +516,7 @@ Options:
           Print version
 
 ```
-#### azs queues queue pop-message
+####### azs queues queue <QUEUE_NAME> pop-message <MESSAGE_ID> <POP_RECEIPT>
 
 ```
 Pop a message from a storage queue
@@ -570,7 +570,7 @@ Options:
           Print version
 
 ```
-### azs datalake file-system
+#### azs datalake file-system <NAME>
 
 ```
 Usage: file-system <NAME> <COMMAND>
@@ -591,7 +591,7 @@ Options:
           Print version
 
 ```
-#### azs datalake file-system create
+##### azs datalake file-system <NAME> create
 
 ```
 Usage: create [OPTIONS]
@@ -605,7 +605,7 @@ Options:
           Print version
 
 ```
-#### azs datalake file-system delete
+##### azs datalake file-system <NAME> delete
 
 ```
 Usage: delete
@@ -618,7 +618,7 @@ Options:
           Print version
 
 ```
-#### azs datalake file-system list-paths
+##### azs datalake file-system <NAME> list-paths
 
 ```
 Usage: list-paths [OPTIONS]
@@ -639,7 +639,7 @@ Options:
           Print version
 
 ```
-#### azs datalake file-system directory
+###### azs datalake file-system <NAME> directory <DIRECTORY_NAME>
 
 ```
 Usage: directory <DIRECTORY_NAME> <COMMAND>
@@ -659,7 +659,7 @@ Options:
           Print version
 
 ```
-##### azs datalake file-system directory create
+####### azs datalake file-system <NAME> directory <DIRECTORY_NAME> create
 
 ```
 Usage: create [OPTIONS]
@@ -673,7 +673,7 @@ Options:
           Print version
 
 ```
-##### azs datalake file-system directory delete
+####### azs datalake file-system <NAME> directory <DIRECTORY_NAME> delete
 
 ```
 Usage: delete [OPTIONS]
@@ -687,7 +687,7 @@ Options:
           Print version
 
 ```
-##### azs datalake file-system directory list-paths
+####### azs datalake file-system <NAME> directory <DIRECTORY_NAME> list-paths
 
 ```
 Usage: list-paths [OPTIONS]

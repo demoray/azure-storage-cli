@@ -93,6 +93,11 @@ fn build_readme(cmd: &mut Command, mut names: Vec<String>) -> String {
 
     names.push(base_name);
 
+    // add positions to the display name if there are any
+    for positional in cmd.get_positionals() {
+        names.push(format!("<{}>", positional.get_id().as_str().to_uppercase()));
+    }
+
     let name = names.join(" ");
 
     for _ in 0..names.len() {
