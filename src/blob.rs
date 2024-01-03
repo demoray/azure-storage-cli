@@ -44,6 +44,7 @@ pub enum BlobSubCommands {
         /// Where should the contents of the file be written (otherwise, written to STDOUT)
         destination: Option<PathBuf>,
     },
+    /// Get properties of a blob
     GetProperties {
         // #[clap(long)]
         // snapshot_id: Option<String>,
@@ -58,6 +59,7 @@ pub enum BlobSubCommands {
         #[clap(long)]
         if_tags: Option<IfTags>,
     },
+    /// Delete a blob
     Delete {
         #[clap(long)]
         lease_id: Option<LeaseId>,

@@ -12,6 +12,7 @@ use uuid::Uuid;
 #[derive(Subcommand)]
 #[allow(clippy::large_enum_variant)]
 pub enum ContainerSubCommands {
+    /// Create a storage container
     Create {
         /// public access level
         #[clap(long)]
@@ -20,11 +21,13 @@ pub enum ContainerSubCommands {
         #[clap(long, value_name = "KEY=VALUE", value_parser = parse_key_val::<String, String>, action = clap::ArgAction::Append)]
         metadata: Option<Vec<(String, String)>>,
     },
+    /// Create a storage container
     Delete {
         /// lease id
         #[clap(long)]
         lease_id: Option<Uuid>,
     },
+    /// List blobs in a storage container
     List {
         /// only include blobs with the specified prefix
         #[clap(long)]

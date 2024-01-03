@@ -7,9 +7,9 @@ Usage: azs [OPTIONS] --account <ACCOUNT> <COMMAND>
 
 Commands:
   account    Interact with the storage account
-  container  Interact with storage containers
-  queues     
-  datalake   
+  container  Interact with storage containers (and blobs)
+  queues     Interact with storage queues
+  datalake   Interact with storage datalakes
 
 Options:
       --account <ACCOUNT>
@@ -82,7 +82,7 @@ Options:
 ### azs container <CONTAINER_NAME>
 
 ```
-Interact with storage containers
+Interact with storage containers (and blobs)
 
 Usage: container <CONTAINER_NAME> <COMMAND>
 
@@ -350,6 +350,8 @@ Options:
 ## azs queues
 
 ```
+Interact with storage queues
+
 Usage: queues <COMMAND>
 
 Commands:
@@ -541,6 +543,8 @@ Options:
 ## azs datalake
 
 ```
+Interact with storage datalakes
+
 Usage: datalake <COMMAND>
 
 Commands:

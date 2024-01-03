@@ -64,7 +64,7 @@ enum SubCommands {
         #[clap(subcommand)]
         subcommand: AccountSubCommands,
     },
-    /// Interact with storage containers
+    /// Interact with storage containers (and blobs)
     Container {
         #[clap(subcommand)]
         subcommand: ContainerSubCommands,
@@ -72,10 +72,12 @@ enum SubCommands {
         /// container name
         container_name: String,
     },
+    /// Interact with storage queues
     Queues {
         #[clap(subcommand)]
         subcommand: QueuesSubCommands,
     },
+    /// Interact with storage datalakes
     Datalake {
         #[clap(subcommand)]
         datalake: DatalakeSubCommands,
