@@ -1,3 +1,10 @@
+#![deny(clippy::unwrap_used)]
+#![deny(clippy::expect_used)]
+#![deny(clippy::panic)]
+#![deny(clippy::manual_assert)]
+#![deny(clippy::indexing_slicing)]
+#![allow(clippy::module_name_repetitions)]
+
 mod account;
 mod blob;
 #[macro_use]
@@ -13,8 +20,8 @@ use self::{
 use anyhow::{ensure, Result};
 use azure_core::auth::Secret;
 use azure_identity::DefaultAzureCredential;
-use azure_storage::prelude::*;
-use azure_storage_blobs::prelude::*;
+use azure_storage::prelude::StorageCredentials;
+use azure_storage_blobs::prelude::BlobServiceClient;
 use clap::{Command, CommandFactory, Parser, Subcommand};
 use std::sync::Arc;
 use tokio::fs::read;

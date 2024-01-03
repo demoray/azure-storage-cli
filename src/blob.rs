@@ -6,7 +6,10 @@ use azure_core::{
     request_options::{IfTags, LeaseId},
     tokio::fs::FileStreamBuilder,
 };
-use azure_storage_blobs::prelude::*;
+use azure_storage_blobs::prelude::{
+    AccessTier, BA512Range, BlobBlockType, BlobClient, BlobContentDisposition, BlobContentEncoding,
+    BlobContentLanguage, BlobContentType, BlockList, DeleteSnapshotsMethod,
+};
 use clap::Subcommand;
 use futures::StreamExt;
 use log::debug;
@@ -146,6 +149,7 @@ pub enum BlobSubCommands {
     },
 }
 
+#[allow(clippy::too_many_lines)]
 pub async fn blob_commands(
     blob_client: &BlobClient,
     subcommand: BlobSubCommands,
@@ -260,7 +264,7 @@ pub async fn blob_commands(
                 let mut block_list = BlockList::default();
 
                 for offset in (handle.offset..handle.stream_size).step_by(block_size as usize) {
-                    let block_id = format!("{:08X}", offset);
+                    let block_id = format!("{offset:08X}");
                     let mut builder = blob_client.put_block(block_id.clone(), &handle);
                     args!(builder, lease_id);
                     let response = builder.await?;
