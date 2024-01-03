@@ -8,7 +8,7 @@ authors = ["bcaswell@gmail.com"]
 keywords = ["azure", "blobs"]
 
 [dependencies]
-anyhow = "1.0.78"
+anyhow = "1.0.79"
 azure_core = {version="0.18", features=["tokio-fs"]}
 azure_storage = "0.18"
 azure_storage_blobs = "0.18"
