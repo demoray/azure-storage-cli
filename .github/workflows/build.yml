@@ -33,6 +33,10 @@ jobs:
       with:
         target: ${{ matrix.target }}
     - uses: Swatinem/rust-cache@v2
+    - name: Install packages (Ubuntu)
+      if: matrix.os == 'ubuntu-latest'
+      shell: bash
+      run: sudo apt-get install -y --no-install-recommends musl-tools
     - run: eng/build.sh ${{ matrix.target }}
       shell: bash
     - uses: actions/upload-artifact@v3.1.3
