@@ -1,5 +1,5 @@
 [package]
-name = "azure-storage-blob-client"
+name = "azure-blob-storage-cli"
 version = "0.1.0"
 description = "Azure Blob Storage Client"
 edition = "2021"
