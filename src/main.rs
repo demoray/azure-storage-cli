@@ -5,7 +5,7 @@ mod macros;
 mod container;
 mod utils;
 
-use crate::{
+use self::{
     account::{account_commands, AccountSubCommands},
     blob::{blob_commands, BlobSubCommands},
     container::{container_commands, ContainerSubCommands},
@@ -80,6 +80,7 @@ fn build_readme(cmd: &mut Command, mut names: Vec<String>) -> String {
     for _ in 0..names.len() {
         readme.push('#');
     }
+
     readme.push_str(&format!(
         " {name}\n\n```\n{}\n```\n",
         cmd.render_long_help()
@@ -91,7 +92,7 @@ fn build_readme(cmd: &mut Command, mut names: Vec<String>) -> String {
         }
         readme.push_str(&build_readme(cmd, names.clone()));
     }
-    readme
+    readme.replace("azure-storage-cli", "azs")
 }
 
 #[tokio::main]

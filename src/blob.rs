@@ -18,7 +18,7 @@ use tokio::{
 use uuid::Uuid;
 
 #[derive(Subcommand)]
-pub(crate) enum BlobSubCommands {
+pub enum BlobSubCommands {
     /// Get the contents of a blob
     Get {
         // #[clap(long)]
@@ -146,7 +146,7 @@ pub(crate) enum BlobSubCommands {
     },
 }
 
-pub(crate) async fn blob_commands(
+pub async fn blob_commands(
     blob_client: &BlobClient,
     subcommand: BlobSubCommands,
 ) -> azure_core::Result<()> {

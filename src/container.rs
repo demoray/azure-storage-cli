@@ -9,7 +9,7 @@ use std::num::NonZeroU32;
 use uuid::Uuid;
 
 #[derive(Subcommand)]
-pub(crate) enum ContainerSubCommands {
+pub enum ContainerSubCommands {
     Create {
         /// public access level
         #[clap(long)]
@@ -50,7 +50,7 @@ pub(crate) enum ContainerSubCommands {
     },
 }
 
-pub(crate) async fn container_commands(
+pub async fn container_commands(
     container_client: &ContainerClient,
     subcommand: ContainerSubCommands,
 ) -> azure_core::Result<()> {

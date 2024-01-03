@@ -1,7 +1,7 @@
-# azure-storage-blob-client
+# azs
 
 ```
-Usage: azure-storage-blob-client <ACCOUNT> <ACCESS_KEY> <COMMAND>
+Usage: azs <ACCOUNT> <ACCESS_KEY> <COMMAND>
 
 Commands:
   account    Interact with the storage account
@@ -27,7 +27,7 @@ Options:
           Print version
 
 ```
-## azure-storage-blob-client account
+## azs account
 
 ```
 Interact with the storage account
@@ -46,7 +46,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client account info
+### azs account info
 
 ```
 Usage: info
@@ -59,7 +59,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client account list-containers
+### azs account list-containers
 
 ```
 Usage: list-containers [OPTIONS]
@@ -84,7 +84,7 @@ Options:
           Print version
 
 ```
-## azure-storage-blob-client container
+## azs container
 
 ```
 Interact with storage containers
@@ -108,7 +108,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client container create
+### azs container create
 
 ```
 Usage: create [OPTIONS]
@@ -127,7 +127,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client container delete
+### azs container delete
 
 ```
 Usage: delete [OPTIONS]
@@ -143,7 +143,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client container list
+### azs container list
 
 ```
 Usage: list [OPTIONS]
@@ -186,7 +186,7 @@ Options:
           Print version
 
 ```
-## azure-storage-blob-client blob
+## azs blob
 
 ```
 Interact with a blob within a storage container
@@ -217,7 +217,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client blob get
+### azs blob get
 
 ```
 Get the contents of a blob
@@ -245,7 +245,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client blob get-properties
+### azs blob get-properties
 
 ```
 Usage: get-properties [OPTIONS]
@@ -264,7 +264,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client blob delete
+### azs blob delete
 
 ```
 Usage: delete [OPTIONS]
@@ -286,7 +286,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client blob put-append-blob
+### azs blob put-append-blob
 
 ```
 Create a new "append blob" with the contents of the specified file
@@ -319,7 +319,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client blob append-block
+### azs blob append-block
 
 ```
 Append the contents of the specified file to an existing "append blob" blob
@@ -350,7 +350,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client blob create-block-blob
+### azs blob create-block-blob
 
 ```
 Create a "block blob" with the contents of the specified file
@@ -402,7 +402,7 @@ Options:
           Print version
 
 ```
-### azure-storage-blob-client blob create-page-blob
+### azs blob create-page-blob
 
 ```
 Create a "page blob" with the contents of the specified file
