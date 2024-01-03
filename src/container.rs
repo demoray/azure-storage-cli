@@ -1,8 +1,9 @@
 use crate::{
     args,
     blob::{blob_commands, BlobSubCommands},
-    utils::{parse_key_val, to_metadata},
+    utils::{parse_key_val, parse_time, to_metadata, Protocol, TimeFormat},
 };
+use azure_storage::shared_access_signature::{service_sas::BlobSasPermissions, SasProtocol};
 use azure_storage_blobs::prelude::{ContainerClient, PublicAccess};
 use clap::Subcommand;
 use futures::StreamExt;
@@ -60,8 +61,54 @@ pub enum ContainerSubCommands {
         /// blob name
         blob_name: String,
     },
+    /// Generate a SAS URL for a storage container
+    GenerateSas {
+        /// Expiration
+        expiry: String,
+        /// Start time
+        #[clap(long)]
+        start: Option<String>,
+        /// Format used for the start and expiry times
+        #[clap(long, default_value = "TimeFormat::Offset")]
+        time_format: TimeFormat,
+
+        #[clap(long)]
+        ip: Option<String>,
+        #[clap(long)]
+        identifier: Option<String>,
+        #[clap(long)]
+        protocol: Option<Protocol>,
+
+        #[clap(long)]
+        read: bool,
+        #[clap(long)]
+        add: bool,
+        #[clap(long)]
+        create: bool,
+        #[clap(long)]
+        write: bool,
+        #[clap(long)]
+        delete: bool,
+        #[clap(long)]
+        delete_version: bool,
+        #[clap(long)]
+        list: bool,
+        #[clap(long)]
+        tags: bool,
+        #[clap(long, name = "move")]
+        move_: bool,
+        #[clap(long)]
+        execute: bool,
+        #[clap(long)]
+        ownership: bool,
+        #[clap(long)]
+        permissions: bool,
+        #[clap(long)]
+        permanent_delete: bool,
+    },
 }
 
+#[allow(clippy::too_many_lines)]
 pub async fn container_commands(
     container_client: &ContainerClient,
     subcommand: ContainerSubCommands,
@@ -118,6 +165,58 @@ pub async fn container_commands(
             blob_name,
         } => {
             blob_commands(&container_client.blob_client(blob_name), subcommand).await?;
+        }
+        ContainerSubCommands::GenerateSas {
+            expiry,
+            start,
+            time_format,
+            ip,
+            identifier,
+            protocol,
+            read,
+            add,
+            create,
+            write,
+            delete,
+            delete_version,
+            list,
+            tags,
+            move_,
+            execute,
+            ownership,
+            permissions,
+            permanent_delete,
+        } => {
+            let expiry = parse_time(&expiry, time_format)?;
+            let start = start.map(|s| parse_time(&s, time_format)).transpose()?;
+
+            let permissions = BlobSasPermissions {
+                read,
+                add,
+                create,
+                write,
+                delete,
+                delete_version,
+                permanent_delete,
+                list,
+                tags,
+                move_,
+                execute,
+                ownership,
+                permissions,
+            };
+            let mut builder = container_client
+                .shared_access_signature(permissions, expiry)
+                .await?;
+            let protocol = protocol.map(|p| match p {
+                Protocol::Https => SasProtocol::Https,
+                Protocol::HttpHttps => SasProtocol::HttpHttps,
+            });
+
+            args!(builder, ip, identifier, protocol, start);
+
+            let url = container_client.generate_signed_container_url(&builder)?;
+            println!("{url}");
         }
     }
     Ok(())
