@@ -1,4 +1,6 @@
-# azs
+# Azure Storage CLI
+
+A CLI to interact with Azure Storage services
 
 ```
 Usage: azs <ACCOUNT> <ACCESS_KEY> <COMMAND>

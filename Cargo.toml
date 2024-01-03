@@ -1,11 +1,13 @@
 [package]
 name = "azure-storage-cli"
 version = "0.1.0"
-description = "Azure Storage Client"
+description = "A CLI to interact with Azure Storage services"
 edition = "2021"
 license = "MIT"
 authors = ["bcaswell@gmail.com"]
+repository = "https://github.com/demoray/azure-storage-cli"
 keywords = ["azure", "blobs"]
+categories = ["command-line-utilities"]
 
 [dependencies]
 anyhow = "1.0.79"
