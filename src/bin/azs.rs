@@ -1,11 +1,4 @@
-mod account;
-mod blob;
-#[macro_use]
-mod macros;
-mod container;
-mod utils;
-
-use crate::{
+use azure_storage_cli::{
     account::{account_commands, AccountSubCommands},
     blob::{blob_commands, BlobSubCommands},
     container::{container_commands, ContainerSubCommands},
@@ -75,11 +68,18 @@ fn build_readme(cmd: &mut Command, mut names: Vec<String>) -> String {
 
     names.push(base_name);
 
+    for name in names.iter_mut() {
+        if *name == "azure-storage-cli" {
+            *name = "azs".to_owned();
+        }
+    }
+
     let name = names.join(" ");
 
     for _ in 0..names.len() {
         readme.push('#');
     }
+
     readme.push_str(&format!(
         " {name}\n\n```\n{}\n```\n",
         cmd.render_long_help()

@@ -5,7 +5,7 @@ use futures::StreamExt;
 use std::num::NonZeroU32;
 
 #[derive(Subcommand)]
-pub(crate) enum AccountSubCommands {
+pub enum AccountSubCommands {
     Info,
     ListContainers {
         #[clap(long)]
@@ -19,7 +19,7 @@ pub(crate) enum AccountSubCommands {
     },
 }
 
-pub(crate) async fn account_commands(
+pub async fn account_commands(
     service_client: &BlobServiceClient,
     subcommand: AccountSubCommands,
 ) -> azure_core::Result<()> {
