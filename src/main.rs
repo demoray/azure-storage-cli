@@ -46,9 +46,6 @@ struct Args {
     #[command(subcommand)]
     subcommand: SubCommands,
 
-    #[clap(long)]
-    use_default_credentials: bool,
-
     /// storage account access key.  If not set, authentication will be done via
     /// Azure Entra Id using the `DefaultAzureCredential`
     /// (see https://docs.rs/azure_identity/latest/azure_identity/struct.DefaultAzureCredential.html)
@@ -123,14 +120,18 @@ fn build_readme(cmd: &mut Command, mut names: Vec<String>) -> String {
 #[tokio::main]
 async fn main() -> Result<()> {
     env_logger::init();
-    let args = Args::parse();
+    let Args {
+        access_key,
+        account,
+        subcommand,
+    } = Args::parse();
 
-    let storage_credentials = match args.access_key {
-        Some(access_key) => StorageCredentials::access_key(&args.account, access_key),
+    let storage_credentials = match access_key {
+        Some(access_key) => StorageCredentials::access_key(&account, access_key),
         None => StorageCredentials::token_credential(Arc::new(DefaultAzureCredential::default())),
     };
 
-    match args.subcommand {
+    match subcommand {
         SubCommands::Readme { check } => {
             let mut cmd = Args::command();
             let readme = build_readme(&mut cmd, Vec::new())
@@ -148,23 +149,23 @@ async fn main() -> Result<()> {
             }
         }
         SubCommands::Account { subcommand } => {
-            let service_client = BlobServiceClient::new(&args.account, storage_credentials);
+            let service_client = BlobServiceClient::new(&account, storage_credentials);
             account_commands(&service_client, subcommand).await?;
         }
         SubCommands::Container {
             subcommand,
             container_name,
         } => {
-            let service_client = BlobServiceClient::new(&args.account, storage_credentials);
+            let service_client = BlobServiceClient::new(&account, storage_credentials);
             let container_client = service_client.container_client(container_name);
             container_commands(&container_client, subcommand).await?;
         }
         SubCommands::Queues { subcommand } => {
-            let service_client = QueueServiceClient::new(&args.account, storage_credentials);
+            let service_client = QueueServiceClient::new(&account, storage_credentials);
             queues_commands(&service_client, subcommand).await?;
         }
         SubCommands::Datalake { datalake } => {
-            let service_client = DataLakeClient::new(&args.account, storage_credentials);
+            let service_client = DataLakeClient::new(&account, storage_credentials);
             datalake_commands(&service_client, datalake).await?;
         }
     }
