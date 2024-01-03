@@ -22,7 +22,7 @@ use self::{
     queue::{queues_commands, QueuesSubCommands},
     tables::{table_commands, TableSubCommands},
 };
-use anyhow::{ensure, Result};
+use anyhow::Result;
 use azure_core::auth::Secret;
 use azure_data_tables::clients::TableServiceClient;
 use azure_identity::DefaultAzureCredential;
@@ -32,7 +32,6 @@ use azure_storage_datalake::prelude::DataLakeClient;
 use azure_storage_queues::prelude::QueueServiceClient;
 use clap::{Command, CommandFactory, Parser, Subcommand};
 use std::{cmp::min, sync::Arc};
-use tokio::fs::read;
 
 #[derive(Parser)]
 #[command(
@@ -82,16 +81,13 @@ enum SubCommands {
         #[clap(subcommand)]
         subcommand: DatalakeSubCommands,
     },
-    #[command(hide = true)]
-    Readme {
-        #[clap(long)]
-        check: bool,
-    },
     /// Interact with data tables
     Tables {
         #[clap(subcommand)]
         subcommand: TableSubCommands,
     },
+    #[command(hide = true)]
+    Readme,
 }
 
 fn build_readme(cmd: &mut Command, mut names: Vec<String>) -> String {
@@ -116,8 +112,6 @@ fn build_readme(cmd: &mut Command, mut names: Vec<String>) -> String {
     readme.push_str(&format!(
         " {name}\n\n```\n{}\n```\n",
         cmd.render_long_help()
-            .to_string()
-            .replace("\n          \n\n", "\n")
     ));
 
     for cmd in cmd.get_subcommands_mut() {
@@ -144,7 +138,7 @@ async fn main() -> Result<()> {
     };
 
     match subcommand {
-        SubCommands::Readme { check } => {
+        SubCommands::Readme => {
             let mut cmd = Args::command();
             let readme = build_readme(&mut cmd, Vec::new())
                 .replace("azure-storage-cli", "azs")
@@ -153,13 +147,13 @@ async fn main() -> Result<()> {
                     "# azs",
                     &format!("# Azure Storage CLI\n\n{}", env!("CARGO_PKG_DESCRIPTION")),
                     1,
-                );
-            if check {
-                let expected = read("README.md").await?;
-                ensure!(readme.as_bytes() == expected, "README.md is out of date");
-            } else {
-                print!("{readme}");
-            }
+                )
+                .lines()
+                .map(str::trim_end)
+                .collect::<Vec<_>>()
+                .join("\n")
+                .replace("\n\n\n", "\n");
+            print!("{readme}");
         }
         SubCommands::Account { subcommand } => {
             let service_client = BlobServiceClient::new(&account, storage_credentials);
