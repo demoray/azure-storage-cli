@@ -91,10 +91,11 @@ Interact with storage containers (and blobs)
 Usage: container <CONTAINER_NAME> <COMMAND>
 
 Commands:
-  create  Create a storage container
-  delete  Create a storage container
-  list    List blobs in a storage container
-  blob    Interact with a blob within a storage container
+  create        Create a storage container
+  delete        Create a storage container
+  list          List blobs in a storage container
+  blob          Interact with a blob within a storage container
+  generate-sas  Generate a SAS URL for a storage container
 
 Arguments:
   <CONTAINER_NAME>
@@ -191,6 +192,7 @@ Commands:
   append-block       Append the contents of the specified file to an existing "append blob" blob
   create-block-blob  Create a "block blob" with the contents of the specified file
   create-page-blob   Create a "page blob" with the contents of the specified file
+  generate-sas       Generate a SAS URL for the Blob
 
 Arguments:
   <BLOB_NAME>
@@ -356,6 +358,104 @@ Options:
       --upload-block-size <UPLOAD_BLOCK_SIZE>
   -h, --help
           Print help
+
+  -V, --version
+          Print version
+
+```
+###### azs container <CONTAINER_NAME> blob <BLOB_NAME> generate-sas <EXPIRY>
+
+```
+Generate a SAS URL for the Blob
+
+Usage: generate-sas [OPTIONS] <EXPIRY>
+
+Arguments:
+  <EXPIRY>
+          Expiration
+
+Options:
+      --start <START>
+          Start time
+
+      --time-format <TIME_FORMAT>
+          Format used for the start and expiry times
+          
+          [default: offset]
+
+          Possible values:
+          - rfc3339: Specific date and time, as described in <https://www.rfc-editor.org/rfc/rfc3339>. Examples include `1999-09-10T21:59:22Z` and `1999-09-10T03:05:07.3845533+01:00`
+          - offset:  Offset from `now`, as parsed by <https://docs.rs/parse_duration/latest/parse_duration/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
+
+      --ip <IP>
+      --identifier <IDENTIFIER>
+      --protocol <PROTOCOL>
+          [possible values: https, http-https]
+
+      --read
+      --add
+      --create
+      --write
+      --delete
+      --delete-version
+      --list
+      --tags
+      --move
+      --execute
+      --ownership
+      --permissions
+      --permanent-delete
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version
+
+```
+##### azs container <CONTAINER_NAME> generate-sas <EXPIRY>
+
+```
+Generate a SAS URL for a storage container
+
+Usage: generate-sas [OPTIONS] <EXPIRY>
+
+Arguments:
+  <EXPIRY>
+          Expiration
+
+Options:
+      --start <START>
+          Start time
+
+      --time-format <TIME_FORMAT>
+          Format used for the start and expiry times
+          
+          [default: TimeFormat::Offset]
+
+          Possible values:
+          - rfc3339: Specific date and time, as described in <https://www.rfc-editor.org/rfc/rfc3339>. Examples include `1999-09-10T21:59:22Z` and `1999-09-10T03:05:07.3845533+01:00`
+          - offset:  Offset from `now`, as parsed by <https://docs.rs/parse_duration/latest/parse_duration/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
+
+      --ip <IP>
+      --identifier <IDENTIFIER>
+      --protocol <PROTOCOL>
+          [possible values: https, http-https]
+
+      --read
+      --add
+      --create
+      --write
+      --delete
+      --delete-version
+      --list
+      --tags
+      --move
+      --execute
+      --ownership
+      --permissions
+      --permanent-delete
+  -h, --help
+          Print help (see a summary with '-h')
 
   -V, --version
           Print version
