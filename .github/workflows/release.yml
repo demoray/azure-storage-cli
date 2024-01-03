@@ -66,7 +66,7 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       shell: bash
       run: sudo apt-get install -y --no-install-recommends musl-tools
-    - run: eng/build.sh ${{ matrix.target }}
+    - run: eng/build.sh ${{ matrix.target }} release-lto
       shell: bash
     - name: Upload release archive
       if: matrix.os != 'windows-latest'
