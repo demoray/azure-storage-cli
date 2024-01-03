@@ -3,25 +3,27 @@
 A CLI to interact with Azure Storage services
 
 ```
-Usage: azs <ACCOUNT> <ACCESS_KEY> <COMMAND>
+Usage: azs [OPTIONS] --account <ACCOUNT> <COMMAND>
 
 Commands:
   account    Interact with the storage account
   container  Interact with storage containers
   blob       Interact with a blob within a storage container
 
-Arguments:
-  <ACCOUNT>
-          storage account name
-          
-          [env: STORAGE_ACCOUNT=]
-
-  <ACCESS_KEY>
-          storage account access key
-          
-          [env: STORAGE_ACCESS_KEY=]
-
 Options:
+      --account <ACCOUNT>
+          storage account name.  Set the environment variable STORAGE_ACCOUNT to set a default
+          
+          [env: STORAGE_ACCOUNT=1]
+
+      --use-default-credentials
+          
+
+      --access-key <ACCESS_KEY>
+          storage account access key.  If not set, authentication will be done via Azure Entra Id using the `DefaultAzureCredential` (see https://docs.rs/azure_identity/latest/azure_identity/struct.DefaultAzureCredential.html)
+          
+          [env: STORAGE_ACCESS_KEY]
+
   -h, --help
           Print help
 
