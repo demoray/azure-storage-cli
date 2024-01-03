@@ -380,7 +380,7 @@ Options:
 
       --time-format <TIME_FORMAT>
           Format used for the start and expiry times
-          
+
           [default: offset]
 
           Possible values:
@@ -429,7 +429,7 @@ Options:
 
       --time-format <TIME_FORMAT>
           Format used for the start and expiry times
-          
+
           [default: TimeFormat::Offset]
 
           Possible values:
