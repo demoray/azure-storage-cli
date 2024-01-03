@@ -3,6 +3,7 @@ use crate::{
     utils::{parse_key_val, round_up, to_metadata, to_tags},
 };
 use azure_core::{
+    error::{Error, ErrorKind},
     request_options::{IfTags, LeaseId},
     tokio::fs::FileStreamBuilder,
 };
@@ -265,7 +266,10 @@ pub async fn blob_commands(
             if let Some(block_size) = block_size {
                 let mut block_list = BlockList::default();
 
-                for offset in (handle.offset..handle.stream_size).step_by(block_size as usize) {
+                for offset in (handle.offset..handle.stream_size).step_by(
+                    usize::try_from(block_size)
+                        .map_err(|e| Error::new(ErrorKind::DataConversion, e))?,
+                ) {
                     let block_id = format!("{offset:08X}");
                     let mut builder = blob_client.put_block(block_id.clone(), &handle);
                     args!(builder, lease_id);
@@ -352,7 +356,12 @@ pub async fn blob_commands(
                 let mut buf = vec![];
                 let read_size = take_handle.read_to_end(&mut buf).await?;
                 let rounded_up = round_up(read_size as u64, 512);
-                buf.resize(rounded_up as usize, 0);
+
+                buf.resize(
+                    usize::try_from(rounded_up)
+                        .map_err(|e| Error::new(ErrorKind::DataConversion, e))?,
+                    0,
+                );
                 handle = take_handle.into_inner();
 
                 let ba512_range = BA512Range::new(start, start + rounded_up - 1)?;
