@@ -4,7 +4,7 @@ set -uvex -o pipefail
 
 cd $(dirname ${BASH_SOURCE[0]})/../
 
-which typos || cargo install typos
+which typos || cargo install typos-cli
 
 BUILD_COMMON="--locked --release"
 
