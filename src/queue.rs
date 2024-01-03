@@ -1,10 +1,11 @@
-use crate::args;
-use crate::utils::{parse_key_val, to_metadata};
-use azure_storage_queues::{PopReceipt, QueueServiceClient, QueueClient};
+use crate::{
+    args,
+    utils::{parse_key_val, to_metadata},
+};
+use azure_storage_queues::{PopReceipt, QueueClient, QueueServiceClient};
 use clap::Subcommand;
 use futures::StreamExt;
-use std::num::NonZeroU32;
-use std::time::Duration;
+use std::{num::NonZeroU32, time::Duration};
 
 #[derive(Subcommand)]
 pub enum QueuesSubCommands {
@@ -22,7 +23,7 @@ pub enum QueuesSubCommands {
         queue_name: String,
         #[clap(subcommand)]
         subcommand: IndividualQueueSubCommands,
-    }
+    },
 }
 
 pub async fn queues_commands(
@@ -64,7 +65,7 @@ pub async fn queues_commands(
 
 #[derive(Subcommand)]
 pub enum IndividualQueueSubCommands {
-     Create {
+    Create {
         #[clap(long, value_name = "KEY=VALUE", value_parser = parse_key_val::<String, String>, action = clap::ArgAction::Append)]
         metadata: Option<Vec<(String, String)>>,
     },
@@ -109,9 +110,7 @@ pub async fn individual_queue_commands(
     subcommand: IndividualQueueSubCommands,
 ) -> azure_core::Result<()> {
     match subcommand {
-        IndividualQueueSubCommands::Create {
-            metadata,
-        } => {
+        IndividualQueueSubCommands::Create { metadata } => {
             let mut builder = queue_client.create();
             let metadata = metadata.map(to_metadata);
             args!(builder, metadata);
@@ -135,8 +134,7 @@ pub async fn individual_queue_commands(
             println!("{result:#?}");
         }
         IndividualQueueSubCommands::Clear => {
-            let result = queue_client .clear_messages()
-                .await?;
+            let result = queue_client.clear_messages().await?;
             println!("{result:#?}");
         }
         IndividualQueueSubCommands::GetMessages {
@@ -154,14 +152,13 @@ pub async fn individual_queue_commands(
             pop_receipt,
         } => {
             let pop_receipt = PopReceipt::new(message_id, pop_receipt);
-            let result = queue_client.pop_receipt_client(pop_receipt)
+            let result = queue_client
+                .pop_receipt_client(pop_receipt)
                 .delete()
                 .await?;
             println!("{result:#?}");
         }
-        IndividualQueueSubCommands::PeekMessages {
-            number_of_messages,
-        } => {
+        IndividualQueueSubCommands::PeekMessages { number_of_messages } => {
             let mut builder = queue_client.peek_messages();
             args!(builder, number_of_messages);
             let result = builder.await?;
