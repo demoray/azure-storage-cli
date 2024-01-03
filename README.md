@@ -9,6 +9,7 @@ Commands:
   account    Interact with the storage account
   container  Interact with storage containers
   blob       Interact with a blob within a storage container
+  queue      
 
 Options:
       --account <ACCOUNT>
@@ -17,8 +18,6 @@ Options:
           [env: STORAGE_ACCOUNT]
 
       --use-default-credentials
-          
-
       --access-key <ACCESS_KEY>
           storage account access key.  If not set, authentication will be done via Azure Entra Id using the `DefaultAzureCredential` (see https://docs.rs/azure_identity/latest/azure_identity/struct.DefaultAzureCredential.html)
           
@@ -70,17 +69,9 @@ Usage: list-containers [OPTIONS]
 
 Options:
       --prefix <PREFIX>
-          
-
       --include-metadata
-          
-
       --include-deleted
-          
-
       --max-results <MAX_RESULTS>
-          
-
   -h, --help
           Print help
 
@@ -122,8 +113,6 @@ Options:
           public access level
 
       --metadata <KEY=VALUE>
-          
-
   -h, --help
           Print help
 
@@ -163,26 +152,12 @@ Options:
           max results to return
 
       --include-snapshots
-          
-
       --include-metadata
-          
-
       --include-uncommited-blobs
-          
-
       --include-copy
-          
-
       --include-deleted
-          
-
       --include-tags
-          
-
       --include-versions
-          
-
   -h, --help
           Print help
 
@@ -234,14 +209,8 @@ Arguments:
 
 Options:
       --lease-id <LEASE_ID>
-          
-
       --chunk-size <CHUNK_SIZE>
-          
-
       --if-tags <IF_TAGS>
-          
-
   -h, --help
           Print help
 
@@ -256,11 +225,7 @@ Usage: get-properties [OPTIONS]
 
 Options:
       --lease-id <LEASE_ID>
-          
-
       --if-tags <IF_TAGS>
-          
-
   -h, --help
           Print help
 
@@ -275,14 +240,8 @@ Usage: delete [OPTIONS]
 
 Options:
       --lease-id <LEASE_ID>
-          
-
       --if-tags <IF_TAGS>
-          
-
       --delete-snapshots-method <DELETE_SNAPSHOTS_METHOD>
-          
-
   -h, --help
           Print help
 
@@ -299,23 +258,11 @@ Usage: put-append-blob [OPTIONS]
 
 Options:
       --content-type <CONTENT_TYPE>
-          
-
       --content-encoding <CONTENT_ENCODING>
-          
-
       --content-language <CONTENT_LANGUAGE>
-          
-
       --content-disposition <CONTENT_DISPOSITION>
-          
-
       --tags <KEY=VALUE>
-          
-
       --metadata <KEY=VALUE>
-          
-
   -h, --help
           Print help
 
@@ -332,21 +279,11 @@ Usage: append-block [OPTIONS] <PATH>
 
 Arguments:
   <PATH>
-          
-
 Options:
       --condition-max-size <CONDITION_MAX_SIZE>
-          
-
       --condition-append-position <CONDITION_APPEND_POSITION>
-          
-
       --if-tags <IF_TAGS>
-          
-
       --lease-id <LEASE_ID>
-          
-
   -h, --help
           Print help
 
@@ -363,8 +300,6 @@ Usage: create-block-blob [OPTIONS] <PATH>
 
 Arguments:
   <PATH>
-          
-
 Options:
       --upload-block-size <UPLOAD_BLOCK_SIZE>
           Upload the file in blocks of this size
@@ -373,32 +308,14 @@ Options:
           How much to buffer in memory while uploading
 
       --content-type <CONTENT_TYPE>
-          
-
       --content-encoding <CONTENT_ENCODING>
-          
-
       --content-language <CONTENT_LANGUAGE>
-          
-
       --content-disposition <CONTENT_DISPOSITION>
-          
-
       --tags <KEY=VALUE>
-          
-
       --metadata <KEY=VALUE>
-          
-
       --if-tags <IF_TAGS>
-          
-
       --lease-id <LEASE_ID>
-          
-
       --access-tier <ACCESS_TIER>
-          
-
   -h, --help
           Print help
 
@@ -415,36 +332,215 @@ Usage: create-page-blob [OPTIONS] <PATH>
 
 Arguments:
   <PATH>
-          
-
 Options:
       --content-type <CONTENT_TYPE>
-          
-
       --content-encoding <CONTENT_ENCODING>
-          
-
       --content-language <CONTENT_LANGUAGE>
-          
-
       --content-disposition <CONTENT_DISPOSITION>
-          
-
       --tags <KEY=VALUE>
-          
-
       --metadata <KEY=VALUE>
-          
-
       --lease-id <LEASE_ID>
-          
-
       --sequence-number <SEQUENCE_NUMBER>
-          
-
       --upload-block-size <UPLOAD_BLOCK_SIZE>
-          
+  -h, --help
+          Print help
 
+  -V, --version
+          Print version
+
+```
+## azs queue
+
+```
+Usage: queue <COMMAND>
+
+Commands:
+  get-properties  
+  list-queues     
+  create          Create a Storage Queue
+  delete          Delete a Storage Queue
+  put-message     Put a message onto the Storage Queue
+  clear           Clear all messages on a storage queue
+  get-messages    Get messages from a storage queue
+  peek-messages   Peek at available messages from a storage queue
+  pop-message     Pop a message from a storage queue
+
+Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+### azs queue get-properties
+
+```
+Usage: get-properties
+
+Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+### azs queue list-queues
+
+```
+Usage: list-queues [OPTIONS]
+
+Options:
+      --prefix <PREFIX>
+      --include-metadata
+      --max-results <MAX_RESULTS>
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+### azs queue create
+
+```
+Create a Storage Queue
+
+Usage: create [OPTIONS] <QUEUE_NAME>
+
+Arguments:
+  <QUEUE_NAME>
+          Name of the queue
+
+Options:
+      --metadata <KEY=VALUE>
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+### azs queue delete
+
+```
+Delete a Storage Queue
+
+Usage: delete <QUEUE_NAME>
+
+Arguments:
+  <QUEUE_NAME>
+          Name of the queue
+
+Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+### azs queue put-message
+
+```
+Put a message onto the Storage Queue
+
+Usage: put-message [OPTIONS] <QUEUE_NAME> <MESSAGE>
+
+Arguments:
+  <QUEUE_NAME>
+          Name of the queue
+
+  <MESSAGE>
+Options:
+      --ttl <TTL>
+      --visibility-timeout <VISIBILITY_TIMEOUT>
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+### azs queue clear
+
+```
+Clear all messages on a storage queue
+
+Usage: clear <QUEUE_NAME>
+
+Arguments:
+  <QUEUE_NAME>
+          Name of the queue
+
+Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+### azs queue get-messages
+
+```
+Get messages from a storage queue
+
+Usage: get-messages [OPTIONS] <QUEUE_NAME>
+
+Arguments:
+  <QUEUE_NAME>
+          Name of the queue
+
+Options:
+      --number-of-messages <NUMBER_OF_MESSAGES>
+      --visibility-timeout <VISIBILITY_TIMEOUT>
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+### azs queue peek-messages
+
+```
+Peek at available messages from a storage queue
+
+Usage: peek-messages [OPTIONS] <QUEUE_NAME>
+
+Arguments:
+  <QUEUE_NAME>
+          Name of the queue
+
+Options:
+      --number-of-messages <NUMBER_OF_MESSAGES>
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+### azs queue pop-message
+
+```
+Pop a message from a storage queue
+
+Usage: pop-message <QUEUE_NAME> <MESSAGE_ID> <POP_RECEIPT>
+
+Arguments:
+  <QUEUE_NAME>
+          Name of the queue
+
+  <MESSAGE_ID>
+          Message ID for the message to be deleted (usually from the `GetMessages` response)
+
+  <POP_RECEIPT>
+          Pop Receipt the message to be deleted (usually from the `GetMessages` response)
+
+Options:
   -h, --help
           Print help
 

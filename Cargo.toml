@@ -1,6 +1,6 @@
 [package]
 name = "azure-storage-cli"
-version = "0.1.0"
+version = "0.2.0"
 description = "A CLI to interact with Azure Storage services"
 edition = "2021"
 license = "MIT"
@@ -15,6 +15,7 @@ azure_core = {version="0.18", features=["tokio-fs"]}
 azure_identity = "0.18.1"
 azure_storage = "0.18"
 azure_storage_blobs = "0.18"
+azure_storage_queues = "0.18"
 clap = {version="4.4", default-features=false, features=["std", "help", "usage", "error-context", "suggestions", "derive", "env"]}
 env_logger = "0.10"
 futures = "0.3"
