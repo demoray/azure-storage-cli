@@ -10,6 +10,7 @@ Commands:
   container  Interact with storage containers
   blob       Interact with a blob within a storage container
   queue      
+  datalake   
 
 Options:
       --account <ACCOUNT>
@@ -541,6 +542,176 @@ Arguments:
           Pop Receipt the message to be deleted (usually from the `GetMessages` response)
 
 Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+## azs datalake
+
+```
+Usage: datalake <COMMAND>
+
+Commands:
+  list-file-systems  
+  file-system        
+
+Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+### azs datalake list-file-systems
+
+```
+Usage: list-file-systems [OPTIONS]
+
+Options:
+      --prefix <PREFIX>
+      --max-results <MAX_RESULTS>
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+### azs datalake file-system
+
+```
+Usage: file-system <NAME> <COMMAND>
+
+Commands:
+  create      
+  delete      
+  list-paths  
+  directory   
+
+Arguments:
+  <NAME>
+Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+#### azs datalake file-system create
+
+```
+Usage: create [OPTIONS]
+
+Options:
+      --properties <KEY=VALUE>
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+#### azs datalake file-system delete
+
+```
+Usage: delete
+
+Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+#### azs datalake file-system list-paths
+
+```
+Usage: list-paths [OPTIONS]
+
+Options:
+      --recursive <RECURSIVE>
+          [possible values: true, false]
+
+      --max-results <MAX_RESULTS>
+      --upn <UPN>
+          [possible values: true, false]
+
+      --directory <DIRECTORY>
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+#### azs datalake file-system directory
+
+```
+Usage: directory <DIRECTORY_NAME> <COMMAND>
+
+Commands:
+  create      
+  delete      
+  list-paths  
+
+Arguments:
+  <DIRECTORY_NAME>
+Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+##### azs datalake file-system directory create
+
+```
+Usage: create [OPTIONS]
+
+Options:
+      --properties <KEY=VALUE>
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+##### azs datalake file-system directory delete
+
+```
+Usage: delete [OPTIONS]
+
+Options:
+      --recursive
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+##### azs datalake file-system directory list-paths
+
+```
+Usage: list-paths [OPTIONS]
+
+Options:
+      --recursive <RECURSIVE>
+          [possible values: true, false]
+
+      --max-results <MAX_RESULTS>
+      --upn <UPN>
+          [possible values: true, false]
+
+      --directory <DIRECTORY>
   -h, --help
           Print help
 

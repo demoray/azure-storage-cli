@@ -100,13 +100,14 @@ checksum = "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa"
 
 [[package]]
 name = "azure-storage-cli"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "anyhow",
  "azure_core",
  "azure_identity",
  "azure_storage",
  "azure_storage_blobs",
+ "azure_storage_datalake",
  "azure_storage_queues",
  "clap",
  "env_logger",
@@ -196,6 +197,26 @@ dependencies = [
  "azure_core",
  "azure_storage",
  "azure_svc_blobstorage",
+ "bytes",
+ "futures",
+ "log",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "time",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "azure_storage_datalake"
+version = "0.18.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dd2e2d88817876e1a29a143f638b2939850571ef0e34819ffc781d71ab1a0c9e"
+dependencies = [
+ "async-trait",
+ "azure_core",
+ "azure_storage",
  "bytes",
  "futures",
  "log",

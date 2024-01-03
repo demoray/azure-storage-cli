@@ -1,5 +1,6 @@
 use azure_core::request_options::Metadata;
 use azure_storage_blobs::prelude::Tags;
+use azure_storage_datalake::Properties;
 use std::{error::Error, result::Result, str::FromStr};
 
 /// Parse a single key-value pair of `X=Y` into a typed tuple of `(X, Y)`.
@@ -34,6 +35,14 @@ pub(crate) fn to_metadata(value: Vec<(String, String)>) -> Metadata {
         metadata.insert(key, value);
     }
     metadata
+}
+
+pub(crate) fn to_properties(value: Vec<(String, String)>) -> Properties {
+    let mut properties = Properties::new();
+    for (key, value) in value {
+        properties.insert(key, value);
+    }
+    properties
 }
 
 pub(crate) fn round_up(x: u64, y: u64) -> u64 {
