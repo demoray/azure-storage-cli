@@ -10,6 +10,7 @@ mod blob;
 #[macro_use]
 mod macros;
 mod container;
+mod datalake;
 mod queue;
 mod utils;
 
@@ -17,6 +18,7 @@ use self::{
     account::{account_commands, AccountSubCommands},
     blob::{blob_commands, BlobSubCommands},
     container::{container_commands, ContainerSubCommands},
+    datalake::{datalake_commands, DatalakeSubCommands},
     queue::{queue_commands, QueueSubCommands},
 };
 use anyhow::{ensure, Result};
@@ -24,6 +26,7 @@ use azure_core::auth::Secret;
 use azure_identity::DefaultAzureCredential;
 use azure_storage::prelude::StorageCredentials;
 use azure_storage_blobs::prelude::BlobServiceClient;
+use azure_storage_datalake::prelude::DataLakeClient;
 use azure_storage_queues::prelude::QueueServiceClient;
 use clap::{Command, CommandFactory, Parser, Subcommand};
 use std::sync::Arc;
@@ -83,6 +86,10 @@ enum SubCommands {
         #[clap(subcommand)]
         subcommand: QueueSubCommands,
     },
+    Datalake {
+        #[clap(subcommand)]
+        datalake: DatalakeSubCommands,
+    },
     #[command(hide = true)]
     Readme {
         #[clap(long)]
@@ -104,7 +111,9 @@ fn build_readme(cmd: &mut Command, mut names: Vec<String>) -> String {
 
     readme.push_str(&format!(
         " {name}\n\n```\n{}\n```\n",
-        cmd.render_long_help().to_string().replace("\n          \n\n", "\n")
+        cmd.render_long_help()
+            .to_string()
+            .replace("\n          \n\n", "\n")
     ));
 
     for cmd in cmd.get_subcommands_mut() {
@@ -169,6 +178,10 @@ async fn main() -> Result<()> {
         SubCommands::Queue { subcommand } => {
             let service_client = QueueServiceClient::new(&args.account, storage_credentials);
             queue_commands(&service_client, subcommand).await?;
+        }
+        SubCommands::Datalake { datalake } => {
+            let service_client = DataLakeClient::new(&args.account, storage_credentials);
+            datalake_commands(&service_client, datalake).await?;
         }
     }
 
