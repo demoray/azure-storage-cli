@@ -1,7 +1,7 @@
 [package]
 name = "azure-storage-cli"
 version = "0.1.0"
-description = "Azure Storage Client"
+description = "Azure Storage Client is a CLI that enables interacting with Azure Storage services"
 edition = "2021"
 license = "MIT"
 authors = ["bcaswell@gmail.com"]
