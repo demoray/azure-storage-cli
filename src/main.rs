@@ -16,10 +16,9 @@ mod utils;
 
 use self::{
     account::{account_commands, AccountSubCommands},
-    blob::{blob_commands, BlobSubCommands},
     container::{container_commands, ContainerSubCommands},
     datalake::{datalake_commands, DatalakeSubCommands},
-    queue::{queue_commands, QueueSubCommands},
+    queue::{queues_commands, QueuesSubCommands},
 };
 use anyhow::{ensure, Result};
 use azure_core::auth::Secret;
@@ -73,18 +72,9 @@ enum SubCommands {
         /// container name
         container_name: String,
     },
-    /// Interact with a blob within a storage container
-    Blob {
+    Queues {
         #[clap(subcommand)]
-        subcommand: BlobSubCommands,
-        /// container name
-        container_name: String,
-        /// blob name
-        blob_name: String,
-    },
-    Queue {
-        #[clap(subcommand)]
-        subcommand: QueueSubCommands,
+        subcommand: QueuesSubCommands,
     },
     Datalake {
         #[clap(subcommand)]
@@ -169,20 +159,9 @@ async fn main() -> Result<()> {
             let container_client = service_client.container_client(container_name);
             container_commands(&container_client, subcommand).await?;
         }
-        SubCommands::Blob {
-            subcommand,
-            container_name,
-            blob_name,
-        } => {
-            let service_client = BlobServiceClient::new(&args.account, storage_credentials);
-            let blob_client = service_client
-                .container_client(container_name)
-                .blob_client(blob_name);
-            blob_commands(&blob_client, subcommand).await?;
-        }
-        SubCommands::Queue { subcommand } => {
+        SubCommands::Queues { subcommand } => {
             let service_client = QueueServiceClient::new(&args.account, storage_credentials);
-            queue_commands(&service_client, subcommand).await?;
+            queues_commands(&service_client, subcommand).await?;
         }
         SubCommands::Datalake { datalake } => {
             let service_client = DataLakeClient::new(&args.account, storage_credentials);

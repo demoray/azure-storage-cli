@@ -1,5 +1,6 @@
 use crate::{
     args,
+    blob::{blob_commands, BlobSubCommands},
     utils::{parse_key_val, to_metadata},
 };
 use azure_storage_blobs::prelude::{ContainerClient, PublicAccess};
@@ -9,6 +10,7 @@ use std::num::NonZeroU32;
 use uuid::Uuid;
 
 #[derive(Subcommand)]
+#[allow(clippy::large_enum_variant)]
 pub enum ContainerSubCommands {
     Create {
         /// public access level
@@ -47,6 +49,13 @@ pub enum ContainerSubCommands {
         include_tags: bool,
         #[clap(long)]
         include_versions: bool,
+    },
+    /// Interact with a blob within a storage container
+    Blob {
+        #[clap(subcommand)]
+        subcommand: BlobSubCommands,
+        /// blob name
+        blob_name: String,
     },
 }
 
@@ -100,6 +109,12 @@ pub async fn container_commands(
                     println!("{blob:#?}");
                 }
             }
+        }
+        ContainerSubCommands::Blob {
+            subcommand,
+            blob_name,
+        } => {
+            blob_commands(&container_client.blob_client(blob_name), subcommand).await?;
         }
     }
     Ok(())

@@ -8,8 +8,7 @@ Usage: azs [OPTIONS] --account <ACCOUNT> <COMMAND>
 Commands:
   account    Interact with the storage account
   container  Interact with storage containers
-  blob       Interact with a blob within a storage container
-  queue      
+  queues     
   datalake   
 
 Options:
@@ -91,6 +90,7 @@ Commands:
   create  
   delete  
   list    
+  blob    Interact with a blob within a storage container
 
 Arguments:
   <CONTAINER_NAME>
@@ -166,12 +166,12 @@ Options:
           Print version
 
 ```
-#### azs blob <CONTAINER_NAME> <BLOB_NAME>
+##### azs container <CONTAINER_NAME> blob <BLOB_NAME>
 
 ```
 Interact with a blob within a storage container
 
-Usage: blob <CONTAINER_NAME> <BLOB_NAME> <COMMAND>
+Usage: blob <BLOB_NAME> <COMMAND>
 
 Commands:
   get                Get the contents of a blob
@@ -183,9 +183,6 @@ Commands:
   create-page-blob   Create a "page blob" with the contents of the specified file
 
 Arguments:
-  <CONTAINER_NAME>
-          container name
-
   <BLOB_NAME>
           blob name
 
@@ -197,7 +194,7 @@ Options:
           Print version
 
 ```
-###### azs blob <CONTAINER_NAME> <BLOB_NAME> get <DESTINATION>
+####### azs container <CONTAINER_NAME> blob <BLOB_NAME> get <DESTINATION>
 
 ```
 Get the contents of a blob
@@ -219,7 +216,7 @@ Options:
           Print version
 
 ```
-##### azs blob <CONTAINER_NAME> <BLOB_NAME> get-properties
+###### azs container <CONTAINER_NAME> blob <BLOB_NAME> get-properties
 
 ```
 Usage: get-properties [OPTIONS]
@@ -234,7 +231,7 @@ Options:
           Print version
 
 ```
-##### azs blob <CONTAINER_NAME> <BLOB_NAME> delete
+###### azs container <CONTAINER_NAME> blob <BLOB_NAME> delete
 
 ```
 Usage: delete [OPTIONS]
@@ -250,7 +247,7 @@ Options:
           Print version
 
 ```
-##### azs blob <CONTAINER_NAME> <BLOB_NAME> put-append-blob
+###### azs container <CONTAINER_NAME> blob <BLOB_NAME> put-append-blob
 
 ```
 Create a new "append blob" with the contents of the specified file
@@ -271,7 +268,7 @@ Options:
           Print version
 
 ```
-###### azs blob <CONTAINER_NAME> <BLOB_NAME> append-block <PATH>
+####### azs container <CONTAINER_NAME> blob <BLOB_NAME> append-block <PATH>
 
 ```
 Append the contents of the specified file to an existing "append blob" blob
@@ -292,7 +289,7 @@ Options:
           Print version
 
 ```
-###### azs blob <CONTAINER_NAME> <BLOB_NAME> create-block-blob <PATH>
+####### azs container <CONTAINER_NAME> blob <BLOB_NAME> create-block-blob <PATH>
 
 ```
 Create a "block blob" with the contents of the specified file
@@ -324,7 +321,7 @@ Options:
           Print version
 
 ```
-###### azs blob <CONTAINER_NAME> <BLOB_NAME> create-page-blob <PATH>
+####### azs container <CONTAINER_NAME> blob <BLOB_NAME> create-page-blob <PATH>
 
 ```
 Create a "page blob" with the contents of the specified file
@@ -350,21 +347,15 @@ Options:
           Print version
 
 ```
-## azs queue
+## azs queues
 
 ```
-Usage: queue <COMMAND>
+Usage: queues <COMMAND>
 
 Commands:
   get-properties  
   list-queues     
-  create          Create a Storage Queue
-  delete          Delete a Storage Queue
-  put-message     Put a message onto the Storage Queue
-  clear           Clear all messages on a storage queue
-  get-messages    Get messages from a storage queue
-  peek-messages   Peek at available messages from a storage queue
-  pop-message     Pop a message from a storage queue
+  queue           
 
 Options:
   -h, --help
@@ -374,7 +365,7 @@ Options:
           Print version
 
 ```
-### azs queue get-properties
+### azs queues get-properties
 
 ```
 Usage: get-properties
@@ -387,7 +378,7 @@ Options:
           Print version
 
 ```
-### azs queue list-queues
+### azs queues list-queues
 
 ```
 Usage: list-queues [OPTIONS]
@@ -403,16 +394,36 @@ Options:
           Print version
 
 ```
-#### azs queue create <QUEUE_NAME>
+#### azs queues queue <QUEUE_NAME>
 
 ```
-Create a Storage Queue
+Usage: queue <QUEUE_NAME> <COMMAND>
 
-Usage: create [OPTIONS] <QUEUE_NAME>
+Commands:
+  create         
+  delete         Delete a Storage Queue
+  put-message    Put a message onto the Storage Queue
+  clear          Clear all messages on a storage queue
+  get-messages   Get messages from a storage queue
+  peek-messages  Peek at available messages from a storage queue
+  pop-message    Pop a message from a storage queue
 
 Arguments:
   <QUEUE_NAME>
-          Name of the queue
+          queue name
+
+Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+##### azs queues queue <QUEUE_NAME> create
+
+```
+Usage: create [OPTIONS]
 
 Options:
       --metadata <KEY=VALUE>
@@ -423,16 +434,12 @@ Options:
           Print version
 
 ```
-#### azs queue delete <QUEUE_NAME>
+##### azs queues queue <QUEUE_NAME> delete
 
 ```
 Delete a Storage Queue
 
-Usage: delete <QUEUE_NAME>
-
-Arguments:
-  <QUEUE_NAME>
-          Name of the queue
+Usage: delete
 
 Options:
   -h, --help
@@ -442,17 +449,14 @@ Options:
           Print version
 
 ```
-##### azs queue put-message <QUEUE_NAME> <MESSAGE>
+###### azs queues queue <QUEUE_NAME> put-message <MESSAGE>
 
 ```
 Put a message onto the Storage Queue
 
-Usage: put-message [OPTIONS] <QUEUE_NAME> <MESSAGE>
+Usage: put-message [OPTIONS] <MESSAGE>
 
 Arguments:
-  <QUEUE_NAME>
-          Name of the queue
-
   <MESSAGE>
 Options:
       --ttl <TTL>
@@ -464,16 +468,12 @@ Options:
           Print version
 
 ```
-#### azs queue clear <QUEUE_NAME>
+##### azs queues queue <QUEUE_NAME> clear
 
 ```
 Clear all messages on a storage queue
 
-Usage: clear <QUEUE_NAME>
-
-Arguments:
-  <QUEUE_NAME>
-          Name of the queue
+Usage: clear
 
 Options:
   -h, --help
@@ -483,16 +483,12 @@ Options:
           Print version
 
 ```
-#### azs queue get-messages <QUEUE_NAME>
+##### azs queues queue <QUEUE_NAME> get-messages
 
 ```
 Get messages from a storage queue
 
-Usage: get-messages [OPTIONS] <QUEUE_NAME>
-
-Arguments:
-  <QUEUE_NAME>
-          Name of the queue
+Usage: get-messages [OPTIONS]
 
 Options:
       --number-of-messages <NUMBER_OF_MESSAGES>
@@ -504,16 +500,12 @@ Options:
           Print version
 
 ```
-#### azs queue peek-messages <QUEUE_NAME>
+##### azs queues queue <QUEUE_NAME> peek-messages
 
 ```
 Peek at available messages from a storage queue
 
-Usage: peek-messages [OPTIONS] <QUEUE_NAME>
-
-Arguments:
-  <QUEUE_NAME>
-          Name of the queue
+Usage: peek-messages [OPTIONS]
 
 Options:
       --number-of-messages <NUMBER_OF_MESSAGES>
@@ -524,17 +516,14 @@ Options:
           Print version
 
 ```
-###### azs queue pop-message <QUEUE_NAME> <MESSAGE_ID> <POP_RECEIPT>
+####### azs queues queue <QUEUE_NAME> pop-message <MESSAGE_ID> <POP_RECEIPT>
 
 ```
 Pop a message from a storage queue
 
-Usage: pop-message <QUEUE_NAME> <MESSAGE_ID> <POP_RECEIPT>
+Usage: pop-message <MESSAGE_ID> <POP_RECEIPT>
 
 Arguments:
-  <QUEUE_NAME>
-          Name of the queue
-
   <MESSAGE_ID>
           Message ID for the message to be deleted (usually from the `GetMessages` response)
 
