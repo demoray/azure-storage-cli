@@ -1,5 +1,5 @@
 use crate::args;
-use azure_data_tables::{clients::TableServiceClient, IfMatchCondition};
+use azure_data_tables::{clients::TableServiceClient, Filter, IfMatchCondition, Select};
 use clap::Subcommand;
 use futures::StreamExt;
 use serde::ser::{SerializeSeq, Serializer};
@@ -32,9 +32,9 @@ pub enum TableSubCommands {
         /// table name
         table_name: String,
         #[clap(long)]
-        filter: Option<String>,
+        filter: Option<Filter>,
         #[clap(long)]
-        select: Option<String>,
+        select: Option<Select>,
         #[clap(long)]
         top: Option<u32>,
     },
