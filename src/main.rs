@@ -148,6 +148,7 @@ async fn main() -> Result<()> {
             let mut cmd = Args::command();
             let readme = build_readme(&mut cmd, Vec::new())
                 .replace("azure-storage-cli", "azs")
+                .replace("azs.exe", "azs")
                 .replacen(
                     "# azs",
                     &format!("# Azure Storage CLI\n\n{}", env!("CARGO_PKG_DESCRIPTION")),
