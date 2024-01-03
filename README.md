@@ -919,7 +919,7 @@ Options:
 ###### azs tables delete-entity <TABLE_NAME> <PARTITION_KEY> <ROW_KEY>
 
 ```
-Usage: delete-entity <TABLE_NAME> <PARTITION_KEY> <ROW_KEY>
+Usage: delete-entity [OPTIONS] <TABLE_NAME> <PARTITION_KEY> <ROW_KEY>
 
 Arguments:
   <TABLE_NAME>
@@ -932,6 +932,9 @@ Arguments:
           Row Key
 
 Options:
+      --if-match-condition <IF_MATCH_CONDITION>
+          ETag value
+
   -h, --help
           Print help
 

@@ -74,6 +74,9 @@ pub enum TableSubCommands {
         partition_key: String,
         /// Row Key
         row_key: String,
+        /// ETag value
+        #[clap(long)]
+        if_match_condition: Option<String>,
     },
     UpdateEntity {
         /// table name
@@ -205,12 +208,16 @@ pub async fn table_commands(
             table_name,
             partition_key,
             row_key,
+            if_match_condition,
         } => {
+            let if_match_condition = if_match_condition
+                .map_or(IfMatchCondition::Any, |s| IfMatchCondition::Etag(s.into()));
             service_client
                 .table_client(&table_name)
                 .partition_key_client(partition_key)
                 .entity_client(row_key)
                 .delete()
+                .if_match(if_match_condition)
                 .await?;
         }
         TableSubCommands::UpdateEntity {
