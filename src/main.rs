@@ -12,10 +12,11 @@ use self::{
 };
 use anyhow::{ensure, Result};
 use azure_core::auth::Secret;
+use azure_identity::DefaultAzureCredential;
 use azure_storage::prelude::*;
 use azure_storage_blobs::prelude::*;
 use clap::{Command, CommandFactory, Parser, Subcommand};
-use std::env::remove_var;
+use std::sync::Arc;
 use tokio::fs::read;
 
 #[derive(Parser)]
@@ -26,15 +27,21 @@ use tokio::fs::read;
     disable_help_subcommand = true
 )]
 struct Args {
+    /// storage account name.  Set the environment variable STORAGE_ACCOUNT to set a default
+    #[clap(long, env = "STORAGE_ACCOUNT", hide_env_values = true)]
+    account: String,
+
     #[command(subcommand)]
     subcommand: SubCommands,
 
-    /// storage account name
-    #[clap(env = "STORAGE_ACCOUNT")]
-    account: String,
-    /// storage account access key
-    #[clap(env = "STORAGE_ACCESS_KEY")]
-    access_key: Secret,
+    #[clap(long)]
+    use_default_credentials: bool,
+
+    /// storage account access key.  If not set, authentication will be done via
+    /// Azure Entra Id using the `DefaultAzureCredential`
+    /// (see https://docs.rs/azure_identity/latest/azure_identity/struct.DefaultAzureCredential.html)
+    #[clap(long, env = "STORAGE_ACCESS_KEY", hide_env_values = true)]
+    access_key: Option<Secret>,
 }
 
 #[allow(clippy::large_enum_variant)]
@@ -100,15 +107,15 @@ async fn main() -> Result<()> {
     env_logger::init();
     let args = Args::parse();
 
-    let storage_credentials = StorageCredentials::access_key(&args.account, args.access_key);
+    let storage_credentials = match args.access_key {
+        Some(access_key) => StorageCredentials::access_key(&args.account, access_key),
+        None => StorageCredentials::token_credential(Arc::new(DefaultAzureCredential::default())),
+    };
+
     let service_client = BlobServiceClient::new(&args.account, storage_credentials);
 
     match args.subcommand {
         SubCommands::Readme { check } => {
-            // in case the variables are set, we don't want to print them in the readme
-            for key in ["STORAGE_ACCOUNT", "STORAGE_ACCESS_KEY"] {
-                remove_var(key);
-            }
             let mut cmd = Args::command();
             let readme = build_readme(&mut cmd, Vec::new())
                 .replace("azure-storage-cli", "azs")
