@@ -35,12 +35,12 @@ jobs:
     - uses: Swatinem/rust-cache@v2
     - run: eng/build.sh ${{ matrix.target }}
       shell: bash
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3.1.3
       if: matrix.os == 'windows-latest'
       with:
         name: ${{ matrix.build }}
         path: target/${{ matrix.target }}/release/azs.exe
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3.1.3
       if: matrix.os != 'windows-latest'
       with:
         name: ${{ matrix.build }}
