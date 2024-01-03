@@ -1,4 +1,11 @@
-use azure_storage_cli::{
+mod account;
+mod blob;
+#[macro_use]
+mod macros;
+mod container;
+mod utils;
+
+use self::{
     account::{account_commands, AccountSubCommands},
     blob::{blob_commands, BlobSubCommands},
     container::{container_commands, ContainerSubCommands},
@@ -68,12 +75,6 @@ fn build_readme(cmd: &mut Command, mut names: Vec<String>) -> String {
 
     names.push(base_name);
 
-    for name in names.iter_mut() {
-        if *name == "azure-storage-cli" {
-            *name = "azs".to_owned();
-        }
-    }
-
     let name = names.join(" ");
 
     for _ in 0..names.len() {
@@ -91,7 +92,7 @@ fn build_readme(cmd: &mut Command, mut names: Vec<String>) -> String {
         }
         readme.push_str(&build_readme(cmd, names.clone()));
     }
-    readme
+    readme.replace("azure-storage-cli", "azs")
 }
 
 #[tokio::main]

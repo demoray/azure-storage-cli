@@ -1,7 +1,7 @@
 # azs
 
 ```
-Usage: azure-storage-cli <ACCOUNT> <ACCESS_KEY> <COMMAND>
+Usage: azs <ACCOUNT> <ACCESS_KEY> <COMMAND>
 
 Commands:
   account    Interact with the storage account
