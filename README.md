@@ -17,7 +17,6 @@ Options:
           
           [env: STORAGE_ACCOUNT]
 
-      --use-default-credentials
       --access-key <ACCESS_KEY>
           storage account access key.  If not set, authentication will be done via Azure Entra Id using the `DefaultAzureCredential` (see https://docs.rs/azure_identity/latest/azure_identity/struct.DefaultAzureCredential.html)
           
