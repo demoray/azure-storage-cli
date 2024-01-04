@@ -385,7 +385,7 @@ Options:
 
           Possible values:
           - rfc3339: Specific date and time, as described in <https://www.rfc-editor.org/rfc/rfc3339>. Examples include `1999-09-10T21:59:22Z` and `1999-09-10T03:05:07.3845533+01:00`
-          - offset:  Offset from `now`, as parsed by <https://docs.rs/parse_duration/latest/parse_duration/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
+          - offset:  Offset from `now`, as parsed by <https://docs.rs/duration-str/0.7.1/duration_str/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
 
       --ip <IP>
       --identifier <IDENTIFIER>
@@ -434,7 +434,7 @@ Options:
 
           Possible values:
           - rfc3339: Specific date and time, as described in <https://www.rfc-editor.org/rfc/rfc3339>. Examples include `1999-09-10T21:59:22Z` and `1999-09-10T03:05:07.3845533+01:00`
-          - offset:  Offset from `now`, as parsed by <https://docs.rs/parse_duration/latest/parse_duration/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
+          - offset:  Offset from `now`, as parsed by <https://docs.rs/duration-str/0.7.1/duration_str/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
 
       --ip <IP>
       --identifier <IDENTIFIER>
