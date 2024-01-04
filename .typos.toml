@@ -1,0 +1,4 @@
+[default]
+extend-ignore-identifiers-re = [
+   "ba512_range", "BA512Range"
+]

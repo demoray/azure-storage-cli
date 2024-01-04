@@ -14,6 +14,7 @@ if [ x"${BUILD_TARGET}" != x"" ]; then
     BUILD_COMMON="${BUILD_COMMON} --target ${BUILD_TARGET}"
 fi
 
+typos
 cargo clippy ${BUILD_COMMON} --all-targets --all-features -- -D warnings -D clippy::pedantic -A clippy::missing_errors_doc
 cargo clippy ${BUILD_COMMON} --tests --all-targets --all-features -- -D warnings
 cargo fmt --check
