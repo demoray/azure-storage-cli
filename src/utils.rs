@@ -6,7 +6,8 @@ use azure_core::{
 use azure_storage_blobs::prelude::Tags;
 use azure_storage_datalake::Properties;
 use clap::ValueEnum;
-use std::{error::Error as StdError, ops::Add, result::Result, str::FromStr};
+use duration_string::DurationString;
+use std::{error::Error as StdError, ops::Add, result::Result, str::FromStr, time::Duration};
 use time::OffsetDateTime;
 
 /// Parse a single key-value pair of `X=Y` into a typed tuple of `(X, Y)`.
@@ -59,8 +60,10 @@ pub(crate) fn parse_time(s: &str, format: TimeFormat) -> azure_core::Result<Offs
     match format {
         TimeFormat::Rfc3339 => parse_rfc3339(s),
         TimeFormat::Offset => {
-            let duration: time::Duration = parse_duration::parse(s)
+            let duration: Duration = DurationString::from_str(s)
                 .map_err(|e| Error::new(ErrorKind::DataConversion, e))?
+                .into();
+            let duration: time::Duration = duration
                 .try_into()
                 .map_err(|e| Error::new(ErrorKind::DataConversion, e))?;
 
@@ -75,7 +78,7 @@ pub enum TimeFormat {
     /// Specific date and time, as described in <https://www.rfc-editor.org/rfc/rfc3339>.
     /// Examples include `1999-09-10T21:59:22Z` and `1999-09-10T03:05:07.3845533+01:00`
     Rfc3339,
-    /// Offset from `now`, as parsed by <https://docs.rs/parse_duration/latest/parse_duration/>
+    /// Offset from `now`, as parsed by <https://docs.rs/duration-string/latest/duration_string/>
     /// Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
     Offset,
 }
