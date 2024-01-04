@@ -188,7 +188,7 @@ Options:
 
       --include-snapshots
       --include-metadata
-      --include-uncommited-blobs
+      --include-uncommitted-blobs
       --include-copy
       --include-deleted
       --include-tags

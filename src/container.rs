@@ -54,7 +54,7 @@ pub enum ContainerSubCommands {
         #[clap(long)]
         include_metadata: bool,
         #[clap(long)]
-        include_uncommited_blobs: bool,
+        include_uncommitted_blobs: bool,
         #[clap(long)]
         include_copy: bool,
         #[clap(long)]
@@ -186,7 +186,7 @@ pub async fn container_commands(
             max_results,
             include_snapshots,
             include_metadata,
-            include_uncommited_blobs,
+            include_uncommitted_blobs,
             include_copy,
             include_deleted,
             include_tags,
@@ -196,7 +196,7 @@ pub async fn container_commands(
                 .list_blobs()
                 .include_snapshots(include_snapshots)
                 .include_metadata(include_metadata)
-                .include_uncommitted_blobs(include_uncommited_blobs)
+                .include_uncommitted_blobs(include_uncommitted_blobs)
                 .include_copy(include_copy)
                 .include_deleted(include_deleted)
                 .include_tags(include_tags)
