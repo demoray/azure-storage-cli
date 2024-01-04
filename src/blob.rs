@@ -4,13 +4,14 @@ use crate::{
 };
 use azure_core::{
     error::{Error, ErrorKind},
-    request_options::{IfTags, LeaseId},
+    request_options::{IfModifiedSinceCondition, IfTags, LeaseId},
     tokio::fs::FileStreamBuilder,
 };
 use azure_storage::shared_access_signature::{service_sas::BlobSasPermissions, SasProtocol};
 use azure_storage_blobs::prelude::{
     AccessTier, BA512Range, BlobBlockType, BlobClient, BlobContentDisposition, BlobContentEncoding,
-    BlobContentLanguage, BlobContentType, BlockList, DeleteSnapshotsMethod,
+    BlobContentLanguage, BlobContentType, BlobVersioning, BlockList, DeleteSnapshotsMethod,
+    RehydratePriority, Snapshot, VersionId,
 };
 use clap::Subcommand;
 use futures::StreamExt;
@@ -69,6 +70,22 @@ pub enum BlobSubCommands {
         if_tags: Option<IfTags>,
         #[clap(long)]
         delete_snapshots_method: Option<DeleteSnapshotsMethod>,
+    },
+    /// Delete the blob at a specific version
+    DeleteVersionId {
+        version_id: VersionId,
+        #[clap(long)]
+        lease_id: Option<LeaseId>,
+        #[clap(long)]
+        permanent: bool,
+    },
+    /// Delete the blob at a specific version
+    DeleteSnapsot {
+        snapshot: Snapshot,
+        #[clap(long)]
+        lease_id: Option<LeaseId>,
+        #[clap(long)]
+        permanent: bool,
     },
     /// Create a new "append blob" with the contents of the specified file.
     PutAppendBlob {
@@ -195,6 +212,49 @@ pub enum BlobSubCommands {
         permissions: bool,
         #[clap(long)]
         permanent_delete: bool,
+    },
+    /// Get the tags on the blob
+    GetTags {
+        if_tags: Option<IfTags>,
+        lease_id: Option<LeaseId>,
+        snapshot: Option<Snapshot>,
+        version_id: Option<VersionId>,
+    },
+    /// Set the tags on the blob
+    SetTags {
+        if_tags: Option<IfTags>,
+        lease_id: Option<LeaseId>,
+        #[clap(long, value_name = "KEY=VALUE", value_parser = parse_key_val::<String, String>, action = clap::ArgAction::Append)]
+        tags: Option<Vec<(String, String)>>,
+    },
+    /// Create a snapshot of the blob
+    Snapshot {
+        // TODO: if_match
+        #[clap(long)]
+        unmodified_since: Option<String>,
+        #[clap(long)]
+        modified_since: Option<String>,
+        #[clap(long, default_value = "TimeFormat::Offset")]
+        time_format: TimeFormat,
+        #[clap(long)]
+        if_tags: Option<IfTags>,
+        #[clap(long)]
+        lease_id: Option<LeaseId>,
+        #[clap(long, value_name = "KEY=VALUE", value_parser = parse_key_val::<String, String>, action = clap::ArgAction::Append)]
+        metadata: Option<Vec<(String, String)>>,
+    },
+    /// Set the access tier on the blob
+    SetBlobTier {
+        #[clap(long)]
+        tier: AccessTier,
+        #[clap(long)]
+        rehydrate_priority: Option<RehydratePriority>,
+        #[clap(long)]
+        if_tags: Option<IfTags>,
+        #[clap(long)]
+        snapshot: Option<Snapshot>,
+        #[clap(long)]
+        version_id: Option<VersionId>,
     },
 }
 
@@ -468,6 +528,93 @@ pub async fn blob_commands(
 
             let url = blob_client.generate_signed_blob_url(&builder)?;
             println!("{url}");
+        }
+        BlobSubCommands::GetTags {
+            if_tags,
+            lease_id,
+            snapshot,
+            version_id,
+        } => {
+            let mut builder = blob_client.get_tags();
+            let blob_versioning = snapshot
+                .map(BlobVersioning::Snapshot)
+                .or(version_id.map(BlobVersioning::VersionId));
+            args!(builder, if_tags, lease_id, blob_versioning);
+            let response = builder.await?;
+            println!("{response:#?}");
+        }
+        BlobSubCommands::SetTags {
+            if_tags,
+            lease_id,
+            tags,
+        } => {
+            let tags = tags.map(to_tags).unwrap_or_default();
+            let mut builder = blob_client.set_tags(tags);
+            args!(builder, if_tags, lease_id);
+            let response = builder.await?;
+            println!("{response:#?}");
+        }
+        BlobSubCommands::Snapshot {
+            unmodified_since,
+            modified_since,
+            time_format,
+            if_tags,
+            lease_id,
+            metadata,
+        } => {
+            let modified_since = modified_since
+                .map(|s| parse_time(&s, time_format))
+                .transpose()?;
+            let unmodified_since = unmodified_since
+                .map(|s| parse_time(&s, time_format))
+                .transpose()?;
+            let if_modified_since = modified_since
+                .map(IfModifiedSinceCondition::Modified)
+                .or_else(|| unmodified_since.map(IfModifiedSinceCondition::Unmodified));
+            let metadata = metadata.map(to_metadata);
+
+            let mut builder = blob_client.snapshot();
+            args!(builder, if_tags, if_modified_since, lease_id, metadata);
+            let response = builder.await?;
+            println!("{response:#?}");
+        }
+        BlobSubCommands::DeleteSnapsot {
+            snapshot,
+            lease_id,
+            permanent,
+        } => {
+            let mut builder = blob_client.delete_snapshot(snapshot);
+            let permanent = Some(permanent);
+            args!(builder, lease_id, permanent);
+            let response = builder.await?;
+            println!("{response:#?}");
+        }
+        BlobSubCommands::DeleteVersionId {
+            version_id,
+            lease_id,
+            permanent,
+        } => {
+            let mut builder = blob_client.delete_version_id(version_id);
+            let permanent = Some(permanent);
+            args!(builder, lease_id, permanent);
+            let response = builder.await?;
+            println!("{response:#?}");
+        }
+        BlobSubCommands::SetBlobTier {
+            tier,
+            rehydrate_priority,
+            if_tags,
+            snapshot,
+            version_id,
+        } => {
+            let blob_versioning = snapshot
+                .map(BlobVersioning::Snapshot)
+                .or(version_id.map(BlobVersioning::VersionId));
+
+            let mut builder = blob_client.set_blob_tier(tier);
+            args!(builder, rehydrate_priority, if_tags, blob_versioning);
+            let response = builder.await?;
+            println!("{response:#?}");
         }
     }
     Ok(())
