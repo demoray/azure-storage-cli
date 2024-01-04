@@ -91,11 +91,16 @@ Interact with storage containers (and blobs)
 Usage: container <CONTAINER_NAME> <COMMAND>
 
 Commands:
-  create        Create a storage container
-  delete        Create a storage container
-  list          List blobs in a storage container
-  blob          Interact with a blob within a storage container
-  generate-sas  Generate a SAS URL for a storage container
+  create         Create a storage container
+  properties     Get properties for a storage container
+  delete         Delete a storage container
+  list           List blobs in a storage container
+  blob           Interact with a blob within a storage container
+  generate-sas   Generate a SAS URL for a storage container
+  acquire-lease  Acquire a lease on a storage container
+  break-lease    Acquire a lease on a storage container
+  lease-release
+  lease-renew
 
 Arguments:
   <CONTAINER_NAME>
@@ -128,10 +133,28 @@ Options:
           Print version
 
 ```
+#### azs container <CONTAINER_NAME> properties
+
+```
+Get properties for a storage container
+
+Usage: properties [OPTIONS]
+
+Options:
+      --lease-id <LEASE_ID>
+          lease id
+
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
 #### azs container <CONTAINER_NAME> delete
 
 ```
-Create a storage container
+Delete a storage container
 
 Usage: delete [OPTIONS]
 
@@ -188,11 +211,17 @@ Commands:
   get                Get the contents of a blob
   get-properties     Get properties of a blob
   delete             Delete a blob
+  delete-version-id  Delete the blob at a specific version
+  delete-snapsot     Delete the blob at a specific version
   put-append-blob    Create a new "append blob" with the contents of the specified file
   append-block       Append the contents of the specified file to an existing "append blob" blob
   create-block-blob  Create a "block blob" with the contents of the specified file
   create-page-blob   Create a "page blob" with the contents of the specified file
   generate-sas       Generate a SAS URL for the Blob
+  get-tags           Get the tags on the blob
+  set-tags           Set the tags on the blob
+  snapshot           Create a snapshot of the blob
+  set-blob-tier      Set the access tier on the blob
 
 Arguments:
   <BLOB_NAME>
@@ -256,6 +285,44 @@ Options:
       --lease-id <LEASE_ID>
       --if-tags <IF_TAGS>
       --delete-snapshots-method <DELETE_SNAPSHOTS_METHOD>
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+###### azs container <CONTAINER_NAME> blob <BLOB_NAME> delete-version-id <VERSION_ID>
+
+```
+Delete the blob at a specific version
+
+Usage: delete-version-id [OPTIONS] <VERSION_ID>
+
+Arguments:
+  <VERSION_ID>
+Options:
+      --lease-id <LEASE_ID>
+      --permanent
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+###### azs container <CONTAINER_NAME> blob <BLOB_NAME> delete-snapsot <SNAPSHOT>
+
+```
+Delete the blob at a specific version
+
+Usage: delete-snapsot [OPTIONS] <SNAPSHOT>
+
+Arguments:
+  <SNAPSHOT>
+Options:
+      --lease-id <LEASE_ID>
+      --permanent
   -h, --help
           Print help
 
@@ -412,6 +479,92 @@ Options:
           Print version
 
 ```
+###### azs container <CONTAINER_NAME> blob <BLOB_NAME> get-tags <IF_TAGS> <LEASE_ID> <SNAPSHOT> <VERSION_ID>
+
+```
+Get the tags on the blob
+
+Usage: get-tags [IF_TAGS] [LEASE_ID] [SNAPSHOT] [VERSION_ID]
+
+Arguments:
+  [IF_TAGS]
+  [LEASE_ID]
+  [SNAPSHOT]
+  [VERSION_ID]
+Options:
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+###### azs container <CONTAINER_NAME> blob <BLOB_NAME> set-tags <IF_TAGS> <LEASE_ID>
+
+```
+Set the tags on the blob
+
+Usage: set-tags [OPTIONS] [IF_TAGS] [LEASE_ID]
+
+Arguments:
+  [IF_TAGS]
+  [LEASE_ID]
+Options:
+      --tags <KEY=VALUE>
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
+###### azs container <CONTAINER_NAME> blob <BLOB_NAME> snapshot
+
+```
+Create a snapshot of the blob
+
+Usage: snapshot [OPTIONS]
+
+Options:
+      --unmodified-since <UNMODIFIED_SINCE>
+      --modified-since <MODIFIED_SINCE>
+      --time-format <TIME_FORMAT>
+          [default: TimeFormat::Offset]
+
+          Possible values:
+          - rfc3339: Specific date and time, as described in <https://www.rfc-editor.org/rfc/rfc3339>. Examples include `1999-09-10T21:59:22Z` and `1999-09-10T03:05:07.3845533+01:00`
+          - offset:  Offset from `now`, as parsed by <https://docs.rs/duration-string/latest/duration_string/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
+
+      --if-tags <IF_TAGS>
+      --lease-id <LEASE_ID>
+      --metadata <KEY=VALUE>
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version
+
+```
+###### azs container <CONTAINER_NAME> blob <BLOB_NAME> set-blob-tier
+
+```
+Set the access tier on the blob
+
+Usage: set-blob-tier [OPTIONS] --tier <TIER>
+
+Options:
+      --tier <TIER>
+      --rehydrate-priority <REHYDRATE_PRIORITY>
+      --if-tags <IF_TAGS>
+      --snapshot <SNAPSHOT>
+      --version-id <VERSION_ID>
+  -h, --help
+          Print help
+
+  -V, --version
+          Print version
+
+```
 ##### azs container <CONTAINER_NAME> generate-sas <EXPIRY>
 
 ```
@@ -454,6 +607,113 @@ Options:
       --ownership
       --permissions
       --permanent-delete
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version
+
+```
+###### azs container <CONTAINER_NAME> acquire-lease <LEASE_DURATION> <PROPOSED_LEASE_ID> <LEASE_ID> <UNMODIFIED_SINCE> <MODIFIED_SINCE>
+
+```
+Acquire a lease on a storage container
+
+Usage: acquire-lease [OPTIONS] [LEASE_DURATION] [PROPOSED_LEASE_ID] [LEASE_ID] [UNMODIFIED_SINCE] [MODIFIED_SINCE]
+
+Arguments:
+  [LEASE_DURATION]
+          lease duration in seconds (otherwise uses Infinite)
+
+  [PROPOSED_LEASE_ID]
+  [LEASE_ID]
+  [UNMODIFIED_SINCE]
+  [MODIFIED_SINCE]
+Options:
+      --time-format <TIME_FORMAT>
+          [default: TimeFormat::Offset]
+
+          Possible values:
+          - rfc3339: Specific date and time, as described in <https://www.rfc-editor.org/rfc/rfc3339>. Examples include `1999-09-10T21:59:22Z` and `1999-09-10T03:05:07.3845533+01:00`
+          - offset:  Offset from `now`, as parsed by <https://docs.rs/duration-string/latest/duration_string/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version
+
+```
+###### azs container <CONTAINER_NAME> break-lease <LEASE_BREAK_PERIOD> <LEASE_ID> <UNMODIFIED_SINCE> <MODIFIED_SINCE>
+
+```
+Acquire a lease on a storage container
+
+Usage: break-lease [OPTIONS] [LEASE_BREAK_PERIOD] [LEASE_ID] [UNMODIFIED_SINCE] [MODIFIED_SINCE]
+
+Arguments:
+  [LEASE_BREAK_PERIOD]
+          Duration as parsed by <https://docs.rs/duration-string/latest/duration_string/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
+
+  [LEASE_ID]
+  [UNMODIFIED_SINCE]
+  [MODIFIED_SINCE]
+Options:
+      --time-format <TIME_FORMAT>
+          [default: TimeFormat::Offset]
+
+          Possible values:
+          - rfc3339: Specific date and time, as described in <https://www.rfc-editor.org/rfc/rfc3339>. Examples include `1999-09-10T21:59:22Z` and `1999-09-10T03:05:07.3845533+01:00`
+          - offset:  Offset from `now`, as parsed by <https://docs.rs/duration-string/latest/duration_string/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version
+
+```
+###### azs container <CONTAINER_NAME> lease-release <LEASE_ID> <UNMODIFIED_SINCE> <MODIFIED_SINCE>
+
+```
+Usage: lease-release [OPTIONS] <LEASE_ID> [UNMODIFIED_SINCE] [MODIFIED_SINCE]
+
+Arguments:
+  <LEASE_ID>
+  [UNMODIFIED_SINCE]
+  [MODIFIED_SINCE]
+Options:
+      --time-format <TIME_FORMAT>
+          [default: TimeFormat::Offset]
+
+          Possible values:
+          - rfc3339: Specific date and time, as described in <https://www.rfc-editor.org/rfc/rfc3339>. Examples include `1999-09-10T21:59:22Z` and `1999-09-10T03:05:07.3845533+01:00`
+          - offset:  Offset from `now`, as parsed by <https://docs.rs/duration-string/latest/duration_string/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version
+
+```
+###### azs container <CONTAINER_NAME> lease-renew <LEASE_ID> <UNMODIFIED_SINCE> <MODIFIED_SINCE>
+
+```
+Usage: lease-renew [OPTIONS] <LEASE_ID> [UNMODIFIED_SINCE] [MODIFIED_SINCE]
+
+Arguments:
+  <LEASE_ID>
+  [UNMODIFIED_SINCE]
+  [MODIFIED_SINCE]
+Options:
+      --time-format <TIME_FORMAT>
+          [default: TimeFormat::Offset]
+
+          Possible values:
+          - rfc3339: Specific date and time, as described in <https://www.rfc-editor.org/rfc/rfc3339>. Examples include `1999-09-10T21:59:22Z` and `1999-09-10T03:05:07.3845533+01:00`
+          - offset:  Offset from `now`, as parsed by <https://docs.rs/duration-string/latest/duration_string/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
+
   -h, --help
           Print help (see a summary with '-h')
 
