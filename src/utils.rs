@@ -52,6 +52,14 @@ pub(crate) fn to_properties(value: Vec<(String, String)>) -> Properties {
     properties
 }
 
+pub(crate) fn to_globset(value: Vec<String>) -> Result<globset::GlobSet, globset::Error> {
+    let mut builder = globset::GlobSetBuilder::new();
+    for glob in value {
+        builder.add(globset::Glob::new(&glob)?);
+    }
+    builder.build()
+}
+
 pub(crate) fn round_up(x: u64, y: u64) -> u64 {
     (x / y + u64::from(x % y != 0)) * y
 }

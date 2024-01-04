@@ -12,6 +12,7 @@ mod macros;
 mod container;
 mod datalake;
 mod queue;
+mod sync;
 mod tables;
 mod utils;
 

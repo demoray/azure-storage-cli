@@ -1,8 +1,10 @@
 use crate::{
     args,
     blob::{blob_commands, BlobSubCommands},
+    sync::{sync_container, SyncMode},
     utils::{parse_duration, parse_key_val, parse_time, to_metadata, Protocol, TimeFormat},
 };
+use anyhow::{ensure, Result};
 use azure_core::{
     prelude::LeaseDuration,
     request_options::{Delimiter, IfModifiedSinceCondition, LeaseId, Prefix},
@@ -11,7 +13,10 @@ use azure_storage::shared_access_signature::{service_sas::BlobSasPermissions, Sa
 use azure_storage_blobs::prelude::{ContainerClient, PublicAccess};
 use clap::Subcommand;
 use futures::StreamExt;
-use std::num::NonZeroU32;
+use std::{
+    num::{NonZeroU32, NonZeroUsize},
+    path::PathBuf,
+};
 use uuid::Uuid;
 
 #[derive(Subcommand)]
@@ -153,13 +158,35 @@ pub enum ContainerSubCommands {
         #[clap(long, default_value = "TimeFormat::Offset")]
         time_format: TimeFormat,
     },
+    /// Sync a directory with a storage container
+    Sync {
+        mode: SyncMode,
+        /// Directory to sync
+        path: PathBuf,
+
+        /// Delete files from the destination that don't exist in the source
+        #[clap(long)]
+        delete_destination: bool,
+
+        /// Number of files to sync concurrently
+        #[clap(long)]
+        concurrency: Option<NonZeroUsize>,
+
+        /// Glob patterns to include from the sync
+        #[clap(long, action = clap::ArgAction::Append)]
+        include: Option<Vec<String>>,
+
+        /// Glob patterns to exclude from the sync (applied after include)
+        #[clap(long, action = clap::ArgAction::Append)]
+        exclude: Option<Vec<String>>,
+    },
 }
 
 #[allow(clippy::too_many_lines)]
 pub async fn container_commands(
     container_client: &ContainerClient,
     subcommand: ContainerSubCommands,
-) -> azure_core::Result<()> {
+) -> Result<()> {
     match subcommand {
         ContainerSubCommands::Create {
             public_access,
@@ -368,6 +395,26 @@ pub async fn container_commands(
             args!(builder, if_modified_since);
             let result = builder.await?;
             println!("{result:#?}");
+        }
+        ContainerSubCommands::Sync {
+            mode,
+            path,
+            delete_destination,
+            concurrency,
+            include,
+            exclude,
+        } => {
+            ensure!(path.is_dir(), "path must be a directory");
+            sync_container(
+                container_client.clone(),
+                mode,
+                path,
+                delete_destination,
+                concurrency,
+                include,
+                exclude,
+            )
+            .await?;
         }
     }
     Ok(())
