@@ -60,17 +60,21 @@ pub(crate) fn parse_time(s: &str, format: TimeFormat) -> azure_core::Result<Offs
     match format {
         TimeFormat::Rfc3339 => parse_rfc3339(s),
         TimeFormat::Offset => {
-            let duration: Duration = DurationString::from_str(s)
-                .map_err(|e| Error::new(ErrorKind::DataConversion, e))?
-                .into();
-            let duration: time::Duration = duration
+            let duration: time::Duration = parse_duration(s)?
                 .try_into()
                 .map_err(|e| Error::new(ErrorKind::DataConversion, e))?;
-
             let now = OffsetDateTime::now_utc();
             Ok(now.add(duration))
         }
     }
+}
+
+pub(crate) fn parse_duration(s: &str) -> azure_core::Result<Duration> {
+    let duration: Duration = DurationString::from_str(s)
+        .map_err(|e| Error::new(ErrorKind::DataConversion, e))?
+        .into();
+
+    Ok(duration)
 }
 
 #[derive(Debug, Clone, Copy, ValueEnum)]
