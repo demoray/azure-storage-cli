@@ -125,9 +125,9 @@ dependencies = [
 
 [[package]]
 name = "azure_core"
-version = "0.18.0"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a6218987c374650fdad0b476bfc675729762c28dfb35f58608a38a2b1ea337dd"
+checksum = "70fd680c0d0424a518229b1150922f92653ba2ac933aa000abc8bf1ca08105f7"
 dependencies = [
  "async-trait",
  "base64 0.21.5",
@@ -156,9 +156,9 @@ dependencies = [
 
 [[package]]
 name = "azure_data_tables"
-version = "0.18.1"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "162044dc8cc8c8b51c23e763678965b3b53cf260482f06a4c8edf48c4893f91d"
+checksum = "94b238e0472368bc3736d786f35d74920f75c8b9106913b4652e3ef1c4552dc1"
 dependencies = [
  "azure_core",
  "azure_storage",
@@ -172,9 +172,9 @@ dependencies = [
 
 [[package]]
 name = "azure_identity"
-version = "0.18.1"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9e1eacc4f7fb2a73d57c39139d0fc3aed78435606055779ddaef4b43cdf919a8"
+checksum = "a6d2060f5b2e1c664026ca4edd561306c473be887c1f7a81f10bf06f9b71c63f"
 dependencies = [
  "async-lock",
  "async-trait",
@@ -192,9 +192,9 @@ dependencies = [
 
 [[package]]
 name = "azure_storage"
-version = "0.18.0"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ade8f2653e408de88b9eafec9f48c3c26b94026375e88adbd34523a7dd9795a1"
+checksum = "15d3da73bfa09350e1bd6ae2a260806fcf90048c7e78cd2d8f88be60b19a7266"
 dependencies = [
  "RustyXML",
  "async-lock",
@@ -211,9 +211,9 @@ dependencies = [
 
 [[package]]
 name = "azure_storage_blobs"
-version = "0.18.0"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "025701c7cc5b523100f0f3b2b01723564ec5a86c03236521c06826337047e872"
+checksum = "149c21834a4105d761e3dd33d91c2a3064acc05a3c978848ea8089102ae45c94"
 dependencies = [
  "RustyXML",
  "azure_core",
@@ -232,9 +232,9 @@ dependencies = [
 
 [[package]]
 name = "azure_storage_datalake"
-version = "0.18.1"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dd2e2d88817876e1a29a143f638b2939850571ef0e34819ffc781d71ab1a0c9e"
+checksum = "23767251c563d583c8d3fc3e5040a3cd0ad924abf76db2c47edb978666945833"
 dependencies = [
  "async-trait",
  "azure_core",
@@ -252,9 +252,9 @@ dependencies = [
 
 [[package]]
 name = "azure_storage_queues"
-version = "0.18.0"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f12d5005e2374ada4b0156064833761ad9a8f11284a9b2f9414264bb11cea055"
+checksum = "c8465578eb6ffd62aeb4447d7d738596927fab4b1b5238afa38c52c9567fc158"
 dependencies = [
  "azure_core",
  "azure_storage",
@@ -267,9 +267,9 @@ dependencies = [
 
 [[package]]
 name = "azure_svc_blobstorage"
-version = "0.18.0"
+version = "0.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "76051e5bb67cea1055abe5e530a0878feac7e0ab4cbbcb4a6adc953a58993389"
+checksum = "88c888b7bf522d5405218b8613bf0fae7ddaae6ef3bf4ad42ae005993c96ab8b"
 dependencies = [
  "azure_core",
  "bytes",
@@ -443,9 +443,9 @@ checksum = "06ea2b9bc92be3c2baa9334a323ebca2d6f074ff852cd1d7b11064035cd3868f"
 
 [[package]]
 name = "cpufeatures"
-version = "0.2.11"
+version = "0.2.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ce420fe07aecd3e67c5f910618fe65e94158f6dcc0adf44e00d69ce2bdfe0fd0"
+checksum = "53fe5e26ff1b7aef8bca9c6080520cfb8d9333c7568e1829cef191a9723e5504"
 dependencies = [
  "libc",
 ]
@@ -1249,9 +1249,9 @@ checksum = "5b40af805b3121feab8a3c29f04d8ad262fa8e0561883e7653e024ae4479e6de"
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.74"
+version = "1.0.75"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2de98502f212cfcea8d0bb305bd0f49d7ebdd75b64ba0a68f937d888f4e0d6db"
+checksum = "907a61bd0f64c2f29cd1cf1dc34d05176426a3f504a78010f08416ddb7b13708"
 dependencies = [
  "unicode-ident",
 ]
@@ -1604,9 +1604,9 @@ checksum = "81cdd64d312baedb58e21336b31bc043b77e01cc99033ce76ef539f78e965ebc"
 
 [[package]]
 name = "syn"
-version = "2.0.46"
+version = "2.0.48"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "89456b690ff72fddcecf231caedbe615c59480c93358a93dfae7fc29e3ebbf0e"
+checksum = "0f3531638e407dfc0814761abb7c00a5b54992b849452a0646b7f65c9f770f3f"
 dependencies = [
  "proc-macro2",
  "quote",
