@@ -10,7 +10,7 @@ keywords = ["azure", "blobs"]
 categories = ["command-line-utilities"]
 
 [dependencies]
-anyhow = "1.0.80"
+anyhow = "1.0.81"
 azure_core = {version="0.19.0", features=["tokio-fs"]}
 azure_data_tables = "0.19.0"
 azure_identity = "0.19.0"
