@@ -1,10 +1,8 @@
-use crate::args;
+use crate::{args, utils::output};
 use azure_data_tables::{clients::TableServiceClient, Filter, IfMatchCondition, Select};
 use clap::Subcommand;
-use futures::StreamExt;
-use serde::ser::{SerializeSeq, Serializer};
-use serde_json::{ser::PrettyFormatter, Value};
-use std::{collections::HashMap, io::stdout, path::PathBuf};
+use serde_json::Value;
+use std::{collections::HashMap, path::PathBuf};
 
 #[derive(Subcommand)]
 pub enum TableSubCommands {
@@ -125,19 +123,7 @@ pub async fn table_commands(
         } => {
             let mut builder = service_client.list();
             args!(builder, filter, select, top);
-            let mut stream = builder.into_stream();
-
-            let mut ser =
-                serde_json::Serializer::with_formatter(std::io::stdout(), PrettyFormatter::new());
-            let mut serializer = ser.serialize_seq(None)?;
-
-            while let Some(result) = stream.next().await {
-                let result = result?;
-                for table in &result.tables {
-                    serializer.serialize_element(table)?;
-                }
-            }
-            serializer.end()?;
+            output_stream_entries!(builder.into_stream(), tables);
         }
         TableSubCommands::Create { table_name } => {
             service_client.table_client(&table_name).create().await?;
@@ -153,19 +139,7 @@ pub async fn table_commands(
         } => {
             let mut builder = service_client.table_client(&table_name).query();
             args!(builder, filter, select, top);
-            let mut stream = builder.into_stream::<Value>();
-
-            let mut ser =
-                serde_json::Serializer::with_formatter(std::io::stdout(), PrettyFormatter::new());
-            let mut serializer = ser.serialize_seq(None)?;
-
-            while let Some(result) = stream.next().await {
-                let result = result?;
-                for entity in &result.entities {
-                    serializer.serialize_element(entity)?;
-                }
-            }
-            serializer.end()?;
+            output_stream_entries!(builder.into_stream::<Value>(), entities);
         }
         TableSubCommands::Get {
             table_name,
@@ -178,7 +152,7 @@ pub async fn table_commands(
                 .entity_client(row_key)
                 .get::<Value>()
                 .await?;
-            serde_json::to_writer_pretty(stdout(), &result.entity)?;
+            output(&result.entity)?;
         }
         TableSubCommands::InsertOrMerge {
             table_name,

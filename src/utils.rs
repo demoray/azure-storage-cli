@@ -1,3 +1,4 @@
+use anyhow::Result;
 use azure_core::{
     date::parse_rfc3339,
     error::{Error, ErrorKind},
@@ -7,7 +8,8 @@ use azure_storage_blobs::prelude::Tags;
 use azure_storage_datalake::Properties;
 use clap::ValueEnum;
 use duration_string::DurationString;
-use std::{error::Error as StdError, ops::Add, result::Result, str::FromStr, time::Duration};
+use serde::Serialize;
+use std::{error::Error as StdError, io::stdout, ops::Add, str::FromStr, time::Duration};
 use time::OffsetDateTime;
 
 /// Parse a single key-value pair of `X=Y` into a typed tuple of `(X, Y)`.
@@ -75,6 +77,14 @@ pub(crate) fn parse_duration(s: &str) -> azure_core::Result<Duration> {
         .into();
 
     Ok(duration)
+}
+
+pub(crate) fn output<T>(value: &T) -> azure_core::Result<()>
+where
+    T: ?Sized + Serialize,
+{
+    serde_json::to_writer_pretty(stdout(), value)?;
+    Ok(())
 }
 
 #[derive(Debug, Clone, Copy, ValueEnum)]

@@ -26,3 +26,41 @@ macro_rules! args {
         $(args!($builder, $name);)*
     };
 }
+
+#[macro_export]
+macro_rules! output_stream_entries {
+    ($stream:expr, $entry_name:ident) => {{
+        use futures::StreamExt;
+        use serde::ser::SerializeSeq;
+        use serde::Serializer;
+
+        let mut stream = $stream;
+        let mut ser = serde_json::Serializer::with_formatter(
+            std::io::stdout(),
+            serde_json::ser::PrettyFormatter::new(),
+        );
+        let mut serializer = ser.serialize_seq(None)?;
+
+        while let Some(item) = stream.next().await {
+            let item = item?;
+            for entry in paste::paste! { item. $entry_name } {
+                serializer.serialize_element(&entry)?;
+            }
+        }
+        serializer.end()?;
+    }};
+}
+
+#[macro_export]
+macro_rules! output_stream_entries_debug {
+    ($stream:expr, $entry_name:expr) => {{
+        use futures::StreamExt;
+        let mut stream = $stream;
+        while let Some(item) = stream.next().await {
+            let item = item?;
+            for entry in paste::paste! { item. $entry_name } {
+                log::debug!("{entry:#?}");
+            }
+        }
+    }};
+}

@@ -4,7 +4,6 @@ use crate::{
 };
 use azure_storage_queues::{PopReceipt, QueueClient, QueueServiceClient};
 use clap::Subcommand;
-use futures::StreamExt;
 use std::{num::NonZeroU32, time::Duration};
 
 #[derive(Subcommand)]
@@ -47,13 +46,7 @@ pub async fn queues_commands(
                 .list_queues()
                 .include_metadata(include_metadata);
             args!(builder, prefix, max_results);
-            let mut stream = builder.into_stream();
-            while let Some(result) = stream.next().await {
-                let result = result?;
-                for queue in &result.queues {
-                    println!("{queue:#?}");
-                }
-            }
+            output_stream_entries!(builder.into_stream(), queues);
         }
         QueuesSubCommands::Queue {
             queue_name,
