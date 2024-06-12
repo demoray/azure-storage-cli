@@ -14,12 +14,12 @@ Commands:
 
 Options:
       --account <ACCOUNT>
-          storage account name.  Set the environment variable STORAGE_ACCOUNT to set a default
+          storage account name.  Set the environment variable `STORAGE_ACCOUNT` to set a default
 
           [env: STORAGE_ACCOUNT]
 
       --access-key <ACCESS_KEY>
-          storage account access key.  If not set, authentication will be done via Azure Entra Id using the `DefaultAzureCredential` (see https://docs.rs/azure_identity/latest/azure_identity/struct.DefaultAzureCredential.html)
+          storage account access key.  If not set, authentication will be done via Azure Entra Id using the `DefaultAzureCredential` (see <https://docs.rs/azure_identity/latest/azure_identity/struct.DefaultAzureCredential.html>)
 
           [env: STORAGE_ACCESS_KEY]
 
@@ -1293,7 +1293,7 @@ Arguments:
 
 Options:
       --if-match-condition <IF_MATCH_CONDITION>
-          ETag value
+          `ETag` value
 
   -h, --help
           Print help
@@ -1322,7 +1322,7 @@ Arguments:
 
 Options:
       --if-match-condition <IF_MATCH_CONDITION>
-          ETag value
+          `ETag` value
 
   -h, --help
           Print help
@@ -1351,7 +1351,7 @@ Arguments:
 
 Options:
       --if-match-condition <IF_MATCH_CONDITION>
-          ETag value
+          `ETag` value
 
   -h, --help
           Print help

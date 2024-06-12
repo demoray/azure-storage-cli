@@ -41,7 +41,7 @@ use std::{cmp::min, sync::Arc};
     disable_help_subcommand = true
 )]
 struct Args {
-    /// storage account name.  Set the environment variable STORAGE_ACCOUNT to set a default
+    /// storage account name.  Set the environment variable `STORAGE_ACCOUNT` to set a default
     #[clap(long, env = "STORAGE_ACCOUNT", hide_env_values = true)]
     account: String,
 
@@ -50,7 +50,7 @@ struct Args {
 
     /// storage account access key.  If not set, authentication will be done via
     /// Azure Entra Id using the `DefaultAzureCredential`
-    /// (see https://docs.rs/azure_identity/latest/azure_identity/struct.DefaultAzureCredential.html)
+    /// (see <https://docs.rs/azure_identity/latest/azure_identity/struct.DefaultAzureCredential.html>)
     #[clap(long, env = "STORAGE_ACCESS_KEY", hide_env_values = true)]
     access_key: Option<Secret>,
 }
