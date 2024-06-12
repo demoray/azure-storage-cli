@@ -8,7 +8,7 @@ BUILD_PROFILE=${2:-"release"}
 cd $(dirname ${BASH_SOURCE[0]})/../
 
 which typos || cargo install typos-cli
-which taplo || cargo install taplo
+which taplo || cargo install taplo-cli
 
 BUILD_COMMON="--locked --profile ${BUILD_PROFILE}"
 if [ x"${BUILD_TARGET}" != x"" ]; then
