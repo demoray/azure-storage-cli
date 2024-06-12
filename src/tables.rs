@@ -7,6 +7,8 @@ use std::{collections::HashMap, path::PathBuf};
 #[derive(Subcommand)]
 pub enum TableSubCommands {
     /// List available tables
+    ///
+    /// The output of this command is serialized as JSON
     List {
         #[clap(long)]
         filter: Option<String>,
@@ -26,6 +28,8 @@ pub enum TableSubCommands {
         table_name: String,
     },
     /// Query a table
+    ///
+    /// The output of this command is serialized as JSON
     Query {
         /// table name
         table_name: String,
@@ -37,6 +41,8 @@ pub enum TableSubCommands {
         top: Option<u32>,
     },
     /// Get a specific row in the table
+    ///
+    /// The output of this command is serialized as JSON
     Get {
         /// table name
         table_name: String,

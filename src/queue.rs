@@ -9,6 +9,9 @@ use std::{num::NonZeroU32, time::Duration};
 #[derive(Subcommand)]
 pub enum QueuesSubCommands {
     GetProperties,
+    /// List the available queues
+    ///
+    /// The output of this command is serialized as JSON
     ListQueues {
         #[clap(long)]
         prefix: Option<String>,
