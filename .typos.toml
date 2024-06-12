@@ -1,4 +1,2 @@
 [default]
-extend-ignore-identifiers-re = [
-   "ba512_range", "BA512Range"
-]
+extend-ignore-identifiers-re = ["BA512Range", "ba512_range"]
