@@ -129,7 +129,7 @@ pub async fn table_commands(
             service_client.table_client(&table_name).create().await?;
         }
         TableSubCommands::Delete { table_name } => {
-            service_client.table_client(&table_name).create().await?;
+            service_client.table_client(&table_name).delete().await?;
         }
         TableSubCommands::Query {
             table_name,
