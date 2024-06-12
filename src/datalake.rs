@@ -4,7 +4,6 @@ use crate::{
 };
 use azure_storage_datalake::clients::DataLakeClient;
 use clap::Subcommand;
-use futures::StreamExt;
 use std::num::NonZeroU32;
 
 #[derive(Subcommand)]
@@ -103,13 +102,7 @@ pub async fn datalake_commands(
                 } => {
                     let mut builder = filesystem.list_paths();
                     args!(builder, recursive, directory, max_results, upn);
-                    let mut stream = builder.into_stream();
-                    while let Some(result) = stream.next().await {
-                        let result = result?;
-                        for entry in &result.paths {
-                            println!("{entry:#?}");
-                        }
-                    }
+                    output_stream_entries!(builder.into_stream(), paths);
                 }
                 FileSystemSubCommands::Directory {
                     directory_name,
@@ -132,13 +125,7 @@ pub async fn datalake_commands(
                         } => {
                             let mut builder = directory_client.list_paths();
                             args!(builder, recursive, directory, max_results, upn);
-                            let mut stream = builder.into_stream();
-                            while let Some(result) = stream.next().await {
-                                let result = result?;
-                                for entry in &result.paths {
-                                    println!("{entry:#?}");
-                                }
-                            }
+                            output_stream_entries!(builder.into_stream(), paths);
                         }
                         DirectorySubCommands::Delete { recursive } => {
                             let result = directory_client.delete(recursive).await?;
@@ -154,13 +141,7 @@ pub async fn datalake_commands(
         } => {
             let mut builder = service_client.list_file_systems();
             args!(builder, prefix, max_results);
-            let mut stream = builder.into_stream();
-            while let Some(result) = stream.next().await {
-                let result = result?;
-                for entry in &result.file_systems {
-                    println!("{entry:#?}");
-                }
-            }
+            output_stream_entries!(builder.into_stream(), file_systems);
         }
     }
     Ok(())
