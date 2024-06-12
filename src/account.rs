@@ -1,7 +1,6 @@
-use crate::args;
+use crate::{args, output_stream_entries_debug};
 use azure_storage_blobs::prelude::BlobServiceClient;
 use clap::Subcommand;
-use futures::StreamExt;
 use std::num::NonZeroU32;
 
 #[derive(Subcommand)]
@@ -41,13 +40,7 @@ pub async fn account_commands(
                 .include_deleted(include_deleted)
                 .include_metadata(include_metadata);
             args!(builder, prefix, max_results);
-            let mut stream = builder.into_stream();
-            while let Some(result) = stream.next().await {
-                let result = result?;
-                for container in &result.containers {
-                    println!("{container:#?}");
-                }
-            }
+            output_stream_entries_debug!(builder.into_stream(), containers);
         }
     }
     Ok(())
