@@ -74,7 +74,7 @@ pub enum TableSubCommands {
         partition_key: String,
         /// Row Key
         row_key: String,
-        /// ETag value
+        /// `ETag` value
         #[clap(long)]
         if_match_condition: Option<String>,
     },
@@ -87,7 +87,7 @@ pub enum TableSubCommands {
         row_key: String,
         /// JSON file containing the entity
         json_file: PathBuf,
-        /// ETag value
+        /// `ETag` value
         #[clap(long)]
         if_match_condition: Option<String>,
     },
@@ -100,7 +100,7 @@ pub enum TableSubCommands {
         row_key: String,
         /// JSON file containing the entity
         json_file: PathBuf,
-        /// ETag value
+        /// `ETag` value
         #[clap(long)]
         if_match_condition: Option<String>,
     },
