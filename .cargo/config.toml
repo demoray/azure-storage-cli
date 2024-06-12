@@ -1,9 +1,16 @@
 [target.x86_64-pc-windows-msvc]
-rustflags = ["-C", "target-feature=+crt-static"]
+rustflags = [
+  # enables control-flow-guard: https://learn.microsoft.com/en-us/cpp/build/reference/guard-enable-control-flow-guard
+  "-Ccontrol-flow-guard",
+  # enables shadow stack: https://learn.microsoft.com/en-us/cpp/build/reference/cetcompat
+  "-Clink-args=/DYNAMICBASE /CETCOMPAT",
+  # required to link spectre-mitigated CRT
+  "-Ctarget-feature=+crt-static"
+]
 [target.i686-pc-windows-msvc]
-rustflags = ["-C", "target-feature=+crt-static"]
+rustflags = ["-Ctarget-feature=+crt-static"]
 # static linking with musl may change in the future.
 #
 # See: https://github.com/rust-lang/compiler-team/issues/422#issuecomment-812135847
 [target.x86_64-unknown-linux-musl]
-rustflags = ["-C", "target-feature=+crt-static", "-C", "link-self-contained=yes"]
+rustflags = ["-Clink-self-contained=yes", "-Ctarget-feature=+crt-static"]
