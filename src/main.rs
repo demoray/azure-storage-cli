@@ -25,13 +25,13 @@ use self::{
 use anyhow::Result;
 use azure_core::auth::Secret;
 use azure_data_tables::clients::TableServiceClient;
-use azure_identity::DefaultAzureCredential;
+use azure_identity::create_default_credential;
 use azure_storage::prelude::StorageCredentials;
 use azure_storage_blobs::prelude::BlobServiceClient;
 use azure_storage_datalake::prelude::DataLakeClient;
 use azure_storage_queues::prelude::QueueServiceClient;
 use clap::{Command, CommandFactory, Parser, Subcommand};
-use std::{cmp::min, sync::Arc};
+use std::cmp::min;
 
 #[derive(Parser)]
 #[command(
@@ -134,7 +134,7 @@ async fn main() -> Result<()> {
 
     let storage_credentials = match access_key {
         Some(access_key) => StorageCredentials::access_key(&account, access_key),
-        None => StorageCredentials::token_credential(Arc::new(DefaultAzureCredential::default())),
+        None => StorageCredentials::token_credential(create_default_credential()?),
     };
 
     match subcommand {
