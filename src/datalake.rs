@@ -9,6 +9,9 @@ use std::num::NonZeroU32;
 
 #[derive(Subcommand)]
 pub enum DatalakeSubCommands {
+    /// List available file systems
+    ///
+    /// The output of this command is serialized as JSON
     ListFileSystems {
         #[clap(long)]
         prefix: Option<String>,
@@ -33,6 +36,8 @@ pub enum FileSystemSubCommands {
     /// Create the specified filesystem
     Delete,
     /// List paths in the specified file system
+    ///
+    /// The output of this command is serialized as JSON
     ListPaths {
         #[clap(long)]
         recursive: Option<bool>,
@@ -63,6 +68,10 @@ pub enum DirectorySubCommands {
         #[clap(long)]
         recursive: bool,
     },
+
+    /// List available paths
+    ///
+    /// The output of this command is serialized as JSON
     ListPaths {
         #[clap(long)]
         recursive: Option<bool>,

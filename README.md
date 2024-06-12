@@ -730,7 +730,7 @@ Usage: queues <COMMAND>
 
 Commands:
   get-properties
-  list-queues
+  list-queues     List the available queues
   queue
 
 Options:
@@ -757,6 +757,10 @@ Options:
 ### azs queues list-queues
 
 ```
+List the available queues
+
+The output of this command is serialized as JSON
+
 Usage: list-queues [OPTIONS]
 
 Options:
@@ -764,7 +768,7 @@ Options:
       --include-metadata
       --max-results <MAX_RESULTS>
   -h, --help
-          Print help
+          Print help (see a summary with '-h')
 
   -V, --version
           Print version
@@ -922,7 +926,7 @@ Interact with storage datalakes
 Usage: datalake <COMMAND>
 
 Commands:
-  list-file-systems
+  list-file-systems  List available file systems
   file-system
 
 Options:
@@ -936,13 +940,17 @@ Options:
 ### azs datalake list-file-systems
 
 ```
+List available file systems
+
+The output of this command is serialized as JSON
+
 Usage: list-file-systems [OPTIONS]
 
 Options:
       --prefix <PREFIX>
       --max-results <MAX_RESULTS>
   -h, --help
-          Print help
+          Print help (see a summary with '-h')
 
   -V, --version
           Print version
@@ -1005,6 +1013,8 @@ Options:
 ```
 List paths in the specified file system
 
+The output of this command is serialized as JSON
+
 Usage: list-paths [OPTIONS]
 
 Options:
@@ -1017,7 +1027,7 @@ Options:
 
       --directory <DIRECTORY>
   -h, --help
-          Print help
+          Print help (see a summary with '-h')
 
   -V, --version
           Print version
@@ -1033,7 +1043,7 @@ Usage: directory <DIRECTORY_NAME> <COMMAND>
 Commands:
   create
   delete
-  list-paths
+  list-paths  List available paths
 
 Arguments:
   <DIRECTORY_NAME>
@@ -1076,6 +1086,10 @@ Options:
 ###### azs datalake file-system <NAME> directory <DIRECTORY_NAME> list-paths
 
 ```
+List available paths
+
+The output of this command is serialized as JSON
+
 Usage: list-paths [OPTIONS]
 
 Options:
@@ -1088,7 +1102,7 @@ Options:
 
       --directory <DIRECTORY>
   -h, --help
-          Print help
+          Print help (see a summary with '-h')
 
   -V, --version
           Print version
@@ -1126,6 +1140,8 @@ Options:
 ```
 List available tables
 
+The output of this command is serialized as JSON
+
 Usage: list [OPTIONS]
 
 Options:
@@ -1133,7 +1149,7 @@ Options:
       --select <SELECT>
       --top <TOP>
   -h, --help
-          Print help
+          Print help (see a summary with '-h')
 
   -V, --version
           Print version
@@ -1182,6 +1198,8 @@ Options:
 ```
 Query a table
 
+The output of this command is serialized as JSON
+
 Usage: query [OPTIONS] <TABLE_NAME>
 
 Arguments:
@@ -1193,7 +1211,7 @@ Options:
       --select <SELECT>
       --top <TOP>
   -h, --help
-          Print help
+          Print help (see a summary with '-h')
 
   -V, --version
           Print version
@@ -1203,6 +1221,8 @@ Options:
 
 ```
 Get a specific row in the table
+
+The output of this command is serialized as JSON
 
 Usage: get <TABLE_NAME> <PARTITION_KEY> <ROW_KEY>
 
@@ -1218,7 +1238,7 @@ Arguments:
 
 Options:
   -h, --help
-          Print help
+          Print help (see a summary with '-h')
 
   -V, --version
           Print version
