@@ -10,7 +10,7 @@ keywords = ["azure", "blobs"]
 categories = ["command-line-utilities"]
 
 [dependencies]
-anyhow = "1.0.81"
+anyhow = "1.0.86"
 azure_core = {version="0.20.0", features=["tokio-fs"]}
 azure_data_tables = "0.20.0"
 azure_identity = "0.20.0"
@@ -19,12 +19,12 @@ azure_storage_blobs = "0.20.0"
 azure_storage_datalake = "0.20.0"
 azure_storage_queues = "0.20.0"
 clap = {version="4.5.4", default-features=false, features=["std", "help", "usage", "error-context", "suggestions", "derive", "env"]}
-duration-string = "0.3.0"
+duration-string = "0.4.0"
 env_logger = "0.11"
 futures = "0.3.30"
 log = "0.4.20"
 native-tls = { version = "0.2.11", features = ["vendored"] }
-serde = { version = "1.0.197", features = ["derive"] }
+serde = { version = "1.0.203", features = ["derive"] }
 serde_json = "1.0.115"
 time = { version = "0.3.36", features = ["parsing"] }
 tokio = {version="1.37.0", features=["macros", "rt-multi-thread", "io-util", "io-std"]}
