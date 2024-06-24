@@ -29,10 +29,30 @@ macro_rules! args {
 
 #[macro_export]
 macro_rules! output_stream_entries {
+    ($stream:expr, $entry_name:ident, $sub_name:ident) => {{
+        use futures::StreamExt;
+        use serde::{ser::SerializeSeq, Serializer};
+
+        let mut stream = $stream;
+        let mut ser = serde_json::Serializer::with_formatter(
+            std::io::stdout(),
+            serde_json::ser::PrettyFormatter::new(),
+        );
+        let mut serializer = ser.serialize_seq(None)?;
+
+        while let Some(item) = stream.next().await {
+            let item = item?;
+            for entry in paste::paste! { item. $entry_name } {
+                let sub_entry = paste::paste!(entry.$sub_name);
+                serializer.serialize_element(&sub_entry)?;
+            }
+        }
+        serializer.end()?;
+    }};
+
     ($stream:expr, $entry_name:ident) => {{
         use futures::StreamExt;
-        use serde::ser::SerializeSeq;
-        use serde::Serializer;
+        use serde::{ser::SerializeSeq, Serializer};
 
         let mut stream = $stream;
         let mut ser = serde_json::Serializer::with_formatter(

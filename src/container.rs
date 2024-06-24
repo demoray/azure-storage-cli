@@ -11,7 +11,7 @@ use azure_storage::shared_access_signature::{service_sas::BlobSasPermissions, Sa
 use azure_storage_blobs::prelude::{ContainerClient, PublicAccess};
 use clap::{Args, Subcommand};
 use futures::StreamExt;
-use std::num::NonZeroU32;
+use std::{io::stdout, num::NonZeroU32};
 use time::OffsetDateTime;
 use uuid::Uuid;
 
@@ -40,6 +40,8 @@ pub enum ContainerSubCommands {
         lease_id: Option<Uuid>,
     },
     /// List blobs in a storage container
+    ///
+    /// The output of this command is serialized to JSON unless the `show_details` flag is set
     List {
         /// only include blobs with the specified prefix
         #[clap(long)]
@@ -64,6 +66,8 @@ pub enum ContainerSubCommands {
         include_tags: bool,
         #[clap(long)]
         include_versions: bool,
+        #[clap(long)]
+        show_details: bool,
     },
     /// Interact with a blob within a storage container
     Blob {
@@ -200,6 +204,7 @@ pub async fn container_commands(
             include_deleted,
             include_tags,
             include_versions,
+            show_details,
         } => {
             let mut builder = container_client
                 .list_blobs()
@@ -213,12 +218,20 @@ pub async fn container_commands(
 
             args!(builder, prefix, delimiter, max_results);
 
+            let mut names = vec![];
             let mut blob_stream = builder.into_stream();
             while let Some(blob_entry) = blob_stream.next().await {
                 let blob_entry = blob_entry?;
                 for blob in blob_entry.blobs.blobs() {
-                    println!("{blob:#?}");
+                    if show_details {
+                        println!("{blob:#?}");
+                    } else {
+                        names.push(blob.name.clone());
+                    }
                 }
+            }
+            if !show_details {
+                serde_json::to_writer(stdout(), &names)?;
             }
         }
         ContainerSubCommands::Blob {
