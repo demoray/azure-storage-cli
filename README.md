@@ -69,6 +69,8 @@ Options:
 ```
 List the storage containers in the account
 
+The output of this command is serialized to JSON unless the `show_details` flag is set
+
 Usage: list-containers [OPTIONS]
 
 Options:
@@ -76,8 +78,9 @@ Options:
       --include-metadata
       --include-deleted
       --max-results <MAX_RESULTS>
+      --show-details
   -h, --help
-          Print help
+          Print help (see a summary with '-h')
 
   -V, --version
           Print version
@@ -174,6 +177,8 @@ Options:
 ```
 List blobs in a storage container
 
+The output of this command is serialized to JSON unless the `show_details` flag is set
+
 Usage: list [OPTIONS]
 
 Options:
@@ -193,8 +198,9 @@ Options:
       --include-deleted
       --include-tags
       --include-versions
+      --show-details
   -h, --help
-          Print help
+          Print help (see a summary with '-h')
 
   -V, --version
           Print version
