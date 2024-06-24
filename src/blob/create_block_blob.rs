@@ -11,9 +11,9 @@ use azure_storage_blobs::prelude::{
     AccessTier, BlobBlockType, BlobClient, BlobContentDisposition, BlobContentEncoding,
     BlobContentLanguage, BlobContentType, BlockList,
 };
-use log::debug;
 use std::path::PathBuf;
 use tokio::fs::File;
+use tracing::debug;
 use uuid::Uuid;
 
 /// Create a "block blob" with the contents of the specified file.

@@ -5,12 +5,12 @@ use azure_core::{
 };
 use azure_storage_blobs::prelude::BlobClient;
 use futures::StreamExt;
-use log::debug;
 use std::{path::PathBuf, pin::Pin};
 use tokio::{
     fs::File,
     io::{stdout, AsyncWrite, AsyncWriteExt},
 };
+use tracing::debug;
 
 #[derive(clap::Parser)]
 pub struct Get {

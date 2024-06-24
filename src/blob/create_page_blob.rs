@@ -7,9 +7,9 @@ use azure_storage_blobs::prelude::{
     BA512Range, BlobClient, BlobContentDisposition, BlobContentEncoding, BlobContentLanguage,
     BlobContentType,
 };
-use log::debug;
 use std::path::PathBuf;
 use tokio::{fs::File, io::AsyncReadExt};
+use tracing::debug;
 use uuid::Uuid;
 
 #[derive(clap::Parser)]

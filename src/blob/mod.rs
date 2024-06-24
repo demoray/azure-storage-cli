@@ -17,9 +17,9 @@ use azure_storage_blobs::prelude::{
     BlobContentType, BlobVersioning, DeleteSnapshotsMethod, RehydratePriority, Snapshot, VersionId,
 };
 use clap::Subcommand;
-use log::debug;
 use std::path::PathBuf;
 use tokio::fs::read;
+use tracing::debug;
 use uuid::Uuid;
 
 #[derive(Subcommand)]
