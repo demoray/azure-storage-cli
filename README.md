@@ -1,9 +1,9 @@
-# Azure Storage CLI
+## Azure Storage CLI
 
-A CLI to interact with Azure Storage services
+A CLI to interact with Azure Storage services <ACCOUNT>
 
 ```
-Usage: azs [OPTIONS] --account <ACCOUNT> <COMMAND>
+Usage: azs <ACCOUNT> <COMMAND>
 
 Commands:
   account    Interact with the storage account
@@ -12,17 +12,13 @@ Commands:
   datalake   Interact with storage datalakes
   tables     Interact with data tables
 
-Options:
-      --account <ACCOUNT>
-          storage account name.  Set the environment variable `STORAGE_ACCOUNT` to set a default
+Arguments:
+  <ACCOUNT>
+          Storage account name
 
           [env: STORAGE_ACCOUNT]
 
-      --access-key <ACCESS_KEY>
-          storage account access key.  If not set, authentication will be done via Azure Entra Id using the `DefaultAzureCredential` (see <https://docs.rs/azure_identity/latest/azure_identity/struct.DefaultAzureCredential.html>)
-
-          [env: STORAGE_ACCESS_KEY]
-
+Options:
   -h, --help
           Print help
 
@@ -30,7 +26,7 @@ Options:
           Print version
 
 ```
-## azs account
+### azs <ACCOUNT> account
 
 ```
 Interact with the storage account
@@ -49,7 +45,7 @@ Options:
           Print version
 
 ```
-### azs account info
+#### azs <ACCOUNT> account info
 
 ```
 Get information about the storage account
@@ -64,7 +60,7 @@ Options:
           Print version
 
 ```
-### azs account list-containers
+#### azs <ACCOUNT> account list-containers
 
 ```
 List the storage containers in the account
@@ -83,7 +79,7 @@ Options:
           Print version
 
 ```
-### azs container <CONTAINER_NAME>
+#### azs <ACCOUNT> container <CONTAINER_NAME>
 
 ```
 Interact with storage containers (and blobs)
@@ -114,7 +110,7 @@ Options:
           Print version
 
 ```
-#### azs container <CONTAINER_NAME> create
+##### azs <ACCOUNT> container <CONTAINER_NAME> create
 
 ```
 Create a storage container
@@ -133,7 +129,7 @@ Options:
           Print version
 
 ```
-#### azs container <CONTAINER_NAME> properties
+##### azs <ACCOUNT> container <CONTAINER_NAME> properties
 
 ```
 Get properties for a storage container
@@ -151,7 +147,7 @@ Options:
           Print version
 
 ```
-#### azs container <CONTAINER_NAME> delete
+##### azs <ACCOUNT> container <CONTAINER_NAME> delete
 
 ```
 Delete a storage container
@@ -169,7 +165,7 @@ Options:
           Print version
 
 ```
-#### azs container <CONTAINER_NAME> list
+##### azs <ACCOUNT> container <CONTAINER_NAME> list
 
 ```
 List blobs in a storage container
@@ -200,7 +196,7 @@ Options:
           Print version
 
 ```
-##### azs container <CONTAINER_NAME> blob <BLOB_NAME>
+###### azs <ACCOUNT> container <CONTAINER_NAME> blob <BLOB_NAME>
 
 ```
 Interact with a blob within a storage container
@@ -235,7 +231,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> blob <BLOB_NAME> get <DESTINATION>
+###### azs <ACCOUNT> container <CONTAINER_NAME> blob <BLOB_NAME> get <DESTINATION>
 
 ```
 Get the contents of a blob
@@ -257,7 +253,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> blob <BLOB_NAME> get-properties
+###### azs <ACCOUNT> container <CONTAINER_NAME> blob <BLOB_NAME> get-properties
 
 ```
 Get properties of a blob
@@ -274,7 +270,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> blob <BLOB_NAME> delete
+###### azs <ACCOUNT> container <CONTAINER_NAME> blob <BLOB_NAME> delete
 
 ```
 Delete a blob
@@ -292,7 +288,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> blob <BLOB_NAME> delete-version-id <VERSION_ID>
+###### azs <ACCOUNT> container <CONTAINER_NAME> blob <BLOB_NAME> delete-version-id <VERSION_ID>
 
 ```
 Delete the blob at a specific version
@@ -311,7 +307,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> blob <BLOB_NAME> delete-snapsot <SNAPSHOT>
+###### azs <ACCOUNT> container <CONTAINER_NAME> blob <BLOB_NAME> delete-snapsot <SNAPSHOT>
 
 ```
 Delete the blob at a specific version
@@ -330,7 +326,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> blob <BLOB_NAME> put-append-blob
+###### azs <ACCOUNT> container <CONTAINER_NAME> blob <BLOB_NAME> put-append-blob
 
 ```
 Create a new "append blob" with the contents of the specified file
@@ -351,7 +347,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> blob <BLOB_NAME> append-block <PATH>
+###### azs <ACCOUNT> container <CONTAINER_NAME> blob <BLOB_NAME> append-block <PATH>
 
 ```
 Append the contents of the specified file to an existing "append blob" blob
@@ -372,7 +368,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> blob <BLOB_NAME> create-block-blob <PATH>
+###### azs <ACCOUNT> container <CONTAINER_NAME> blob <BLOB_NAME> create-block-blob <PATH>
 
 ```
 Create a "block blob" with the contents of the specified file
@@ -404,7 +400,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> blob <BLOB_NAME> create-page-blob <PATH>
+###### azs <ACCOUNT> container <CONTAINER_NAME> blob <BLOB_NAME> create-page-blob <PATH>
 
 ```
 Create a "page blob" with the contents of the specified file
@@ -430,7 +426,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> blob <BLOB_NAME> generate-sas <EXPIRY>
+###### azs <ACCOUNT> container <CONTAINER_NAME> blob <BLOB_NAME> generate-sas <EXPIRY>
 
 ```
 Generate a SAS URL for the Blob using a User Deligation Key
@@ -479,7 +475,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> blob <BLOB_NAME> get-tags <IF_TAGS> <LEASE_ID> <SNAPSHOT> <VERSION_ID>
+###### azs <ACCOUNT> container <CONTAINER_NAME> blob <BLOB_NAME> get-tags <IF_TAGS> <LEASE_ID> <SNAPSHOT> <VERSION_ID>
 
 ```
 Get the tags on the blob
@@ -499,7 +495,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> blob <BLOB_NAME> set-tags <IF_TAGS> <LEASE_ID>
+###### azs <ACCOUNT> container <CONTAINER_NAME> blob <BLOB_NAME> set-tags <IF_TAGS> <LEASE_ID>
 
 ```
 Set the tags on the blob
@@ -518,7 +514,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> blob <BLOB_NAME> snapshot
+###### azs <ACCOUNT> container <CONTAINER_NAME> blob <BLOB_NAME> snapshot
 
 ```
 Create a snapshot of the blob
@@ -545,7 +541,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> blob <BLOB_NAME> set-blob-tier
+###### azs <ACCOUNT> container <CONTAINER_NAME> blob <BLOB_NAME> set-blob-tier
 
 ```
 Set the access tier on the blob
@@ -565,7 +561,7 @@ Options:
           Print version
 
 ```
-##### azs container <CONTAINER_NAME> generate-sas <EXPIRY>
+###### azs <ACCOUNT> container <CONTAINER_NAME> generate-sas <EXPIRY>
 
 ```
 Generate a SAS URL for a storage container using the User Deligation Key
@@ -614,7 +610,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> acquire-lease <LEASE_DURATION> <PROPOSED_LEASE_ID> <LEASE_ID> <UNMODIFIED_SINCE> <MODIFIED_SINCE>
+###### azs <ACCOUNT> container <CONTAINER_NAME> acquire-lease <LEASE_DURATION> <PROPOSED_LEASE_ID> <LEASE_ID> <UNMODIFIED_SINCE> <MODIFIED_SINCE>
 
 ```
 Acquire a lease on a storage container
@@ -644,7 +640,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> break-lease <LEASE_BREAK_PERIOD> <LEASE_ID> <UNMODIFIED_SINCE> <MODIFIED_SINCE>
+###### azs <ACCOUNT> container <CONTAINER_NAME> break-lease <LEASE_BREAK_PERIOD> <LEASE_ID> <UNMODIFIED_SINCE> <MODIFIED_SINCE>
 
 ```
 Acquire a lease on a storage container
@@ -673,7 +669,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> lease-release <LEASE_ID> <UNMODIFIED_SINCE> <MODIFIED_SINCE>
+###### azs <ACCOUNT> container <CONTAINER_NAME> lease-release <LEASE_ID> <UNMODIFIED_SINCE> <MODIFIED_SINCE>
 
 ```
 Usage: lease-release [OPTIONS] <LEASE_ID> [UNMODIFIED_SINCE] [MODIFIED_SINCE]
@@ -697,7 +693,7 @@ Options:
           Print version
 
 ```
-###### azs container <CONTAINER_NAME> lease-renew <LEASE_ID> <UNMODIFIED_SINCE> <MODIFIED_SINCE>
+###### azs <ACCOUNT> container <CONTAINER_NAME> lease-renew <LEASE_ID> <UNMODIFIED_SINCE> <MODIFIED_SINCE>
 
 ```
 Usage: lease-renew [OPTIONS] <LEASE_ID> [UNMODIFIED_SINCE] [MODIFIED_SINCE]
@@ -721,7 +717,7 @@ Options:
           Print version
 
 ```
-## azs queues
+### azs <ACCOUNT> queues
 
 ```
 Interact with storage queues
@@ -741,7 +737,7 @@ Options:
           Print version
 
 ```
-### azs queues get-properties
+#### azs <ACCOUNT> queues get-properties
 
 ```
 Usage: get-properties
@@ -754,7 +750,7 @@ Options:
           Print version
 
 ```
-### azs queues list-queues
+#### azs <ACCOUNT> queues list-queues
 
 ```
 List the available queues
@@ -774,7 +770,7 @@ Options:
           Print version
 
 ```
-#### azs queues queue <QUEUE_NAME>
+##### azs <ACCOUNT> queues queue <QUEUE_NAME>
 
 ```
 Usage: queue <QUEUE_NAME> <COMMAND>
@@ -800,7 +796,7 @@ Options:
           Print version
 
 ```
-##### azs queues queue <QUEUE_NAME> create
+###### azs <ACCOUNT> queues queue <QUEUE_NAME> create
 
 ```
 Usage: create [OPTIONS]
@@ -814,7 +810,7 @@ Options:
           Print version
 
 ```
-##### azs queues queue <QUEUE_NAME> delete
+###### azs <ACCOUNT> queues queue <QUEUE_NAME> delete
 
 ```
 Delete a Storage Queue
@@ -829,7 +825,7 @@ Options:
           Print version
 
 ```
-###### azs queues queue <QUEUE_NAME> put-message <MESSAGE>
+###### azs <ACCOUNT> queues queue <QUEUE_NAME> put-message <MESSAGE>
 
 ```
 Put a message onto the Storage Queue
@@ -848,7 +844,7 @@ Options:
           Print version
 
 ```
-##### azs queues queue <QUEUE_NAME> clear
+###### azs <ACCOUNT> queues queue <QUEUE_NAME> clear
 
 ```
 Clear all messages on a storage queue
@@ -863,7 +859,7 @@ Options:
           Print version
 
 ```
-##### azs queues queue <QUEUE_NAME> get-messages
+###### azs <ACCOUNT> queues queue <QUEUE_NAME> get-messages
 
 ```
 Get messages from a storage queue
@@ -880,7 +876,7 @@ Options:
           Print version
 
 ```
-##### azs queues queue <QUEUE_NAME> peek-messages
+###### azs <ACCOUNT> queues queue <QUEUE_NAME> peek-messages
 
 ```
 Peek at available messages from a storage queue
@@ -896,7 +892,7 @@ Options:
           Print version
 
 ```
-###### azs queues queue <QUEUE_NAME> pop-message <MESSAGE_ID> <POP_RECEIPT>
+###### azs <ACCOUNT> queues queue <QUEUE_NAME> pop-message <MESSAGE_ID> <POP_RECEIPT>
 
 ```
 Pop a message from a storage queue
@@ -918,7 +914,7 @@ Options:
           Print version
 
 ```
-## azs datalake
+### azs <ACCOUNT> datalake
 
 ```
 Interact with storage datalakes
@@ -937,7 +933,7 @@ Options:
           Print version
 
 ```
-### azs datalake list-file-systems
+#### azs <ACCOUNT> datalake list-file-systems
 
 ```
 List available file systems
@@ -956,7 +952,7 @@ Options:
           Print version
 
 ```
-#### azs datalake file-system <NAME>
+##### azs <ACCOUNT> datalake file-system <NAME>
 
 ```
 Usage: file-system <NAME> <COMMAND>
@@ -977,7 +973,7 @@ Options:
           Print version
 
 ```
-##### azs datalake file-system <NAME> create
+###### azs <ACCOUNT> datalake file-system <NAME> create
 
 ```
 Create the specified filesystem
@@ -993,7 +989,7 @@ Options:
           Print version
 
 ```
-##### azs datalake file-system <NAME> delete
+###### azs <ACCOUNT> datalake file-system <NAME> delete
 
 ```
 Create the specified filesystem
@@ -1008,7 +1004,7 @@ Options:
           Print version
 
 ```
-##### azs datalake file-system <NAME> list-paths
+###### azs <ACCOUNT> datalake file-system <NAME> list-paths
 
 ```
 List paths in the specified file system
@@ -1033,7 +1029,7 @@ Options:
           Print version
 
 ```
-###### azs datalake file-system <NAME> directory <DIRECTORY_NAME>
+###### azs <ACCOUNT> datalake file-system <NAME> directory <DIRECTORY_NAME>
 
 ```
 Perform operations on the specified directory
@@ -1055,7 +1051,7 @@ Options:
           Print version
 
 ```
-###### azs datalake file-system <NAME> directory <DIRECTORY_NAME> create
+###### azs <ACCOUNT> datalake file-system <NAME> directory <DIRECTORY_NAME> create
 
 ```
 Usage: create [OPTIONS]
@@ -1069,7 +1065,7 @@ Options:
           Print version
 
 ```
-###### azs datalake file-system <NAME> directory <DIRECTORY_NAME> delete
+###### azs <ACCOUNT> datalake file-system <NAME> directory <DIRECTORY_NAME> delete
 
 ```
 Usage: delete [OPTIONS]
@@ -1083,7 +1079,7 @@ Options:
           Print version
 
 ```
-###### azs datalake file-system <NAME> directory <DIRECTORY_NAME> list-paths
+###### azs <ACCOUNT> datalake file-system <NAME> directory <DIRECTORY_NAME> list-paths
 
 ```
 List available paths
@@ -1108,7 +1104,7 @@ Options:
           Print version
 
 ```
-## azs tables
+### azs <ACCOUNT> tables
 
 ```
 Interact with data tables
@@ -1135,7 +1131,7 @@ Options:
           Print version
 
 ```
-### azs tables list
+#### azs <ACCOUNT> tables list
 
 ```
 List available tables
@@ -1155,7 +1151,7 @@ Options:
           Print version
 
 ```
-#### azs tables create <TABLE_NAME>
+##### azs <ACCOUNT> tables create <TABLE_NAME>
 
 ```
 Create a new table
@@ -1174,7 +1170,7 @@ Options:
           Print version
 
 ```
-#### azs tables delete <TABLE_NAME>
+##### azs <ACCOUNT> tables delete <TABLE_NAME>
 
 ```
 Delete a table
@@ -1193,7 +1189,7 @@ Options:
           Print version
 
 ```
-#### azs tables query <TABLE_NAME>
+##### azs <ACCOUNT> tables query <TABLE_NAME>
 
 ```
 Query a table
@@ -1217,7 +1213,7 @@ Options:
           Print version
 
 ```
-###### azs tables get <TABLE_NAME> <PARTITION_KEY> <ROW_KEY>
+###### azs <ACCOUNT> tables get <TABLE_NAME> <PARTITION_KEY> <ROW_KEY>
 
 ```
 Get a specific row in the table
@@ -1244,7 +1240,7 @@ Options:
           Print version
 
 ```
-###### azs tables insert-or-merge <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
+###### azs <ACCOUNT> tables insert-or-merge <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
 
 ```
 Usage: insert-or-merge <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
@@ -1270,7 +1266,7 @@ Options:
           Print version
 
 ```
-###### azs tables insert-or-replace <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
+###### azs <ACCOUNT> tables insert-or-replace <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
 
 ```
 Usage: insert-or-replace <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
@@ -1296,7 +1292,7 @@ Options:
           Print version
 
 ```
-###### azs tables delete-entity <TABLE_NAME> <PARTITION_KEY> <ROW_KEY>
+###### azs <ACCOUNT> tables delete-entity <TABLE_NAME> <PARTITION_KEY> <ROW_KEY>
 
 ```
 Usage: delete-entity [OPTIONS] <TABLE_NAME> <PARTITION_KEY> <ROW_KEY>
@@ -1322,7 +1318,7 @@ Options:
           Print version
 
 ```
-###### azs tables update-entity <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
+###### azs <ACCOUNT> tables update-entity <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
 
 ```
 Usage: update-entity [OPTIONS] <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
@@ -1351,7 +1347,7 @@ Options:
           Print version
 
 ```
-###### azs tables merge-entity <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
+###### azs <ACCOUNT> tables merge-entity <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>
 
 ```
 Usage: merge-entity [OPTIONS] <TABLE_NAME> <PARTITION_KEY> <ROW_KEY> <JSON_FILE>

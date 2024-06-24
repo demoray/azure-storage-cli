@@ -23,7 +23,6 @@ use self::{
     tables::{table_commands, TableSubCommands},
 };
 use anyhow::{anyhow, Result};
-use azure_core::auth::Secret;
 use azure_data_tables::clients::TableServiceClient;
 use azure_identity::create_default_credential;
 use azure_storage::prelude::StorageCredentials;
@@ -43,18 +42,12 @@ use tracing_subscriber::EnvFilter;
     disable_help_subcommand = true
 )]
 struct Args {
-    /// storage account name.  Set the environment variable `STORAGE_ACCOUNT` to set a default
-    #[clap(long, env = "STORAGE_ACCOUNT", hide_env_values = true)]
+    /// Storage account name
+    #[clap(env = "STORAGE_ACCOUNT", hide_env_values = true)]
     account: String,
 
     #[command(subcommand)]
     subcommand: SubCommands,
-
-    /// storage account access key.  If not set, authentication will be done via
-    /// Azure Entra Id using the `DefaultAzureCredential`
-    /// (see <https://docs.rs/azure_identity/latest/azure_identity/struct.DefaultAzureCredential.html>)
-    #[clap(long, env = "STORAGE_ACCESS_KEY", hide_env_values = true)]
-    access_key: Option<Secret>,
 }
 
 #[allow(clippy::large_enum_variant)]
@@ -138,15 +131,11 @@ async fn main() -> Result<()> {
         .init();
 
     let Args {
-        access_key,
         account,
         subcommand,
     } = Args::parse();
 
-    let storage_credentials = match access_key {
-        Some(access_key) => StorageCredentials::access_key(&account, access_key),
-        None => StorageCredentials::token_credential(create_default_credential()?),
-    };
+    let storage_credentials = StorageCredentials::token_credential(create_default_credential()?);
 
     match subcommand {
         SubCommands::Readme => {
