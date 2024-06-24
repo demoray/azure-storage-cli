@@ -31,7 +31,9 @@ use azure_storage_blobs::prelude::BlobServiceClient;
 use azure_storage_datalake::prelude::DataLakeClient;
 use azure_storage_queues::prelude::QueueServiceClient;
 use clap::{Command, CommandFactory, Parser, Subcommand};
-use std::cmp::min;
+use std::{cmp::min, io::stderr};
+use tracing::level_filters::LevelFilter;
+use tracing_subscriber::EnvFilter;
 
 #[derive(Parser)]
 #[command(
@@ -125,7 +127,16 @@ fn build_readme(cmd: &mut Command, mut names: Vec<String>) -> String {
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    env_logger::init();
+    tracing_subscriber::fmt()
+        .with_env_filter(
+            EnvFilter::builder()
+                .with_default_directive(LevelFilter::INFO.into())
+                .from_env()
+                .map_err(|e| anyhow!("invalid env filter: {}", e.to_string()))?,
+        )
+        .with_writer(stderr)
+        .init();
+
     let Args {
         access_key,
         account,

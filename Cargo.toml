@@ -20,15 +20,15 @@ azure_storage_datalake = "0.20.0"
 azure_storage_queues = "0.20.0"
 clap = { version = "4.5.7", default-features = false, features = ["derive", "env", "error-context", "help", "std", "suggestions", "usage"] }
 duration-string = "0.4.0"
-env_logger = "0.11"
 futures = "0.3.30"
-log = "0.4.21"
 native-tls = { version = "0.2.12", features = ["vendored"] }
 paste = "1.0.15"
 serde = { version = "1.0.203", features = ["derive"] }
 serde_json = "1.0.117"
 time = { version = "0.3.36", features = ["parsing"] }
 tokio = { version = "1.38.0", features = ["io-std", "io-util", "macros", "rt-multi-thread"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 uuid = { version = "1.8.0", features = ["serde", "v4"] }
 
 [[bin]]

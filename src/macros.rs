@@ -59,7 +59,7 @@ macro_rules! output_stream_entries_debug {
         while let Some(item) = stream.next().await {
             let item = item?;
             for entry in paste::paste! { item. $entry_name } {
-                log::debug!("{entry:#?}");
+                println!("{entry:#?}");
             }
         }
     }};
