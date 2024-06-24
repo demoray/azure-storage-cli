@@ -22,7 +22,7 @@ use self::{
     queue::{queues_commands, QueuesSubCommands},
     tables::{table_commands, TableSubCommands},
 };
-use anyhow::Result;
+use anyhow::{anyhow, Result};
 use azure_core::auth::Secret;
 use azure_data_tables::clients::TableServiceClient;
 use azure_identity::create_default_credential;
