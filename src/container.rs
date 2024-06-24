@@ -11,7 +11,7 @@ use azure_storage::shared_access_signature::{service_sas::BlobSasPermissions, Sa
 use azure_storage_blobs::prelude::{ContainerClient, PublicAccess};
 use clap::{Args, Subcommand};
 use futures::StreamExt;
-use std::{io::stdout, num::NonZeroU32};
+use std::num::NonZeroU32;
 use time::OffsetDateTime;
 use uuid::Uuid;
 
@@ -187,7 +187,7 @@ pub async fn container_commands(
         ContainerSubCommands::Properties { lease_id } => {
             let mut builder = container_client.get_properties();
             args!(builder, lease_id);
-            debug!("{:#?}", builder.await?);
+            println!("{:#?}", builder.await?);
         }
         ContainerSubCommands::List {
             prefix,

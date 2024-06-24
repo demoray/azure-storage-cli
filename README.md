@@ -96,7 +96,7 @@ Commands:
   delete         Delete a storage container
   list           List blobs in a storage container
   blob           Interact with a blob within a storage container
-  generate-sas   Generate a SAS URL for a storage container
+  generate-sas   Generate a SAS URL for a storage container using the User Deligation Key
   acquire-lease  Acquire a lease on a storage container
   break-lease    Acquire a lease on a storage container
   lease-release
@@ -217,7 +217,7 @@ Commands:
   append-block       Append the contents of the specified file to an existing "append blob" blob
   create-block-blob  Create a "block blob" with the contents of the specified file
   create-page-blob   Create a "page blob" with the contents of the specified file
-  generate-sas       Generate a SAS URL for the Blob
+  generate-sas       Generate a SAS URL for the Blob using a User Deligation Key
   get-tags           Get the tags on the blob
   set-tags           Set the tags on the blob
   snapshot           Create a snapshot of the blob
@@ -433,9 +433,9 @@ Options:
 ###### azs container <CONTAINER_NAME> blob <BLOB_NAME> generate-sas <EXPIRY>
 
 ```
-Generate a SAS URL for the Blob
+Generate a SAS URL for the Blob using a User Deligation Key
 
-Usage: generate-sas [OPTIONS] <EXPIRY>
+Usage: generate-sas [OPTIONS] <--read|--add|--create|--write|--delete|--delete-version|--list|--tags|--move|--execute|--ownership|--permissions|--permanent-delete> <EXPIRY>
 
 Arguments:
   <EXPIRY>
@@ -568,9 +568,9 @@ Options:
 ##### azs container <CONTAINER_NAME> generate-sas <EXPIRY>
 
 ```
-Generate a SAS URL for a storage container
+Generate a SAS URL for a storage container using the User Deligation Key
 
-Usage: generate-sas [OPTIONS] <EXPIRY>
+Usage: generate-sas [OPTIONS] <--read|--add|--create|--write|--delete|--delete-version|--list|--tags|--move|--execute|--ownership|--permissions|--permanent-delete> <EXPIRY>
 
 Arguments:
   <EXPIRY>
@@ -583,7 +583,7 @@ Options:
       --time-format <TIME_FORMAT>
           Format used for the start and expiry times
 
-          [default: TimeFormat::Offset]
+          [default: offset]
 
           Possible values:
           - rfc3339: Specific date and time, as described in <https://www.rfc-editor.org/rfc/rfc3339>. Examples include `1999-09-10T21:59:22Z` and `1999-09-10T03:05:07.3845533+01:00`
