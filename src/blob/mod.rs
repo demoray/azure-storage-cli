@@ -101,7 +101,7 @@ pub enum BlobSubCommands {
     CreateBlockBlob(CreateBlockBlob),
     /// Create a "page blob" with the contents of the specified file.
     CreatePageBlob(CreatePageBlob),
-    /// Generate a SAS URL for the Blob
+    /// Generate a SAS URL for the Blob using a User Deligation Key
     GenerateSas(GenerateSas),
     /// Get the tags on the blob
     GetTags {

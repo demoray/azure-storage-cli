@@ -9,10 +9,10 @@ use azure_core::{
 };
 use azure_storage::shared_access_signature::{service_sas::BlobSasPermissions, SasProtocol};
 use azure_storage_blobs::prelude::{ContainerClient, PublicAccess};
-use clap::Subcommand;
+use clap::{Args, Subcommand};
 use futures::StreamExt;
-use log::debug;
-use std::num::NonZeroU32;
+use std::{io::stdout, num::NonZeroU32};
+use time::OffsetDateTime;
 use uuid::Uuid;
 
 #[derive(Subcommand)]
@@ -72,7 +72,7 @@ pub enum ContainerSubCommands {
         /// blob name
         blob_name: String,
     },
-    /// Generate a SAS URL for a storage container
+    /// Generate a SAS URL for a storage container using the User Deligation Key
     GenerateSas {
         /// Expiration
         expiry: String,
@@ -80,7 +80,7 @@ pub enum ContainerSubCommands {
         #[clap(long)]
         start: Option<String>,
         /// Format used for the start and expiry times
-        #[clap(long, default_value = "TimeFormat::Offset")]
+        #[clap(long, value_enum, default_value_t = TimeFormat::Offset)]
         time_format: TimeFormat,
 
         #[clap(long)]
@@ -90,32 +90,8 @@ pub enum ContainerSubCommands {
         #[clap(long)]
         protocol: Option<Protocol>,
 
-        #[clap(long)]
-        read: bool,
-        #[clap(long)]
-        add: bool,
-        #[clap(long)]
-        create: bool,
-        #[clap(long)]
-        write: bool,
-        #[clap(long)]
-        delete: bool,
-        #[clap(long)]
-        delete_version: bool,
-        #[clap(long)]
-        list: bool,
-        #[clap(long)]
-        tags: bool,
-        #[clap(long, name = "move")]
-        move_: bool,
-        #[clap(long)]
-        execute: bool,
-        #[clap(long)]
-        ownership: bool,
-        #[clap(long)]
-        permissions: bool,
-        #[clap(long)]
-        permanent_delete: bool,
+        #[clap(flatten)]
+        sas_permissions: SasPermissions,
     },
     /// Acquire a lease on a storage container
     AcquireLease {
@@ -154,6 +130,38 @@ pub enum ContainerSubCommands {
         #[clap(long, default_value = "TimeFormat::Offset")]
         time_format: TimeFormat,
     },
+}
+
+#[derive(Debug, Args)]
+#[group(required = true)]
+#[allow(clippy::struct_excessive_bools)]
+pub(crate) struct SasPermissions {
+    #[clap(long)]
+    read: bool,
+    #[clap(long)]
+    add: bool,
+    #[clap(long)]
+    create: bool,
+    #[clap(long)]
+    write: bool,
+    #[clap(long)]
+    delete: bool,
+    #[clap(long)]
+    delete_version: bool,
+    #[clap(long)]
+    list: bool,
+    #[clap(long)]
+    tags: bool,
+    #[clap(long, name = "move")]
+    move_: bool,
+    #[clap(long)]
+    execute: bool,
+    #[clap(long)]
+    ownership: bool,
+    #[clap(long)]
+    permissions: bool,
+    #[clap(long)]
+    permanent_delete: bool,
 }
 
 #[allow(clippy::too_many_lines)]
@@ -226,22 +234,28 @@ pub async fn container_commands(
             ip,
             identifier,
             protocol,
-            read,
-            add,
-            create,
-            write,
-            delete,
-            delete_version,
-            list,
-            tags,
-            move_,
-            execute,
-            ownership,
-            permissions,
-            permanent_delete,
+            sas_permissions:
+                SasPermissions {
+                    read,
+                    add,
+                    create,
+                    write,
+                    delete,
+                    delete_version,
+                    list,
+                    tags,
+                    move_,
+                    execute,
+                    ownership,
+                    permissions,
+                    permanent_delete,
+                },
         } => {
             let expiry = parse_time(&expiry, time_format)?;
-            let start = start.map(|s| parse_time(&s, time_format)).transpose()?;
+            let start = start
+                .map(|s| parse_time(&s, time_format))
+                .transpose()?
+                .unwrap_or_else(OffsetDateTime::now_utc);
 
             let permissions = BlobSasPermissions {
                 read,
@@ -258,15 +272,22 @@ pub async fn container_commands(
                 ownership,
                 permissions,
             };
+
+            let user_deligation_key = container_client
+                .service_client()
+                .get_user_deligation_key(start, expiry)
+                .await?
+                .user_deligation_key;
+
             let mut builder = container_client
-                .shared_access_signature(permissions, expiry)
+                .user_delegation_shared_access_signature(permissions, &user_deligation_key)
                 .await?;
             let protocol = protocol.map(|p| match p {
                 Protocol::Https => SasProtocol::Https,
                 Protocol::HttpHttps => SasProtocol::HttpHttps,
             });
 
-            args!(builder, ip, identifier, protocol, start);
+            args!(builder, ip, identifier, protocol);
 
             let url = container_client.generate_signed_container_url(&builder)?;
             println!("{url}");
