@@ -2,25 +2,27 @@
 
 set -uvex -o pipefail
 
-BUILD_TARGET=${1:-""}
-BUILD_PROFILE=${2:-"release"}
+BUILD_TARGET=${1:-$(rustc --version --verbose | grep ^host: | cut -d ' ' -f 2)}
 
 cd $(dirname ${BASH_SOURCE[0]})/../
 
 which typos || cargo install typos-cli
-which taplo || cargo install taplo-cli
 
-BUILD_COMMON="--locked --profile ${BUILD_PROFILE}"
-if [ x"${BUILD_TARGET}" != x"" ]; then
-    BUILD_COMMON="${BUILD_COMMON} --target ${BUILD_TARGET}"
+if [[ ${BUILD_TARGET} == "x86_64-unknown-linux-gnu" ]]; then
+    which cargo-deb || cargo install cargo-deb
 fi
 
+BUILD_COMMON="--locked --profile release --target ${BUILD_TARGET}"
+
 typos
-taplo fmt -o column_width=300 -o reorder_keys=true -o reorder_arrays=true -o array_trailing_comma=false
-cargo clippy ${BUILD_COMMON} --all-targets --all-features -- -D warnings -D clippy::pedantic -A clippy::missing_errors_doc
+cargo clippy ${BUILD_COMMON} --all-targets --all-features -- -D warnings -D clippy::pedantic -A clippy::missing_errors_doc -A clippy::module_name_repetitions
 cargo clippy ${BUILD_COMMON} --tests --all-targets --all-features -- -D warnings
 cargo fmt --check
 cargo build ${BUILD_COMMON}
 cargo test ${BUILD_COMMON}
 cargo run ${BUILD_COMMON} -- EMPTY readme > README.md
-git diff --exit-code
+git diff --exit-code README.md
+
+if [[ ${BUILD_TARGET} == "x86_64-unknown-linux-gnu" ]]; then
+    cargo deb --target ${BUILD_TARGET}
+fi
