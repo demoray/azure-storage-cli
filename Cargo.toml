@@ -10,26 +10,26 @@ repository = "https://github.com/demoray/azure-storage-cli"
 version = "0.8.0"
 
 [dependencies]
-anyhow = "1.0.86"
-azure_core = { version = "0.20.0", features = ["tokio-fs"] }
-azure_data_tables = "0.20.0"
-azure_identity = "0.20.0"
-azure_storage = "0.20.0"
-azure_storage_blobs = "0.20.0"
-azure_storage_datalake = "0.20.0"
-azure_storage_queues = "0.20.0"
-clap = { version = "4.5.8", default-features = false, features = ["derive", "env", "error-context", "help", "std", "suggestions", "usage"] }
-duration-string = "0.4.0"
-futures = "0.3.30"
-native-tls = { version = "0.2.12", features = ["vendored"] }
-paste = "1.0.15"
-serde = { version = "1.0.203", features = ["derive"] }
-serde_json = "1.0.118"
-time = { version = "0.3.36", features = ["parsing"] }
-tokio = { version = "1.38.0", features = ["io-std", "io-util", "macros", "rt-multi-thread"] }
+anyhow = "1.0"
+azure_core = { version = "0.20", features = ["tokio-fs"] }
+azure_data_tables = "0.20"
+azure_identity = "0.20"
+azure_storage = "0.20"
+azure_storage_blobs = "0.20"
+azure_storage_datalake = "0.20"
+azure_storage_queues = "0.20"
+clap = { version = "4.5", default-features = false, features = ["derive", "env", "error-context", "help", "std", "suggestions", "usage"] }
+duration-string = "0.4"
+futures = "0.3"
+native-tls = { version = "0.2", features = ["vendored"] }
+paste = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+time = { version = "0.3", features = ["parsing"] }
+tokio = { version = "1.38", features = ["io-std", "io-util", "macros", "rt-multi-thread"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
-uuid = { version = "1.9.1", features = ["serde", "v4"] }
+uuid = { version = "1.9", features = ["serde", "v4"] }
 
 [[bin]]
 name = "azs"
