@@ -38,6 +38,8 @@ jobs:
       with:
         targets: ${{ matrix.target }}
     - uses: Swatinem/rust-cache@v2
+      with:
+        prefix-key: rust-$${ matrix.build }}-${{ matrix.os }}-${{ matrix.target }}
     - run: sudo apt-get install -y --no-install-recommends musl-tools
       shell: bash
       if: matrix.build == 'linux-musl'
