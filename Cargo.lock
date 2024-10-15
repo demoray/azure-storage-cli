@@ -184,10 +184,10 @@ name = "azure-storage-cli"
 version = "0.8.0"
 dependencies = [
  "anyhow",
- "azure_core",
+ "azure_core 0.21.0",
  "azure_data_tables",
  "azure_identity",
- "azure_storage",
+ "azure_storage 0.21.0",
  "azure_storage_blobs",
  "azure_storage_datalake",
  "azure_storage_queues",
@@ -230,6 +230,36 @@ dependencies = [
  "serde_json",
  "sha2",
  "time",
+ "tracing",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "azure_core"
+version = "0.21.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7b552ad43a45a746461ec3d3a51dfb6466b4759209414b439c165eb6a6b7729e"
+dependencies = [
+ "async-trait",
+ "base64 0.22.1",
+ "bytes",
+ "dyn-clone",
+ "futures",
+ "getrandom 0.2.15",
+ "hmac",
+ "http-types",
+ "once_cell",
+ "paste",
+ "pin-project",
+ "quick-xml",
+ "rand 0.8.5",
+ "reqwest",
+ "rustc_version",
+ "serde",
+ "serde_json",
+ "sha2",
+ "time",
  "tokio",
  "tracing",
  "url",
@@ -242,8 +272,8 @@ version = "0.20.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7e4d801e0fe05a17e52f98c5a401c77b83c1df3a6c5324ab02fd0e8f4a55af04"
 dependencies = [
- "azure_core",
- "azure_storage",
+ "azure_core 0.20.0",
+ "azure_storage 0.20.0",
  "bytes",
  "futures",
  "serde",
@@ -254,14 +284,14 @@ dependencies = [
 
 [[package]]
 name = "azure_identity"
-version = "0.20.0"
+version = "0.21.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "72c97790480791ec1ee9b76f5c6499b1d0aac0d4cd1e62010bfc19bb545544c5"
+checksum = "88ddd80344317c40c04b603807b63a5cefa532f1b43522e72f480a988141f744"
 dependencies = [
  "async-lock",
  "async-process",
  "async-trait",
- "azure_core",
+ "azure_core 0.21.0",
  "futures",
  "oauth2",
  "pin-project",
@@ -282,7 +312,26 @@ dependencies = [
  "RustyXML",
  "async-lock",
  "async-trait",
- "azure_core",
+ "azure_core 0.20.0",
+ "bytes",
+ "serde",
+ "serde_derive",
+ "time",
+ "tracing",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "azure_storage"
+version = "0.21.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "59f838159f4d29cb400a14d9d757578ba495ae64feb07a7516bf9e4415127126"
+dependencies = [
+ "RustyXML",
+ "async-lock",
+ "async-trait",
+ "azure_core 0.21.0",
  "bytes",
  "serde",
  "serde_derive",
@@ -299,8 +348,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c5b3a31dd8f920739437b827d0c9f9a4011eb3f06f79a121764aa11af6c51ee2"
 dependencies = [
  "RustyXML",
- "azure_core",
- "azure_storage",
+ "azure_core 0.20.0",
+ "azure_storage 0.20.0",
  "azure_svc_blobstorage",
  "bytes",
  "futures",
@@ -315,13 +364,13 @@ dependencies = [
 
 [[package]]
 name = "azure_storage_datalake"
-version = "0.20.0"
+version = "0.21.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "95da6c125250a4ccc9fd0d2eae7dcc0098cd10b7dc1275782fbbb17bb890920c"
+checksum = "8501bfd1a6de2caa8ccdf8d6f67c7f79d1bd03412b5ce458a6519e71ceb9a370"
 dependencies = [
  "async-trait",
- "azure_core",
- "azure_storage",
+ "azure_core 0.21.0",
+ "azure_storage 0.21.0",
  "bytes",
  "futures",
  "serde",
@@ -339,8 +388,8 @@ version = "0.20.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a5c3c5b35c127c878724506b701779ed893bb5277d6d6125b2e70b71b3d38064"
 dependencies = [
- "azure_core",
- "azure_storage",
+ "azure_core 0.20.0",
+ "azure_storage 0.20.0",
  "futures",
  "serde",
  "time",
@@ -354,7 +403,7 @@ version = "0.20.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0ef37ba6180df451042f1c277d4d0898e2447f0a5d5072e0ff11ee6ea5e7ef38"
 dependencies = [
- "azure_core",
+ "azure_core 0.20.0",
  "bytes",
  "futures",
  "log",
