@@ -7,7 +7,7 @@ keywords = ["azure", "blobs"]
 license = "MIT"
 name = "azure-storage-cli"
 repository = "https://github.com/demoray/azure-storage-cli"
-version = "0.8.0"
+version = "0.9.0"
 
 [dependencies]
 anyhow = "1.0"
