@@ -19,7 +19,7 @@ azure_storage_blobs = "0.21"
 azure_storage_datalake = "0.21"
 azure_storage_queues = "0.21"
 clap = { version = "4.5", default-features = false, features = ["derive", "env", "error-context", "help", "std", "suggestions", "usage"] }
-duration-string = "0.4"
+duration-string = "0.5"
 futures = "0.3"
 native-tls = { version = "0.2", features = ["vendored"] }
 paste = "1.0"
