@@ -30,7 +30,7 @@ use azure_storage_blobs::prelude::BlobServiceClient;
 use azure_storage_datalake::prelude::DataLakeClient;
 use azure_storage_queues::prelude::QueueServiceClient;
 use clap::{Command, CommandFactory, Parser, Subcommand};
-use std::{cmp::min, io::stderr};
+use std::{cmp::min, fmt::Write as _, io::stderr};
 use tracing::level_filters::LevelFilter;
 use tracing_subscriber::EnvFilter;
 
@@ -104,10 +104,7 @@ fn build_readme(cmd: &mut Command, mut names: Vec<String>) -> String {
         readme.push('#');
     }
 
-    readme.push_str(&format!(
-        " {name}\n\n```\n{}\n```\n",
-        cmd.render_long_help()
-    ));
+    let _ = write!(readme, " {name}\n\n```\n{}\n```\n", cmd.render_long_help());
 
     for cmd in cmd.get_subcommands_mut() {
         if cmd.get_name() == "readme" {
