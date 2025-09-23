@@ -122,7 +122,7 @@ async fn main() -> Result<()> {
             EnvFilter::builder()
                 .with_default_directive(LevelFilter::INFO.into())
                 .from_env()
-                .map_err(|e| anyhow!("invalid env filter: {}", e.to_string()))?,
+                .map_err(|e| anyhow!("invalid env filter: {e}"))?,
         )
         .with_writer(stderr)
         .init();
