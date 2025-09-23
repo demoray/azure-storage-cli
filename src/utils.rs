@@ -55,7 +55,7 @@ pub(crate) fn to_properties(value: Vec<(String, String)>) -> Properties {
 }
 
 pub(crate) fn round_up(x: u64, y: u64) -> u64 {
-    (x / y + u64::from(x % y != 0)) * y
+    (x / y + u64::from(!x.is_multiple_of(y))) * y
 }
 
 pub(crate) fn parse_time(s: &str, format: TimeFormat) -> azure_core::Result<OffsetDateTime> {
