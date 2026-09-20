@@ -18,7 +18,7 @@ azure_storage = "0.21"
 azure_storage_blobs = "0.21"
 azure_storage_datalake = "0.21"
 azure_storage_queues = "0.21"
-clap = { version = "4.5", default-features = false, features = ["derive", "env", "error-context", "help", "std", "suggestions", "usage"] }
+clap = { version = "4.6", default-features = false, features = ["derive", "env", "error-context", "help", "std", "suggestions", "usage"] }
 duration-string = "0.5"
 futures = "0.3"
 native-tls = { version = "0.2", features = ["vendored"] }
@@ -26,10 +26,10 @@ paste = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 time = { version = "0.3", features = ["parsing"] }
-tokio = { version = "1.48", features = ["io-std", "io-util", "macros", "rt-multi-thread"] }
+tokio = { version = "1.53", features = ["io-std", "io-util", "macros", "rt-multi-thread"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
-uuid = { version = "1.19", features = ["serde", "v4"] }
+uuid = { version = "1.26", features = ["serde", "v4"] }
 
 [[bin]]
 name = "azs"

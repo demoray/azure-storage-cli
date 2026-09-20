@@ -1,7 +1,4 @@
-use crate::{
-    args,
-    utils::{parse_key_val, to_metadata},
-};
+use crate::utils::{parse_key_val, to_metadata};
 use azure_storage_queues::{PopReceipt, QueueClient, QueueServiceClient};
 use clap::Subcommand;
 use std::{num::NonZeroU32, time::Duration};

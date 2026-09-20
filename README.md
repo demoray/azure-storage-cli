@@ -533,7 +533,9 @@ Options:
       --time-format <TIME_FORMAT>
           Possible values:
           - rfc3339: Specific date and time, as described in <https://www.rfc-editor.org/rfc/rfc3339>. Examples include `1999-09-10T21:59:22Z` and `1999-09-10T03:05:07.3845533+01:00`
-          - offset:  Offset from `now`, as parsed by <https://docs.rs/duration-string/latest/duration_string/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`[default: TimeFormat::Offset]
+          - offset:  Offset from `now`, as parsed by <https://docs.rs/duration-string/latest/duration_string/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
+
+          [default: TimeFormat::Offset]
 
       --if-tags <IF_TAGS>
       --lease-id <LEASE_ID>
@@ -633,7 +635,9 @@ Options:
       --time-format <TIME_FORMAT>
           Possible values:
           - rfc3339: Specific date and time, as described in <https://www.rfc-editor.org/rfc/rfc3339>. Examples include `1999-09-10T21:59:22Z` and `1999-09-10T03:05:07.3845533+01:00`
-          - offset:  Offset from `now`, as parsed by <https://docs.rs/duration-string/latest/duration_string/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`[default: TimeFormat::Offset]
+          - offset:  Offset from `now`, as parsed by <https://docs.rs/duration-string/latest/duration_string/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
+
+          [default: TimeFormat::Offset]
 
   -h, --help
           Print help (see a summary with '-h')
@@ -660,7 +664,9 @@ Options:
       --time-format <TIME_FORMAT>
           Possible values:
           - rfc3339: Specific date and time, as described in <https://www.rfc-editor.org/rfc/rfc3339>. Examples include `1999-09-10T21:59:22Z` and `1999-09-10T03:05:07.3845533+01:00`
-          - offset:  Offset from `now`, as parsed by <https://docs.rs/duration-string/latest/duration_string/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`[default: TimeFormat::Offset]
+          - offset:  Offset from `now`, as parsed by <https://docs.rs/duration-string/latest/duration_string/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
+
+          [default: TimeFormat::Offset]
 
   -h, --help
           Print help (see a summary with '-h')
@@ -682,7 +688,9 @@ Options:
       --time-format <TIME_FORMAT>
           Possible values:
           - rfc3339: Specific date and time, as described in <https://www.rfc-editor.org/rfc/rfc3339>. Examples include `1999-09-10T21:59:22Z` and `1999-09-10T03:05:07.3845533+01:00`
-          - offset:  Offset from `now`, as parsed by <https://docs.rs/duration-string/latest/duration_string/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`[default: TimeFormat::Offset]
+          - offset:  Offset from `now`, as parsed by <https://docs.rs/duration-string/latest/duration_string/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
+
+          [default: TimeFormat::Offset]
 
   -h, --help
           Print help (see a summary with '-h')
@@ -704,7 +712,9 @@ Options:
       --time-format <TIME_FORMAT>
           Possible values:
           - rfc3339: Specific date and time, as described in <https://www.rfc-editor.org/rfc/rfc3339>. Examples include `1999-09-10T21:59:22Z` and `1999-09-10T03:05:07.3845533+01:00`
-          - offset:  Offset from `now`, as parsed by <https://docs.rs/duration-string/latest/duration_string/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`[default: TimeFormat::Offset]
+          - offset:  Offset from `now`, as parsed by <https://docs.rs/duration-string/latest/duration_string/> Examples include `10d`, `1h`, `1h30m`, and `1h30m10s`
+
+          [default: TimeFormat::Offset]
 
   -h, --help
           Print help (see a summary with '-h')
