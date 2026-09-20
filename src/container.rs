@@ -1,5 +1,4 @@
 use crate::{
-    args,
     blob::{blob_commands, BlobSubCommands},
     utils::{parse_duration, parse_key_val, parse_time, to_metadata, Protocol, TimeFormat},
 };

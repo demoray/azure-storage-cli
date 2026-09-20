@@ -1,4 +1,4 @@
-use crate::{args, utils::output};
+use crate::utils::output;
 use azure_data_tables::{clients::TableServiceClient, Filter, IfMatchCondition, Select};
 use clap::Subcommand;
 use serde_json::Value;
